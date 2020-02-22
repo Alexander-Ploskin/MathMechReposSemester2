@@ -18,9 +18,12 @@ namespace Task1_2
 
         private ListElement head;
 
+        private int size;
+
         public void Add(int value)
         {
             head = new ListElement(value, head);
+            size++;
         }
 
         private ListElement GetParentOfElementByPosition(int position)
@@ -47,6 +50,8 @@ namespace Task1_2
                 return;
             }
 
+            size--;
+
             parentOfRemovableElement.next = parentOfRemovableElement.next.next;
         }
 
@@ -70,26 +75,12 @@ namespace Task1_2
 
         public bool isEmpty()
         {
-            return head == null;
+            return size == 0;
         }
 
         public int Length()
         {
-            if (isEmpty())
-            {
-                return 0;
-            }
-
-            var currentElement = head;
-            int length = 0;
-            
-            while (currentElement != null)
-            {
-                length++;
-                currentElement = getNext(currentElement);
-            }
-
-            return length;
+            return size;
         }
     }
 }
