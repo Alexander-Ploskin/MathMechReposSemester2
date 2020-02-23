@@ -4,6 +4,17 @@ namespace Task5
 {
     class Program
     {
+
+        private static void SwapOfColumns(int[,] matrix, int index1, int index2)
+        {
+            for (int i = 0; i < matrix.GetLength(0); ++i)
+            {
+                var t = matrix[i, index2];
+                matrix[i, index2] = matrix[i, index1];
+                matrix[i, index1] = t;
+            }
+        }
+
         private static void BubbleSortOfColumns(int[,] matrix)
         {
             var numberOfColumns = matrix.GetLength(1);
@@ -13,12 +24,7 @@ namespace Task5
                 {
                     if (matrix[0, j] > matrix[0, j + 1])
                     {
-                        for (int k = 0; k < matrix.GetLength(0); ++k)
-                        {
-                            var t = matrix[k, j];
-                            matrix[k, j] = matrix[k, j + 1];
-                            matrix[k, j + 1] = t;
-                        }
+                        SwapOfColumns(matrix, j, j + 1);
                     }
                 }
             }
@@ -32,10 +38,11 @@ namespace Task5
                 {
                     Console.Write($"{matrix[i, j]} ");
                 }
-                Console.WriteLine("");
+                Console.WriteLine();
             }
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             int[,] testMatrix = { {1, -1, 0, 56, -3, -7, 5, 6, 12, -6 },
                                   {1,  2, 3, 4,   5,  6, 7, 8, 9,  10  } };
