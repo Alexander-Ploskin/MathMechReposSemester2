@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task3
 {
@@ -23,6 +20,7 @@ namespace Task3
                 }
             }
         }
+
         private static void PrintArray(int[] array)
         {
             for (int i = 0; i < array.Length; ++i)
@@ -30,19 +28,15 @@ namespace Task3
                 Console.Write($"{array[i]} ");
             }
         }
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the size of the array: ");
-            var sizeOfArray = int.Parse(Console.ReadLine());
-            int[] array = new int[sizeOfArray];
             Console.WriteLine("Fill the array:");
-            for (int i = 0; i < array.Length; ++i)
-            {
-                array[i] = int.Parse(Console.ReadLine());
-            }
+            int[] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
             BubbleSort(array);
             Console.WriteLine("Sorted array:");
             PrintArray(array);
         }
+
     }
 }
