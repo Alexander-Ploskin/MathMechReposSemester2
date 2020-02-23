@@ -7,46 +7,47 @@ namespace Task4
         static void PrintMatrixSpiral(int[,] matrix)
         {
             int sizeOfMatrix = matrix.GetLength(0);
-            int index1 = sizeOfMatrix / 2;
-            int index2 = sizeOfMatrix / 2;
+            int abscissa = sizeOfMatrix / 2;
+            int ordinate = sizeOfMatrix / 2;
             int step = 1;
 
             while (true)
             {
                 for (int i = 0; i < step; ++i)
                 {
-                    Console.Write($"{matrix[index2, index1]} ");
-                    index1++;
+                    Console.Write($"{matrix[ordinate, abscissa]} ");
+                    abscissa++;
                 }
 
-                if (index2 == sizeOfMatrix - 1)
+                if (ordinate == sizeOfMatrix - 1)
                 {
                     return;
                 }
 
                 for (int i = 0; i < step; ++i)
                 {
-                    Console.Write($"{matrix[index2, index1]} ");
-                    index2--;
+                    Console.Write($"{matrix[ordinate, abscissa]} ");
+                    ordinate--;
                 }
 
                 step++;
 
                 for (int i = 0; i < step; ++i)
                 {
-                    Console.Write($"{matrix[index2, index1]} ");
-                    index1--;
+                    Console.Write($"{matrix[ordinate, abscissa]} ");
+                    abscissa--;
                 }
 
                 for (int i = 0; i < step; ++i)
                 {
-                    Console.Write($"{matrix[index2, index1]} ");
-                    index2++;
+                    Console.Write($"{matrix[ordinate, abscissa]} ");
+                    ordinate++;
                 }
 
                 step++;
             }
         }
+
         static void Main(string[] args)
         {
             int[,] testMatrix = new int[5, 5] { { 17, 16, 15, 14, 13 },
