@@ -6,7 +6,7 @@ namespace Task1_2
     {
         static void Main(string[] args)
         {
-            List myList = new List();
+            var myList = new List();
 
             for (int i = 0; i < 10; ++i)
             {
@@ -23,5 +23,6 @@ namespace Task1_2
 
             Console.WriteLine(myList.Length());
         }
+
     }
 }

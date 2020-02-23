@@ -2,7 +2,7 @@
 
 namespace Task1_2
 {
-    class List : IList
+    class List
     {
         private class ListElement
         {
@@ -28,6 +28,11 @@ namespace Task1_2
 
         private ListElement GetParentOfElementByPosition(int position)
         {
+            if (position < 0)
+            {
+                return null;
+            }
+
             var currentElement = head;
 
             for (int i = 0; i < position - 2; ++i)
@@ -42,45 +47,39 @@ namespace Task1_2
 
             return currentElement;
         }
-        public void Remove(int position)
+
+        public bool Remove(int position)
         {
             var parentOfRemovableElement = GetParentOfElementByPosition(position);
             if (parentOfRemovableElement == null || parentOfRemovableElement.next == null)
             {
-                return;
+                return false;
             }
 
             size--;
 
             parentOfRemovableElement.next = parentOfRemovableElement.next.next;
+
+            return true;
         }
 
-        private ListElement getNext(ListElement currentElement)
-        {
-            return currentElement.next;
-        }
+        private ListElement GetNext(ListElement currentElement) => currentElement.next;
 
         public void Print()
         {
             var currentElement = head;
-
+            
             while (currentElement != null)
             {
                 Console.Write("{0} ", currentElement.value);
-                currentElement = getNext(currentElement);
+                currentElement = GetNext(currentElement);
             }
 
             Console.WriteLine();
         }
 
-        public bool isEmpty()
-        {
-            return size == 0;
-        }
+        public bool Empty() => size == 0;
+        public int Length() => size;
 
-        public int Length()
-        {
-            return size;
-        }
     }
 }
