@@ -42,6 +42,7 @@ namespace Task2_2
 
             return currentElement;
         }
+
         public void RemoveByPosition(int position)
         {
             var parentOfRemovableElement = GetParentOfElementByPosition(position);
