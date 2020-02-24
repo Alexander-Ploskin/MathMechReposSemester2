@@ -8,7 +8,6 @@ namespace Task2_3
 {
     class ListStack: IStack
     {
-
         private class StackElement
         {
             public StackElement(int value, StackElement next)
@@ -35,10 +34,7 @@ namespace Task2_3
             return result;
         }
 
-        public bool Empty()
-        {
-            return head == null;
-        }
+        public bool Empty() => head == null;
 
     }
 }

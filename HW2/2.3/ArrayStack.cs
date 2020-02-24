@@ -26,10 +26,7 @@ namespace Task2_3
             return result;
         }
 
-        public bool Empty()
-        {
-            return head == 0;
-        }
+        public bool Empty() => head == 0;
 
     }
 }

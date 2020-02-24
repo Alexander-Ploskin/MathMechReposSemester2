@@ -8,7 +8,6 @@ namespace Task2_3
 {
     class Calculator
     {
-
         private static int CreateInt(ref int index, string input)
         {
             string number = null; 
@@ -30,7 +29,7 @@ namespace Task2_3
                 return 0;
             }
 
-            var calculatingStack = new ListStack();
+            IStack calculatingStack = new ListStack();
 
             for (int i = 0; i < input.Length; ++i)
             {

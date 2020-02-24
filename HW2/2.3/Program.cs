@@ -23,5 +23,6 @@ namespace Task2_3
                 Console.WriteLine("Answer: {0}", result);
             }
         }
+
     }
 }
