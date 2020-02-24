@@ -51,7 +51,7 @@ namespace Task2_2
 
             for (int i = 0; i < hashArray.Length; ++i)
             {
-                while (!hashArray[i].isEmpty())
+                while (!hashArray[i].Empty())
                 {
                     string buffer = hashArray[i].Pop();
                     newHashArray[HashFunction(buffer)].Add(buffer);
@@ -71,5 +71,6 @@ namespace Task2_2
         {
             return hashArray[HashFunction(value)].Contains(value);
         }
+
     }
 }

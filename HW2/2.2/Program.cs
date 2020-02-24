@@ -19,5 +19,6 @@ namespace Task2_2
             myTable.Remove("Pig");
             Console.WriteLine(!myTable.Contains("Pig"));
         }
+
     }
 }

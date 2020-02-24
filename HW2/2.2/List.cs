@@ -2,7 +2,7 @@
 
 namespace Task2_2
 {
-    class List : IList
+    class List 
     {
         private class ListElement
         {
@@ -88,10 +88,7 @@ namespace Task2_2
             parentOfElement.next = parentOfElement.next.next;
         }
 
-        private ListElement GetNext(ListElement currentElement)
-        {
-            return currentElement.next;
-        }
+        private ListElement GetNext(ListElement currentElement) => currentElement.next;
 
         public void Print()
         {
@@ -108,7 +105,7 @@ namespace Task2_2
 
         public string Pop()
         {
-            if (isEmpty())
+            if (Empty())
             {
                 return "";
             }
@@ -134,14 +131,9 @@ namespace Task2_2
             return false;
         }
 
-        public bool isEmpty()
-        {
-            return size == 0;
-        }
+        public bool Empty() => size == 0;
 
-        public int Length()
-        {
-            return size;
-        }
+        public int Length() => size;
+
     }
 }
