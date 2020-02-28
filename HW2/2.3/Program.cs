@@ -10,7 +10,7 @@ namespace Task2_3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the correct arithmetic expression in postfix notation:");
+            Console.WriteLine("Calculator works with integer only! Enter the correct arithmetic expression in postfix notation :");
             string inputString = Console.ReadLine();
             bool isSuccessful = true;
             int result = Calculator.Calculating(inputString, ref isSuccessful);

@@ -33,11 +33,20 @@ namespace Task2_3
 
             for (int i = 0; i < input.Length; ++i)
             {
+                bool doSomething = false;
+
                 char currentToken = input[i];
 
                 if (Char.IsDigit(currentToken))
                 {
                     calculatingStack.Push(CreateInt(ref i, input));
+                    continue;
+                }
+
+                if (i != input.Length - 1 && char.IsDigit(input[i + 1]))
+                {
+                    i++;
+                    calculatingStack.Push(-CreateInt(ref i, input));
                     continue;
                 }
 
@@ -64,28 +73,39 @@ namespace Task2_3
                         case '+':
                             {
                                 number1 += number2;
+                                doSomething = true;
                                 break;
                             }
                         case '-':
                             {
                                 number1 -= number2;
+                                doSomething = true;
                                 break;
                             }
                         case '*':
                             {
                                 number1 *= number2;
+                                doSomething = true;
                                 break;
                             }
                         case '/':
                             {
                                 if (number2 == 0)
                                 {
+                                    Console.WriteLine("Division by null!");
                                     isSuccessful = false;
                                     return 0;
                                 }
                                 number1 /= number2;
+                                doSomething = true;
                                 break;
                             }
+                    }
+
+                    if (!doSomething)
+                    {
+                        isSuccessful = false;
+                        return 0;
                     }
 
                     calculatingStack.Push(number1);
