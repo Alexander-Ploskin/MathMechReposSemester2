@@ -44,7 +44,7 @@ namespace Task2_3
                     continue;
                 }
 
-                if (i != input.Length - 1 && char.IsDigit(input[i + 1]))
+                if (currentToken == '-' && i != input.Length - 1 && char.IsDigit(input[i + 1]))
                 {
                     i++;
                     calculatingStack.Push(-CreateInt(ref i, input));
