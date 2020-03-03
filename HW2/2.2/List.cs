@@ -66,7 +66,7 @@ namespace Task2_2
                 {
                     return currentElement;
                 }
-                currentElement = GetNext(currentElement);
+                currentElement = currentElement.next;
             }
 
             return null;
@@ -89,16 +89,14 @@ namespace Task2_2
             parentOfElement.next = parentOfElement.next.next;
         }
 
-        private ListElement GetNext(ListElement currentElement) => currentElement.next;
-
         public void Print()
         {
             var currentElement = head;
 
             while (currentElement != null)
             {
-                Console.Write("{0} ", currentElement.value);
-                currentElement = GetNext(currentElement);
+                Console.Write($"{currentElement.value}");
+                currentElement = currentElement.next;
             }
 
             Console.WriteLine();
@@ -126,7 +124,7 @@ namespace Task2_2
                 {
                     return true;
                 }
-                currentElement = GetNext(currentElement);
+                currentElement = currentElement.next;
             }
 
             return false;

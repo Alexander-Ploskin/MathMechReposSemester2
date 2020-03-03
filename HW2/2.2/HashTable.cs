@@ -42,12 +42,7 @@ namespace Task2_2
 
         private void Resize()
         {
-            List[] newHashArray = new List[size * 2];
-
-            for (int i = 0; i < newHashArray.Length; ++i)
-            {
-                newHashArray[i] = null;
-            }
+            var newHashArray = new List[size * 2];
 
             for (int i = 0; i < hashArray.Length; ++i)
             {
@@ -59,6 +54,8 @@ namespace Task2_2
             }
 
             hashArray = newHashArray;
+            loadFactor /= 2;
+            size *= 2;
         }
 
         public void Remove(string value)
@@ -67,10 +64,7 @@ namespace Task2_2
             loadFactor -= 1 / size;
         }
 
-        public bool Contains(string value)
-        {
-            return hashArray[HashFunction(value)].Contains(value);
-        }
+        public bool Contains(string value) => hashArray[HashFunction(value)].Contains(value);
 
     }
 }
