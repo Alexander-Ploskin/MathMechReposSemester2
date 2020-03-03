@@ -15,21 +15,22 @@ namespace Task2_3
             while (Char.IsDigit(input[index]))
             {
                 number += input[index];
+                if (index == input.Length - 1)
+                {
+                    return int.Parse(number);
+                }
                 index++;
             }
 
             return int.Parse(number);
         }
 
-        public static int Calculating(string input, ref bool isSuccessful)
-        {
+        public static (int, bool) Calculate(string input, IStack calculatingStack)
+        { 
             if (String.IsNullOrEmpty(input))
             {
-                isSuccessful = false;
-                return 0;
+                return (0, false);
             }
-
-            IStack calculatingStack = new ListStack();
 
             for (int i = 0; i < input.Length; ++i)
             {
@@ -54,16 +55,14 @@ namespace Task2_3
                 {
                     if (calculatingStack.Empty())
                     {
-                        isSuccessful = false;
-                        return 0;
+                        return (0, false);
                     }
 
                     int number2 = calculatingStack.Pop();
 
                     if (calculatingStack.Empty())
                     {
-                        isSuccessful = false;
-                        return 0;
+                        return (0, false);
                     }
 
                     int number1 = calculatingStack.Pop();
@@ -93,8 +92,7 @@ namespace Task2_3
                                 if (number2 == 0)
                                 {
                                     Console.WriteLine("Division by null!");
-                                    isSuccessful = false;
-                                    return 0;
+                                    return (0, false);
                                 }
                                 number1 /= number2;
                                 doSomething = true;
@@ -104,8 +102,7 @@ namespace Task2_3
 
                     if (!doSomething)
                     {
-                        isSuccessful = false;
-                        return 0;
+                        return (0, false);
                     }
 
                     calculatingStack.Push(number1);
@@ -114,19 +111,17 @@ namespace Task2_3
 
             if (calculatingStack.Empty())
             {
-                isSuccessful = false;
-                return 0;
+                return (0, false);
             }
 
             int result = calculatingStack.Pop();
 
             if (!calculatingStack.Empty())
             {
-                isSuccessful = false;
-                return 0;
+                return (0, false);
             }
 
-            return result;
+            return (result, true);
         }
 
     }
