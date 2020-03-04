@@ -45,6 +45,25 @@ namespace HashTable
 
         public void RemoveByPosition(int position)
         {
+            if (head == null)
+            {
+                return;
+            }
+
+            if (position == 0)
+            {
+                head = head.next;
+                size--;
+                return;
+            }
+
+            if (position == 1)
+            {
+                head.next = head.next.next;
+                size--;
+                return;
+            }
+
             var parentOfRemovableElement = GetParentOfElementByPosition(position);
             if (parentOfRemovableElement == null || parentOfRemovableElement.next == null)
             {
@@ -74,6 +93,11 @@ namespace HashTable
 
         public void RemoveByValue(string value)
         {
+            if (head == null)
+            {
+                return;
+            }
+
             if (head.value == value)
             {
                 head = head.next;
