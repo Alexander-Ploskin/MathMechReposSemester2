@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace HashTable
 {
+    /// <summary>
+    /// Simple and not effective hash function only for test of changebility of hash function
+    /// </summary>
     public class SimpleHashFunction: IHashFunction
     {
         public int HashFunction(string inputString, int size)
