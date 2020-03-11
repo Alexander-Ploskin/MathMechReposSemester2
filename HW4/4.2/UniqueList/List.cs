@@ -81,7 +81,7 @@ namespace UniqueList
         {
             if (size == 0)
             {
-                throw new Exception();
+                throw new RemoveFromEmptyListException();
             }
 
             if (position == 0)
@@ -142,9 +142,9 @@ namespace UniqueList
         /// <param name="value">String, whoose element you wanna to remove</param>
         public void RemoveByValue(string value)
         {
-            if (size == 0)
+            if (!Contains(value))
             {
-                throw new Exception();
+                throw new RemoveOfNotContainedElementException();
             }
 
             if (head.value == value)
@@ -186,7 +186,7 @@ namespace UniqueList
         {
             if (Empty())
             {
-                throw new Exception();
+                throw new RemoveFromEmptyListException();
             }
 
             string buffer = head.value;

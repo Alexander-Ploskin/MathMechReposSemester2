@@ -12,7 +12,12 @@ namespace UniqueList
         {
             if (Contains(value))
             {
-                throw new Exception();
+                throw new AdditionOfContainedElementException();
+            }
+
+            if (Empty())
+            {
+                head = new ListElement(value, null);
             }
 
             head = new ListElement(value, head.next);
