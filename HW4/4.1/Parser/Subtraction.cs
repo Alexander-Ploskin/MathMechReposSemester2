@@ -8,6 +8,10 @@ namespace Parser
 {
     class Subtraction: Operator
     {
+        public Subtraction()
+        {
+        }
+
         public Subtraction(Operator parent)
         {
             this.parent = parent;

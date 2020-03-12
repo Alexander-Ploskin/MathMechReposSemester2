@@ -8,6 +8,10 @@ namespace Parser
 {
     class Division: Operator
     {
+        public Division()
+        { 
+        }
+
         public Division(Operator parent)
         {
             this.parent = parent;
