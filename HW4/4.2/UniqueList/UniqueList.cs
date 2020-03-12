@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniqueList
 {
-    class UniqueList: List
+    public class UniqueList: List
     {
         public override void Add(string value)
         {

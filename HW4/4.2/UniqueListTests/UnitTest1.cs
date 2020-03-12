@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UniqueListTests
 {
     [TestClass]
-    public class UnitTest1
+    public class UniqueListTest
     {
         [TestMethod]
         public void TestMethod1()
