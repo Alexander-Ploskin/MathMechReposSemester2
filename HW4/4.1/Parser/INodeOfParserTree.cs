@@ -9,10 +9,21 @@ namespace Parser
     /// <summary>
     /// Interface of node of parser of arithmetic tree
     /// </summary>
-    interface INodeOfParserTree
+    abstract class INodeOfParserTree
     {
-        void PrintValue();
+        public abstract void PrintValue();
 
-        int Calculate();
+        public abstract int Calculate();
+
+        public INodeOfParserTree(Operator parent)
+        {
+            this.parent = parent;
+        }
+
+        protected Operator parent = null;
+
+        abstract public void PrintValue();
+
+        abstract public int Calculate();
     }
 }

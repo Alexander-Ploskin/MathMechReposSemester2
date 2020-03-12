@@ -16,7 +16,7 @@ namespace Parser
 
         public override int Calculate()
         {
-            if (Empty())
+            if (CanAdd())
             {
                 throw new Exception();
             }

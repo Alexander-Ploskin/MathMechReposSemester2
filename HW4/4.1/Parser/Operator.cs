@@ -8,14 +8,26 @@ namespace Parser
 {
     abstract class Operator: INodeOfParserTree
     {
-        public INodeOfParserTree rightChild = null;
-        public INodeOfParserTree leftChild = null;
+        protected Operator parent = null;
+        protected INodeOfParserTree rightChild = null;
+        protected INodeOfParserTree leftChild = null;
 
-        public abstract void PrintValue();
+        public bool CanAdd() => rightChild == null || leftChild == null;
 
-        public abstract int Calculate();
-
-        public bool Empty() => rightChild == null || leftChild == null;
+        public INodeOfParserTree AddChildAndMove(INodeOfParserTree newChild)
+        {
+            if (leftChild == null)
+            {
+                leftChild = newChild;
+                return leftChild;
+            }
+            if (rightChild == null)
+            {
+                rightChild = newChild;
+                return rightChild;
+            }
+            throw new Exception();
+        }
 
     }
 }

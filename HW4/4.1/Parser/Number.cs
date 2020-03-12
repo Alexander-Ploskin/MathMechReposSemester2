@@ -14,11 +14,11 @@ namespace Parser
         }
 
         private int value = 0;
-        public void PrintValue()
+        public override void PrintValue()
         {
             Console.Write($"{value} ");
         }
 
-        public int Calculate() => value;
+        public override int Calculate() => value;
     }
 }

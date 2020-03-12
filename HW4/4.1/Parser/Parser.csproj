@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Addition.cs" />
     <Compile Include="Division.cs" />
+    <Compile Include="ExpressionTree.cs" />
     <Compile Include="Multiplication.cs" />
     <Compile Include="Number.cs" />
     <Compile Include="Operator.cs" />
