@@ -54,14 +54,15 @@ namespace Parser
                 char token = expression[index];
 
                 if (Char.IsDigit(token))
-                {
+                { 
                     root = new Number(CreateNumber(expression, ref index));
                     break;
                 }
 
                 try
                 {
-                    root = WhichOperator(token);
+                    CurrentParent = WhichOperator(token);
+                    root = CurrentParent;
                     break;
                 }
                 catch (NotOperatorException)
@@ -73,10 +74,13 @@ namespace Parser
             while (index < expression.Length)
             {
                 char token = expression[index];
+
                 if (Char.IsDigit(token))
                 {
                     int number = CreateNumber(expression, ref index);
+                    
                 }
+
             }
         }
     }

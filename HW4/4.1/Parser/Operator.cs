@@ -17,5 +17,31 @@ namespace Parser
         public abstract void Print();
 
         public abstract int Calculate();
+
+        private void AddNewChild(Number newChild)
+        {
+            if (leftChild == null)
+            {
+                leftChild = newChild;
+                return;
+            }
+            if (rightChild == null)
+            {
+                rightChild = newChild;
+                return;
+            }
+
+            throw new FullNodeException();
+        }
+
+        private void AddNewChild(Operator newChild, ref Operator currentParent)
+        {
+            if (leftChild == null)
+            {
+                leftChild = newChild;
+                currentParent = leftChild;
+                return;
+            }
+        }
     }
 }

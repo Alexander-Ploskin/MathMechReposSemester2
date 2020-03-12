@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Addition.cs" />
     <Compile Include="Division.cs" />
+    <Compile Include="FullNodeException.cs" />
     <Compile Include="INodeOfParserTree.cs" />
     <Compile Include="Multiplication.cs" />
     <Compile Include="NotOperatorException.cs" />
