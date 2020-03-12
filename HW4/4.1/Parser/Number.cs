@@ -10,6 +10,11 @@ namespace Parser
     {
         private int value = 0;
 
+        public Number(int value)
+        {
+            this.value = value;
+        }
+
         public void Print()
         {
             Console.WriteLine($"{value} ");
