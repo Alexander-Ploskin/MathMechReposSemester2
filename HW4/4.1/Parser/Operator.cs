@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Parser
 {
     abstract class Operator: INodeOfParserTree
-    {
-        protected Operator parent = null;
+    { 
         protected INodeOfParserTree leftChild = null;
         protected INodeOfParserTree rightChild = null;
 

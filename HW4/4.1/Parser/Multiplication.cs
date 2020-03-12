@@ -8,16 +8,6 @@ namespace Parser
 {
     class Multiplication: Operator
     {
-        public Multiplication()
-        {
-
-        }
-
-        public Multiplication(Operator parent)
-        {
-            this.parent = parent;
-        }
-
         public override int Calculate()
         {
             if (Empty())
