@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addition.cs" />
     <Compile Include="INodeOfParserTree.cs" />
     <Compile Include="Number.cs" />
     <Compile Include="Operator.cs" />

@@ -8,14 +8,11 @@ namespace Parser
 {
     abstract class Operator: INodeOfParserTree
     {
-        private Operator parent = null;
-        private INodeOfParserTree leftChild = null;
-        private INodeOfParserTree rightChild = null;
+        protected Operator parent = null;
+        protected INodeOfParserTree leftChild = null;
+        protected INodeOfParserTree rightChild = null;
 
-        public Operator(Operator parent)
-        {
-            this.parent = parent;
-        }
+        protected bool Empty() => leftChild == null && rightChild == null;
 
         public abstract void Print();
 
