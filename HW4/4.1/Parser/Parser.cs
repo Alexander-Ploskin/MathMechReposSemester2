@@ -45,6 +45,16 @@ namespace Parser
             throw new NotOperatorException();
         }
 
+        public int CalculateParsedException()
+        {
+            if (root == null)
+            {
+                throw new NotCorrectOrNotParsedExpressionException();
+            }
+
+            return root.Calculate();
+        }
+
         public void ParseExpression(string expression)
         {
             int index = 0;
