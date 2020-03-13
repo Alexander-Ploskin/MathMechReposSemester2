@@ -10,7 +10,7 @@ namespace Parser
     {
         private INodeOfParserTree root = null;
 
-        private Operator CurrentParent = null;
+        private Operator currentParent = null;
 
         private int CreateNumber(string expression, ref int index)
         {
@@ -61,12 +61,13 @@ namespace Parser
 
                 try
                 {
-                    CurrentParent = WhichOperator(token);
-                    root = CurrentParent;
+                    currentParent = WhichOperator(token);
+                    root = currentParent;
                     break;
                 }
                 catch (NotOperatorException)
                 {
+                    index++;
                     continue;
                 }
             }
@@ -77,11 +78,52 @@ namespace Parser
 
                 if (Char.IsDigit(token))
                 {
-                    int number = CreateNumber(expression, ref index);
-                    
+                    var number = new Number(CreateNumber(expression, ref index));
+                    try
+                    {
+                        currentParent.AddChildAndMove(number);
+                        continue;
+                    }
+                    catch (FullNodeException)
+                    {
+                        try
+                        {
+                            currentParent = currentParent.parent;
+                            continue;
+                        }
+                        catch (NullParentException)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                try
+                {
+                    currentParent = currentParent.AddChildAndMove(WhichOperator(token));
+                    index++;
+                    continue;
+                }
+                catch (NotOperatorException)
+                {
+                    index++;
+                    continue;
+                }
+                catch (FullNodeException)
+                {
+                    try
+                    {
+                        currentParent = currentParent.parent;
+                        continue;
+                    }
+                    catch (NullParentException)
+                    {
+                        break;
+                    }
                 }
 
             }
         }
+
     }
 }

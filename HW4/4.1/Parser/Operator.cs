@@ -7,7 +7,23 @@ using System.Threading.Tasks;
 namespace Parser
 {
     abstract class Operator: INodeOfParserTree
-    { 
+    {
+        public Operator parent
+        {
+            get
+            {
+                if (parent == null)
+                {
+                    throw new NullParentException();
+                }
+                return parent;
+            }
+            set
+            {
+                parent = value;
+            }
+        }
+
         protected INodeOfParserTree leftChild = null;
         protected INodeOfParserTree rightChild = null;
 
@@ -17,7 +33,22 @@ namespace Parser
 
         public abstract int Calculate();
 
-        private void AddNewChild(Number newChild)
+        public Operator AddChildAndMove(Operator newChild)
+        {
+            if (leftChild == null)
+            {
+                leftChild = newChild;
+                return newChild;
+            }
+            if (rightChild == null)
+            {
+                rightChild = newChild;
+                return newChild;
+            }
+            throw new FullNodeException();
+        }
+
+        public void AddChildAndMove(Number newChild)
         {
             if (leftChild == null)
             {
@@ -29,18 +60,8 @@ namespace Parser
                 rightChild = newChild;
                 return;
             }
-
             throw new FullNodeException();
         }
 
-        private void AddNewChild(Operator newChild, ref Operator currentParent)
-        {
-            if (leftChild == null)
-            {
-                leftChild = newChild;
-                currentParent = leftChild;
-                return;
-            }
-        }
     }
 }

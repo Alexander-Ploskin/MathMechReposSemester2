@@ -49,6 +49,7 @@
     <Compile Include="INodeOfParserTree.cs" />
     <Compile Include="Multiplication.cs" />
     <Compile Include="NotOperatorException.cs" />
+    <Compile Include="NullParentException.cs" />
     <Compile Include="Number.cs" />
     <Compile Include="Operator.cs" />
     <Compile Include="Parser.cs" />
