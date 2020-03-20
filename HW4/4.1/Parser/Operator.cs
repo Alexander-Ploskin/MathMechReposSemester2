@@ -18,16 +18,18 @@ namespace Parser
                 }
                 return parent;
             }
-            set
-            {
-                parent = value;
-            }
+            set => parent = value;
+        }
+
+        public Operator(Operator parent)
+        {
+            this.parent = parent;
         }
 
         protected INodeOfParserTree leftChild = null;
         protected INodeOfParserTree rightChild = null;
 
-        protected bool Empty() => leftChild == null && rightChild == null;
+        protected bool CanCalculate() => leftChild != null && rightChild != null;
 
         public abstract void Print();
 

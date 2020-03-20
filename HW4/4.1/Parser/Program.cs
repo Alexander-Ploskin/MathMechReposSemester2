@@ -10,6 +10,18 @@ namespace Parser
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Enter the expression in polish notation:");
+            var expression = Console.ReadLine();
+            var parser = new Parser();
+            parser.ParseExpression(expression);
+            try
+            {
+                Console.WriteLine($"Answer: {parser.CalculateParsedException()}");
+            }
+            catch (NotCorrectOrNotParsedExpressionException)
+            {
+                Console.WriteLine("Not correct expression");
+            }
         }
     }
 }

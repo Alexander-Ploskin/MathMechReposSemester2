@@ -15,7 +15,7 @@ namespace Parser
         private int CreateNumber(string expression, ref int index)
         {
             string number = "";
-            while (Char.IsDigit(expression[index]) && index < expression.Length)
+            while (index < expression.Length && Char.IsDigit(expression[index]))
             {
                 number += expression[index];
                 index++;
@@ -73,6 +73,7 @@ namespace Parser
                 {
                     currentParent = WhichOperator(token);
                     root = currentParent;
+                    index++;
                     break;
                 }
                 catch (NotOperatorException)
@@ -92,6 +93,7 @@ namespace Parser
                     try
                     {
                         currentParent.AddChildAndMove(number);
+                        index++;
                         continue;
                     }
                     catch (FullNodeException)
@@ -110,7 +112,9 @@ namespace Parser
 
                 try
                 {
+                    var lastParent = currentParent;
                     currentParent = currentParent.AddChildAndMove(WhichOperator(token));
+                    currentParent.parent = lastParent;
                     index++;
                     continue;
                 }

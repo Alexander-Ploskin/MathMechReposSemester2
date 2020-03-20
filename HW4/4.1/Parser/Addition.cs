@@ -10,9 +10,9 @@ namespace Parser
     {
         public override int Calculate()
         {
-            if (Empty())
+            if (!CanCalculate())
             {
-                throw new Exception();
+                throw new NotCorrectOrNotParsedExpressionException();
             }
 
             return leftChild.Calculate() + rightChild.Calculate();
@@ -22,5 +22,6 @@ namespace Parser
         {
             Console.WriteLine("+ ");
         }
+
     }
 }
