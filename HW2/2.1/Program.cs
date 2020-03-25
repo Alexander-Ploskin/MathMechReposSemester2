@@ -10,7 +10,7 @@ namespace Task1_2
 
             for (int i = 0; i < 10; ++i)
             {
-                myList.Add(i);
+                myList.Add(i, 0);
             }
 
             myList.Print();

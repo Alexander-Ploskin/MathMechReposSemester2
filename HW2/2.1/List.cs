@@ -20,10 +20,37 @@ namespace Task1_2
 
         private int size;
 
-        public void Add(int value)
+        public void Add(int value, int position)
         {
-            head = new ListElement(value, head);
+            if (position < 0)
+            {
+                throw new Exception("Position can't be negative");
+            }
+
             size++;
+
+            if (position == 0)
+            {
+                if (head == null)
+                {
+                    head = new ListElement(value, null);
+                    return;
+                }
+
+                head = new ListElement(value, head);
+                return;
+            }
+
+            var currentElement = head;
+            for (int i = 0; i < position; ++i)
+            {
+                if (currentElement == null)
+                {
+                    throw new Exception("There are not that position");
+                }
+            }
+
+            currentElement.next = new ListElement(value, currentElement.next);
         }
 
         private ListElement GetParentOfElementByPosition(int position)
@@ -76,6 +103,36 @@ namespace Task1_2
             }
 
             Console.WriteLine();
+        }
+
+        public int getValueOfElementByPosition(int position)
+        {
+            if (position < 0)
+            {
+                throw new Exception("Position can't be negative");
+            }
+
+            if (position >= size)
+            {
+                throw new Exception("There are not that position");
+            }
+
+            return GetParentOfElementByPosition(position).next.value;
+        }
+
+        public void setValueByPosition(int position, int newValue)
+        {
+            if (position < 0)
+            {
+                throw new Exception("Position can't be negative");
+            }
+
+            if (position >= size)
+            {
+                throw new Exception("There are not that position");
+            }
+
+            GetParentOfElementByPosition(position).next.value = newValue;
         }
 
         public bool Empty() => size == 0;
