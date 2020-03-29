@@ -17,6 +17,12 @@ namespace ConsoleGame
             try
             {
                 var game = new Game(path);
+                var eventLoop = new EventLoop();
+                eventLoop.LeftHandler += game.OnLeft;
+                eventLoop.RightHandler += game.OnRight;
+                eventLoop.DownHandler += game.OnDown;
+                eventLoop.UpHandler += game.OnUp;
+                eventLoop.Run();
             }
             catch(Exception e)
             {
