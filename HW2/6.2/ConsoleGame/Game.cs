@@ -65,16 +65,19 @@ namespace ConsoleGame
             }
 
             Console.CursorLeft--;
+            Console.Beep();
         }
 
         public void OnRight(object sender, EventArgs args)
         {
             Console.CursorLeft++;
+            Console.Beep();
         }
 
         public void OnDown(object sender, EventArgs args)
         {
             Console.CursorTop++;
+            Console.Beep();
         }
 
         public void OnUp(object sender, EventArgs args)
@@ -84,6 +87,7 @@ namespace ConsoleGame
                 return;
             }
             Console.CursorTop--;
+            Console.Beep();
         }
 
     }
