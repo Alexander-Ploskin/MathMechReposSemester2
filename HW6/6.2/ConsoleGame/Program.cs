@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ConsoleGame
 {
@@ -10,13 +11,9 @@ namespace ConsoleGame
     {
         static void Main(string[] args)
         {
-            string path = "";
-            Console.WriteLine("Enter the path of map file:");
-            path = Console.ReadLine();
-
             try
             {
-                var game = new Game(path);
+                var game = new Game(@"C:\Users\Basho\Desktop\All\Programing\MathMechReposSemester2\HW6\6.2\ConsoleGame\Map1.txt");
                 var eventLoop = new EventLoop();
                 eventLoop.LeftHandler += game.OnLeft;
                 eventLoop.RightHandler += game.OnRight;
@@ -24,9 +21,9 @@ namespace ConsoleGame
                 eventLoop.UpHandler += game.OnUp;
                 eventLoop.Run();
             }
-            catch(Exception e)
+            catch (IOException)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Invalid path or map file");
             }
         }
     }

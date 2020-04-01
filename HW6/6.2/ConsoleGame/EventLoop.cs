@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleGame
 {
+    /// <summary>
+    /// Handles events from keyboard
+    /// </summary>
     public class EventLoop
     {
         public event EventHandler<EventArgs> LeftHandler = (sender, args) => { };
@@ -13,6 +16,9 @@ namespace ConsoleGame
         public event EventHandler<EventArgs> DownHandler = (sender, args) => { };
         public event EventHandler<EventArgs> UpHandler = (sender, args) => { };
 
+        /// <summary>
+        /// Eternal loop 
+        /// </summary>
         public void Run()
         {
             while (true)

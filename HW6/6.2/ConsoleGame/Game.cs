@@ -7,87 +7,132 @@ using System.IO;
 
 namespace ConsoleGame
 {
-    class Game
+    /// <summary>
+    /// This class implements console game
+    /// </summary>
+    public class Game
     {
+        GameMap map;
+
         public Game(string path)
         {
-            int downDisplacement = 0;
-            int leftDisplacement = 0;
-
-            using (var sr = new StreamReader(path))
-            {
-                string line = "";
-                bool spawned = false;
-
-                while ((line = sr.ReadLine()) != null)
-                { 
-                    if (!spawned)
-                    {
-                        leftDisplacement = 0;
-
-                        for (int i = 0; i < line.Length; ++i)
-                        {
-                            if (line[i] == ' ' && !spawned)
-                            {
-                                Console.Write('@');
-                                spawned = true;
-                                i++;
-                            }
-
-                            if (!spawned)
-                            {
-                                leftDisplacement++;
-                            }
-
-                            Console.Write(line[i]);
-                        }
-
-                        Console.WriteLine();
-                        downDisplacement++;
-                        continue;
-                    }
-
-                    Console.WriteLine(line);
-                    downDisplacement++;
-                }
-            }
-
-            Console.CursorTop -= downDisplacement;
-            Console.CursorTop++;
-            Console.CursorLeft += leftDisplacement;
+            this.map = new GameMap(path);
         }
 
+        /// <summary>
+        /// Tries to move @ left
+        /// </summary>
+        /// <param name="sender">Waits event from keyboard</param>
+        /// <param name="args">Empty param</param>
         public void OnLeft(object sender, EventArgs args)
         {
-            if (Console.CursorLeft == 0)
+            try
             {
-                return;
+                map.goLeft();
+                if (map.getToken() != '■')
+                {
+                    map.goRight();
+                    map.setToken(' ');
+                    map.goLeft();
+                    map.setToken('@');
+                }
+                else
+                {
+                    map.goRight();
+                    Console.Beep();
+                }
             }
-
-            Console.CursorLeft--;
-            Console.Beep();
+            catch (MoveException)
+            {
+                Console.Beep();
+            }
         }
 
+        /// <summary>
+        /// Tries to move @ right
+        /// </summary>
+        /// <param name="sender">Waits event from keyboard</param>
+        /// <param name="args">Empty param</param>
         public void OnRight(object sender, EventArgs args)
         {
-            Console.CursorLeft++;
-            Console.Beep();
+            try
+            {
+                map.goRight();
+                if (map.getToken() != '■')
+                {
+                    map.goLeft();
+                    map.setToken(' ');
+                    map.goRight();
+                    map.setToken('@');
+                }
+                else
+                {
+                    map.goLeft();
+                    Console.Beep();
+                }
+            }
+            catch (MoveException)
+            {
+                Console.Beep();
+            }
         }
 
+        /// <summary>
+        /// Tries to move @ down
+        /// </summary>
+        /// <param name="sender">Waits event from keyboard</param>
+        /// <param name="args">Empty param</param>
         public void OnDown(object sender, EventArgs args)
         {
-            Console.CursorTop++;
-            Console.Beep();
+            try
+            {
+                map.goDown();
+                if (map.getToken() != '■')
+                {
+                    map.goUp();
+                    map.setToken(' ');
+                    map.goDown();
+                    map.setToken('@');
+                }
+                else
+                {
+                    map.goUp();
+                    Console.Beep();
+                }
+            }
+            catch (MoveException)
+            {
+                Console.Beep();
+            }
         }
 
+        /// <summary>
+        /// Tries to move @ up
+        /// </summary>
+        /// <param name="sender">Waits event from keyboard</param>
+        /// <param name="args">Empty param</param>
         public void OnUp(object sender, EventArgs args)
         {
-            if (Console.CursorTop == 0)
+            try
             {
-                return;
+                map.goUp();
+                if (map.getToken() != '■')
+                {
+                    map.goDown();
+                    map.setToken(' ');
+                    map.goUp();
+                    map.setToken('@');
+                }
+                else
+                {
+                    Console.Beep();
+                    map.goDown();
+                }
             }
-            Console.CursorTop--;
-            Console.Beep();
+            catch (MoveException)
+            {
+                Console.Beep();
+            }
         }
 
     }
