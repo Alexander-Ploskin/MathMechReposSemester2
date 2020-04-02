@@ -13,7 +13,7 @@ namespace ConsoleGame
         {
             try
             {
-                var game = new Game(@"C:\Users\Basho\Desktop\All\Programing\MathMechReposSemester2\HW6\6.2\ConsoleGame\Map1.txt");
+                var game = new Game(Environment.CurrentDirectory + @"\Maps\Map1.txt");
                 var eventLoop = new EventLoop();
                 eventLoop.LeftHandler += game.OnLeft;
                 eventLoop.RightHandler += game.OnRight;

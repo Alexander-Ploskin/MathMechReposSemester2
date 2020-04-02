@@ -1,14 +1,24 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ConsoleGame;
 
 namespace ConsoleGameTests
 {
     [TestClass]
     public class GameMapTests
     {
-        [TestMethod]
-        public void TestMethod1()
+        private GameMap map = null;
+
+        [TestInitialize]
+        public void Initialize()
         {
+            map = new GameMap(Environment.CurrentDirectory + @"\Maps\Map2.txt");
+        }
+
+        [TestMethod]
+        public void MoveToLeftTest()
+        {
+            
         }
     }
 }
