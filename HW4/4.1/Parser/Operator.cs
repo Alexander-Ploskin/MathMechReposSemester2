@@ -8,24 +8,7 @@ namespace Parser
 {
     abstract class Operator: INodeOfParserTree
     {
-        public Operator parent
-        {
-            get
-            {
-                if (parent == null)
-                {
-                    throw new NullParentException();
-                }
-                return parent;
-            }
-            set => parent = value;
-        }
-
-        public Operator(Operator parent)
-        {
-            this.parent = parent;
-        }
-
+        public Operator parent = null;
         protected INodeOfParserTree leftChild = null;
         protected INodeOfParserTree rightChild = null;
 
@@ -40,11 +23,13 @@ namespace Parser
             if (leftChild == null)
             {
                 leftChild = newChild;
+                newChild.parent = this;
                 return newChild;
             }
             if (rightChild == null)
             {
                 rightChild = newChild;
+                newChild.parent = this;
                 return newChild;
             }
             throw new FullNodeException();

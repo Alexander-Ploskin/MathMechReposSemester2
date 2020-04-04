@@ -18,7 +18,7 @@ namespace Parser
             int valueOfRightChild = rightChild.Calculate();
             if (valueOfRightChild == 0)
             {
-                throw new Exception();
+                throw new Exception("Division by null");
             }
 
             return leftChild.Calculate() / rightChild.Calculate();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
-    class Multiplication: Operator
+    class Multiplication : Operator
     {
         public override int Calculate()
         {
