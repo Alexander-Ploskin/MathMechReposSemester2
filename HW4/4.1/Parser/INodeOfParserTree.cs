@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
+    /// <summary>
+    /// Interface of nodes of arithmetic expression tree
+    /// </summary>
     interface INodeOfParserTree
     { 
         void Print();

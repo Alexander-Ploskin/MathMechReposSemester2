@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
+    /// <summary>
+    /// Multiplication operator in tree
+    /// </summary>
     class Multiplication : Operator
     {
+        /// <summary>
+        /// Multiply left and right subtree
+        /// </summary>
+        /// <returns>Result of multiplication</returns>
         public override int Calculate()
         {
             if (!CanCalculate())
@@ -18,6 +25,9 @@ namespace Parser
             return leftChild.Calculate() * rightChild.Calculate();
         }
 
+        /// <summary>
+        /// Print *
+        /// </summary>
         public override void Print()
         {
             Console.WriteLine("* ");

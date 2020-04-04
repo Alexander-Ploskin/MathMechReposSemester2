@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
-    class Parser
+    /// <summary>
+    /// Parser of arithmetic expressions
+    /// </summary>
+    public class Parser
     {
         private INodeOfParserTree root = null;
 
         private Operator currentParent = null;
 
+        /// <summary>
+        /// Create number by consecutive characters
+        /// </summary>
+        /// <param name="expression">Expression, with those symbols</param>
+        /// <param name="index">Index of first symbol</param>
+        /// <returns>Number</returns>
         private int CreateNumber(string expression, ref int index)
         {
             string number = "";

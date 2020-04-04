@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
+    /// <summary>
+    /// Division operator in tree
+    /// </summary>
     class Division: Operator
     {
+        /// <summary>
+        /// Divide left subtree by right subtree
+        /// </summary>
+        /// <exception cref="Exception">Throws if right subtee = 0</exception>
+        /// <returns></returns>
         public override int Calculate()
         {
             if (!CanCalculate())
@@ -24,9 +32,12 @@ namespace Parser
             return leftChild.Calculate() / rightChild.Calculate();
         }
 
+        /// <summary>
+        /// Print /
+        /// </summary>
         public override void Print()
         {
-            Console.WriteLine("/ ");
+            Console.Write("/ ");
         }
     }
 }

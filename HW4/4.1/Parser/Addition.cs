@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
+    /// <summary>
+    /// Addition operator in tree
+    /// </summary>
     class Addition: Operator
     {
+        /// <summary>
+        /// Addition of right and left subtree
+        /// </summary>
+        /// <returns>Result of addition</returns>
         public override int Calculate()
         {
             if (!CanCalculate())
@@ -18,9 +25,12 @@ namespace Parser
             return leftChild.Calculate() + rightChild.Calculate();
         }
 
+        /// <summary>
+        /// Print +
+        /// </summary>
         public override void Print()
         {
-            Console.WriteLine("+ ");
+            Console.Write("+ ");
         }
 
     }

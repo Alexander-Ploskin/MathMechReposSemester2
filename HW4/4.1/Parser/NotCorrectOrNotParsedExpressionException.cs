@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
+    /// <summary>
+    /// Throws if tree couldn't be calculated
+    /// </summary>
     class NotCorrectOrNotParsedExpressionException: SystemException
     {
     }
