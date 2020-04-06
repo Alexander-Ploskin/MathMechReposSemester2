@@ -9,7 +9,7 @@ namespace Parser
     /// <summary>
     /// Throws if tree couldn't be calculated
     /// </summary>
-    class NotCorrectOrNotParsedExpressionException: SystemException
+    public class NotCorrectOrNotParsedExpressionException: SystemException
     {
     }
 }

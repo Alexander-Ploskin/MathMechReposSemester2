@@ -74,6 +74,9 @@ namespace Parser
             return root.Calculate();
         }
 
+        /// <summary>
+        /// Prints expression
+        /// </summary>
         public void PrintParsedExpression()
         {
             if (root == null)

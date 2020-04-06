@@ -14,7 +14,6 @@ namespace Parser
         /// <summary>
         /// Divide left subtree by right subtree
         /// </summary>
-        /// <exception cref="Exception">Throws if right subtee = 0</exception>
         /// <returns></returns>
         public override int Calculate()
         {
@@ -24,10 +23,6 @@ namespace Parser
             }
 
             int valueOfRightChild = rightChild.Calculate();
-            if (valueOfRightChild == 0)
-            {
-                throw new Exception("Division by zero");
-            }
 
             return leftChild.Calculate() / rightChild.Calculate();
         }

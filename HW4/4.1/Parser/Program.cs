@@ -25,6 +25,10 @@ namespace Parser
             {
                 Console.WriteLine("Not correct expression");
             }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Division by zero!");
+            }
         }
     }
 }
