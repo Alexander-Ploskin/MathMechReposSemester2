@@ -108,6 +108,7 @@ namespace Parser
         /// <summary>
         /// Build tree of arithmetic expression
         /// </summary>
+        /// <exception cref="InvalidExpressionException">Throws if expression isn't correct</exception>
         /// <param name="expression">Input expression</param>
         public void ParseExpression(string expression)
         {
