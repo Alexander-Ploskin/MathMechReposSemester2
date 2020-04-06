@@ -26,11 +26,19 @@ namespace Parser
         }
 
         /// <summary>
-        /// Print +
+        /// Print subtree
         /// </summary>
         public override void Print()
         {
             Console.Write("+ ");
+            if (leftChild != null)
+            {
+                leftChild.Print();
+            }
+            if (rightChild != null)
+            {
+                rightChild.Print();
+            }
         }
 
     }

@@ -16,7 +16,10 @@ namespace Parser
             parser.ParseExpression(expression);
             try
             {
-                Console.WriteLine($"Answer: {parser.CalculateParsedException()}");
+                Console.WriteLine("Parsed expression");
+                parser.PrintParsedExpression();
+                Console.WriteLine();
+                Console.WriteLine($"Answer: {parser.CalculateParsedExpression()}");
             }
             catch (NotCorrectOrNotParsedExpressionException)
             {

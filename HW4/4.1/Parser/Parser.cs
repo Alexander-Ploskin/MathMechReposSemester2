@@ -64,7 +64,7 @@ namespace Parser
         /// Calculeate expression by built tree
         /// </summary>
         /// <returns>Result of expression</returns>
-        public int CalculateParsedException()
+        public int CalculateParsedExpression()
         {
             if (root == null)
             {
@@ -72,6 +72,16 @@ namespace Parser
             }
 
             return root.Calculate();
+        }
+
+        public void PrintParsedExpression()
+        {
+            if (root == null)
+            {
+                throw new NotCorrectOrNotParsedExpressionException();
+            }
+
+            root.Print();
         }
 
         /// <summary>

@@ -20,24 +20,33 @@ namespace Parser
         {
             if (!CanCalculate())
             {
-                throw new Exception();
+                throw new NotCorrectOrNotParsedExpressionException();
             }
 
             int valueOfRightChild = rightChild.Calculate();
             if (valueOfRightChild == 0)
             {
-                throw new Exception("Division by null");
+                throw new Exception("Division by zero");
             }
 
             return leftChild.Calculate() / rightChild.Calculate();
         }
 
         /// <summary>
-        /// Print /
+        /// Print subtree
         /// </summary>
         public override void Print()
         {
             Console.Write("/ ");
+            if (leftChild != null)
+            {
+                leftChild.Print();
+            }
+            if (rightChild != null)
+            {
+                rightChild.Print();
+            }
         }
+
     }
 }

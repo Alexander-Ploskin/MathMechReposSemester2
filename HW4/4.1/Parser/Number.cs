@@ -23,7 +23,7 @@ namespace Parser
         /// </summary>
         public void Print()
         {
-            Console.WriteLine($"{value} ");
+            Console.Write($"{value} ");
         }
 
         /// <summary>

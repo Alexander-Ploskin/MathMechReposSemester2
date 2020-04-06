@@ -19,18 +19,27 @@ namespace Parser
         {
             if (!CanCalculate())
             {
-                throw new Exception();
+                throw new NotCorrectOrNotParsedExpressionException();
             }
 
             return leftChild.Calculate() - rightChild.Calculate();
         }
 
         /// <summary>
-        /// Print -
+        /// Print subtree
         /// </summary>
         public override void Print()
         {
             Console.WriteLine("- ");
+            if (leftChild != null)
+            {
+                leftChild.Print();
+            }
+            if (rightChild != null)
+            {
+                rightChild.Print();
+            }
         }
+
     }
 }
