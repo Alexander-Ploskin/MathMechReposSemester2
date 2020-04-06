@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniqueList
 {
-    class AdditionOfContainedElementException: SystemException
+    public class AdditionOfContainedElementException: SystemException
     {
 
     }

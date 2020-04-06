@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniqueList
 {
-    class RemoveFromListException: SystemException
+    public class RemoveFromListException: SystemException
     {
 
     }

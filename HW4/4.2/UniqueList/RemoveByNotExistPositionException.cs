@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniqueList
 {
-    public class RemoveFromEmptyListException: RemoveFromListException
+    public class RemoveByNotExistPositionException : RemoveFromListException
     {
-
     }
 }

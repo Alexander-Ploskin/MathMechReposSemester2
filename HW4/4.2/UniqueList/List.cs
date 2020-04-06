@@ -3,25 +3,22 @@
 namespace UniqueList
 {
     /// <summary>
-    /// Class list
-    /// Contains strings 
-    /// All operations has linear asymptotics
+    /// List with removing and addition by position
     /// </summary>
-    public class List 
+    public class List
     {
         /// <summary>
         /// Element of list
-        /// Has reference to next element 
         /// </summary>
         protected class ListElement
         {
-            public ListElement(string value, ListElement next)
+            public ListElement(int value, ListElement next)
             {
                 this.value = value;
                 this.next = next;
             }
 
-            public string value;
+            public int value;
             public ListElement next;
         }
 
@@ -30,31 +27,54 @@ namespace UniqueList
         protected int size;
 
         /// <summary>
-        /// Adds new element to list
+        /// Add new element to desired position
         /// </summary>
-        /// <param name="value">String that you wanna to add</param>
-        public virtual void Add(string value)
+        /// <param name="value">Value, you wanna to add</param>
+        /// <exception cref="InvalidPositionException">Throws in case of invalid position</exception>
+        /// <param name="position">Position in list for new element</param>
+        public virtual void Add(int value, int position)
         {
-            head = new ListElement(value, head);
+            if (position < 0)
+            {
+                throw new InvalidPositionException();
+            }
+
             size++;
+
+            if (position == 0)
+            {
+                if (head == null)
+                {
+                    head = new ListElement(value, null);
+                    return;
+                }
+
+                head = new ListElement(value, head);
+                return;
+            }
+
+            var currentElement = head;
+            for (int i = 0; i < position; ++i)
+            {
+                if (currentElement == null)
+                {
+                    throw new InvalidPositionException();
+                }
+            }
+
+            currentElement.next = new ListElement(value, currentElement.next);
         }
 
         /// <summary>
-        /// Returns parent of element on position
+        /// Gets reference to parent of desired element
         /// </summary>
-        /// <param name="position">Position of element that parent you wanna to get</param>
-        /// <returns>Element that have reference to element on position</returns>
-        /// <remarks>If such element doesn't exist returns null</remarks>
+        /// <param name="position">Position of desired element</param>
+        /// <returns>Parent</returns>
         private ListElement GetParentOfElementByPosition(int position)
         {
-            if (position == 0)
+            if (position < 0)
             {
                 return null;
-            }
-            
-            if (position == 1)
-            {
-                return head;
             }
 
             var currentElement = head;
@@ -72,134 +92,124 @@ namespace UniqueList
             return currentElement;
         }
 
+        private void RemoveNext(ListElement parent)
+        {
+            parent.next = parent.next.next;
+            size--;
+        }
+
         /// <summary>
-        /// Removes element by position
+        /// Remove element by position
         /// </summary>
-        /// <param name="position">Position of element that you wanna to remove</param>
-        /// <remarks>Elements are numbered starting from 0</remarks>
+        /// <exception cref="RemoveByNotExistPositionException">Throws in case of invalid position</exception>
+        /// <param name="position">Desired position</param>
         public void RemoveByPosition(int position)
         {
-            if (size == 0)
-            {
-                throw new RemoveFromEmptyListException();
-            }
-
-            if (position == 0)
-            {
-                head = head.next;
-                size--;
-                return;
-            }
-
-            if (position == 1)
-            {
-                head.next = head.next.next;
-                size--;
-                return;
-            }
-
             var parentOfRemovableElement = GetParentOfElementByPosition(position);
             if (parentOfRemovableElement == null || parentOfRemovableElement.next == null)
             {
-                return;
+                throw new RemoveByNotExistPositionException();
             }
 
-            size--;
-
-            parentOfRemovableElement.next = parentOfRemovableElement.next.next;
+            RemoveNext(parentOfRemovableElement);
         }
 
         /// <summary>
-        /// Returns parent of element that have users string
+        /// Remove concrete value in list
         /// </summary>
-        /// <param name="value">String, that you wanna to get parent</param>
-        /// <returns>element that have reference to element with this value</returns>
-        /// <remarks>If such element doesn't exist, returns null</remarks>
-        private ListElement GetParentOfElementByValue(string value)
-        {
-            if (head.value == value)
-            {
-                return null;
-            }
-
-            var currentElement = head;
-
-            while (currentElement != null && currentElement.next != null)
-            {
-                if (currentElement.next.value == value)
-                {
-                    return currentElement;
-                }
-                currentElement = currentElement.next;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Removes element with users string
-        /// </summary>
-        /// <param name="value">String, whoose element you wanna to remove</param>
-        public void RemoveByValue(string value)
-        {
-            if (!Contains(value))
-            {
-                throw new RemoveOfNotContainedElementException();
-            }
-
-            if (head.value == value)
-            {
-                head = head.next;
-            }
-
-            var parentOfElement = GetParentOfElementByValue(value);
-
-            if (parentOfElement == null)
-            {
-                return;
-            }
-
-            parentOfElement.next = parentOfElement.next.next;
-        }
-
-        /// <summary>
-        /// Prints all strings of the list
-        /// </summary>
-        public void Print()
-        {
-            var currentElement = head;
-
-            while (currentElement != null)
-            {
-                Console.Write($"{currentElement.value}");
-                currentElement = currentElement.next;
-            }
-
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Returns value of the head and removes head
-        /// </summary>
-        /// <returns>String of head</returns>
-        public string Pop()
+        /// <exception cref="RemoveFromEmptyListException">Throws if list is empty</exception>
+        /// <exception cref="RemoveOfNotContainedElementException">Throws if value doesn't contain in list</exception>
+        /// <param name="value">Value, you wanna to remove</param>
+        public void RemoveByValue(int value)
         {
             if (Empty())
             {
                 throw new RemoveFromEmptyListException();
             }
 
-            string buffer = head.value;
-            head = head.next;
-            return buffer;
+            var currentElement = head;
+            while (currentElement.next != null)
+            {
+                if (currentElement.next.value == value)
+                {
+                    RemoveNext(currentElement);
+                    return;
+                }
+            }
+
+            throw new RemoveOfNotContainedElementException();
+        }
+
+        private ListElement GetNext(ListElement currentElement) => currentElement.next;
+
+        /// <summary>
+        /// Print all values in list in order
+        /// </summary>
+        public void Print()
+        {
+            var currentElement = head;
+            
+            while (currentElement != null)
+            {
+                Console.Write("{0} ", currentElement.value);
+                currentElement = GetNext(currentElement);
+            }
+
+            Console.WriteLine();
         }
 
         /// <summary>
-        /// Checks for availability of string in list
+        /// Gets value of element on desired position
         /// </summary>
-        /// <param name="value">String that you wanna to check</param>
-        /// <returns>True if string contains in the list, else false</returns>
-        public bool Contains(string value)
+        /// <exception cref="Exception">Throws in case of invalid position</exception>
+        /// <param name="position">Position in list</param>
+        /// <returns>Value</returns>
+        public int GetValueOfElementByPosition(int position)
+        {
+            if (position < 0)
+            {
+                throw new InvalidPositionException();
+            }
+
+            if (position >= size)
+            {
+                throw new InvalidPositionException();
+            }
+
+            return GetParentOfElementByPosition(position).next.value;
+        }
+
+        /// <summary>
+        /// Sets value to element on desired position
+        /// </summary>
+        /// <exception cref="InvalidPositionException">Throws in case of invalid position</exception>
+        /// <param name="position">Position in list</param>
+        /// <param name="newValue">new value</param>
+        public void SetValueOnPosition(int position, int newValue)
+        {
+            if (position < 0)
+            {
+                throw new InvalidPositionException();
+            }
+
+            if (position >= size)
+            {
+                throw new InvalidPositionException();
+            }
+
+            GetParentOfElementByPosition(position).next.value = newValue;
+        }
+
+        public bool Empty() => size == 0;
+
+        public int Length() => size;
+
+        /// <summary>
+        /// Checks availibility of value in list
+        /// </summary>
+        /// <param name="value">Checking value</param>
+        /// <returns>True if contains</returns>
+        public bool Contains(int value)
         {
             var currentElement = head;
 
@@ -209,23 +219,10 @@ namespace UniqueList
                 {
                     return true;
                 }
-                currentElement = currentElement.next;
             }
 
             return false;
         }
-
-        /// <summary>
-        /// Checks is list empty
-        /// </summary>
-        /// <returns>True if list is empty, else false</returns>
-        public bool Empty() => size == 0;
-
-        /// <summary>
-        /// Returns size of list
-        /// </summary>
-        /// <returns>Size of list</returns>
-        public int Length() => size;
 
     }
 }

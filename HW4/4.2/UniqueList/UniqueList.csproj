@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdditionOfContainedElementException.cs" />
+    <Compile Include="InvalidPositionException.cs" />
+    <Compile Include="RemoveByNotExistPositionException.cs" />
     <Compile Include="RemoveFromEmptyListException.cs" />
     <Compile Include="RemoveFromListException.cs" />
     <Compile Include="RemoveOfNotContainedElementException.cs" />
