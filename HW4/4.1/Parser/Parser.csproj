@@ -50,6 +50,7 @@
     <Compile Include="InvalidExpressionException.cs" />
     <Compile Include="Multiplication.cs" />
     <Compile Include="NotOperatorException.cs" />
+    <Compile Include="NotParsedExpressionException.cs" />
     <Compile Include="NullParentException.cs" />
     <Compile Include="Number.cs" />
     <Compile Include="Operator.cs" />

@@ -29,6 +29,8 @@ namespace Parser
                 number += expression[index];
                 index++;
             }
+
+            index--;
             return int.Parse(number);
         }
 
@@ -61,15 +63,47 @@ namespace Parser
         }
 
         /// <summary>
+        /// Checks availibility of invalid operators in tree
+        /// </summary>
+        /// <returns>Availibility of invalid operators</returns>
+        private bool Allright()
+        {
+            if (root == null)
+            {
+                return false;
+            }
+
+            return root.Full();
+        }
+
+        /// <summary>
         /// Calculeate expression by built tree
         /// </summary>
+        /// <exception cref="NotParsedExpressionException">Throws if parser hasn't tree</exception>
         /// <returns>Result of expression</returns>
-        public int CalculateParsedExpression() => root.Calculate();
+        public int CalculateParsedExpression()
+        {
+            if (root == null)
+            {
+                throw new NotParsedExpressionException();
+            }
+
+            return root.Calculate();
+        }
 
         /// <summary>
         /// Prints expression
         /// </summary>
-        public void PrintParsedExpression() => root.Print();
+        /// <exception cref="NotParsedExpressionException">Throws if parser hasn't tree</exception>
+        public void PrintParsedExpression()
+        {
+            if (root == null)
+            {
+                throw new NotParsedExpressionException();
+            }
+
+            root.Print();
+        }
 
         /// <summary>
         /// Build tree of arithmetic expression
@@ -86,6 +120,11 @@ namespace Parser
                 if (Char.IsDigit(token))
                 { 
                     root = new Number(CreateNumber(expression, ref index));
+                    if (index != expression.Length - 1)
+                    {
+                        root = null;
+                        throw new InvalidExpressionException();
+                    }
                     return;
                 }
 
@@ -125,6 +164,7 @@ namespace Parser
                         }
                         catch (NullParentException)
                         {
+                            root = null;
                             throw new InvalidExpressionException();
                         }
                     }
@@ -157,8 +197,9 @@ namespace Parser
                 }
             }
 
-            if (root == null)
+            if (!Allright())
             {
+                root = null;
                 throw new InvalidExpressionException();
             }
         }

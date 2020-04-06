@@ -22,7 +22,7 @@ namespace Parser
         /// </summary>
         public override void Print()
         {
-            Console.WriteLine("* ");
+            Console.Write("* ");
             if (leftChild != null)
             {
                 leftChild.Print();

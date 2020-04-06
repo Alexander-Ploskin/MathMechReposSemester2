@@ -92,14 +92,14 @@ namespace ParserTests
         public void ParseBigExpressionWithNumberFirst()
         {
             parser.ParseExpression("* 2 + 2 2");
-            Assert.AreEqual(6, parser.CalculateParsedExpression());
+            Assert.AreEqual(8, parser.CalculateParsedExpression());
         }
 
         [TestMethod]
         public void ParseBigExpressionWithNumberSecond()
         {
             parser.ParseExpression("* + 2 2 2");
-            Assert.AreEqual(6, parser.CalculateParsedExpression());
+            Assert.AreEqual(8, parser.CalculateParsedExpression());
         }
 
         [TestMethod] 

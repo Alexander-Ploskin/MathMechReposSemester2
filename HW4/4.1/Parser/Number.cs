@@ -19,6 +19,11 @@ namespace Parser
         }
 
         /// <summary>
+        /// Numbers always full
+        /// </summary>
+        public bool Full() => true;
+
+        /// <summary>
         /// Print value
         /// </summary>
         public void Print()

@@ -14,5 +14,7 @@ namespace Parser
         void Print();
 
         int Calculate();
+
+        bool Full();
     }
 }

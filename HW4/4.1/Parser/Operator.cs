@@ -9,7 +9,7 @@ namespace Parser
     /// <summary>
     /// Implements operator nodes of tree
     /// </summary>
-    abstract class Operator: INodeOfParserTree
+    abstract class Operator : INodeOfParserTree
     {
         public Operator parent { get; set; }
         protected INodeOfParserTree leftChild = null;
@@ -47,6 +47,19 @@ namespace Parser
                 return newChild;
             }
             throw new FullNodeException();
+        }
+
+        /// <summary>
+        /// Checks is children are null or not full subtrees
+        /// </summary>
+        public bool Full()
+        {
+            if (rightChild == null || leftChild == null)
+            {
+                return false;
+            }
+
+            return rightChild.Full() && leftChild.Full();
         }
 
         /// <summary>
