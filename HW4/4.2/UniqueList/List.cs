@@ -39,30 +39,24 @@ namespace UniqueList
                 throw new InvalidPositionException();
             }
 
-            size++;
-
             if (position == 0)
             {
-                if (head == null)
-                {
-                    head = new ListElement(value, null);
-                    return;
-                }
-
                 head = new ListElement(value, head);
+                size++;
                 return;
             }
 
             var currentElement = head;
-            for (int i = 0; i < position; ++i)
+            for (int i = 0; i < position - 1; ++i)
             {
                 if (currentElement == null)
                 {
                     throw new InvalidPositionException();
                 }
+                currentElement = currentElement.next;
             }
-
             currentElement.next = new ListElement(value, currentElement.next);
+            size++;
         }
 
         /// <summary>
@@ -72,18 +66,18 @@ namespace UniqueList
         /// <returns>Parent</returns>
         private ListElement GetParentOfElementByPosition(int position)
         {
-            if (position < 0)
+            if (position <= 0)
             {
-                return null;
+                throw new IndexOutOfRangeException();
             }
 
             var currentElement = head;
 
-            for (int i = 0; i < position - 2; ++i)
+            for (int i = 0; i < position - 1; ++i)
             {
-                if (currentElement == null)
+                if (currentElement == null || currentElement.next == null)
                 {
-                    return null;
+                    throw new IndexOutOfRangeException();
                 }
 
                 currentElement = currentElement.next;
@@ -105,13 +99,26 @@ namespace UniqueList
         /// <param name="position">Desired position</param>
         public void RemoveByPosition(int position)
         {
-            var parentOfRemovableElement = GetParentOfElementByPosition(position);
-            if (parentOfRemovableElement == null || parentOfRemovableElement.next == null)
+            if (Empty())
+            {
+                throw new RemoveFromEmptyListException();
+            }
+
+            if (position == 0)
+            {
+                head = head.next;
+                size--;
+                return;
+            }
+            try
+            {
+                var parentOfRemovableElement = GetParentOfElementByPosition(position);
+                RemoveNext(parentOfRemovableElement);
+            }
+            catch (IndexOutOfRangeException)
             {
                 throw new RemoveByNotExistPositionException();
             }
-
-            RemoveNext(parentOfRemovableElement);
         }
 
         /// <summary>
@@ -125,6 +132,13 @@ namespace UniqueList
             if (Empty())
             {
                 throw new RemoveFromEmptyListException();
+            }
+
+            if (head.value == value)
+            {
+                head = head.next;
+                size--;
+                return;
             }
 
             var currentElement = head;
@@ -161,7 +175,7 @@ namespace UniqueList
         /// <summary>
         /// Gets value of element on desired position
         /// </summary>
-        /// <exception cref="Exception">Throws in case of invalid position</exception>
+        /// <exception cref="InvalidPositionException">Throws in case of invalid position</exception>
         /// <param name="position">Position in list</param>
         /// <returns>Value</returns>
         public int GetValueOfElementByPosition(int position)
@@ -174,6 +188,11 @@ namespace UniqueList
             if (position >= size)
             {
                 throw new InvalidPositionException();
+            }
+
+            if (position == 0)
+            {
+                return head.value;
             }
 
             return GetParentOfElementByPosition(position).next.value;
@@ -195,6 +214,12 @@ namespace UniqueList
             if (position >= size)
             {
                 throw new InvalidPositionException();
+            }
+
+            if (position == 0)
+            {
+                head.value = newValue;
+                return;
             }
 
             GetParentOfElementByPosition(position).next.value = newValue;
@@ -219,6 +244,7 @@ namespace UniqueList
                 {
                     return true;
                 }
+                currentElement = currentElement.next;
             }
 
             return false;

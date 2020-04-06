@@ -6,7 +6,7 @@ namespace UniqueListTests
     using UniqueList;
 
     [TestClass]
-    class ListTests
+    public class ListTests
     {
         private List list;
 
@@ -99,7 +99,7 @@ namespace UniqueListTests
         [TestMethod]
         public void RemoveByPositionFromEmptyListTest()
         {
-            Assert.ThrowsException<RemoveFromEmptyListException>(() => list.RemoveByPosition(0));
+            Assert.ThrowsException<RemoveFromEmptyListException>(() => list.RemoveByPosition(1));
         }
 
         [TestMethod]

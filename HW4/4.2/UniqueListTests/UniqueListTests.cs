@@ -31,4 +31,5 @@ namespace UniqueListTests
             Assert.ThrowsException<AdditionOfContainedElementException>(() => list.Add(4, 1));
         }
     }
+
 }
