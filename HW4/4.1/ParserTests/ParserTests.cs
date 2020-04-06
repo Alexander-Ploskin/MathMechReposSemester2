@@ -19,31 +19,31 @@ namespace ParserTests
         [TestMethod]
         public void ParseEmptyStringTest()
         {
-            Assert.ThrowsException<NotCorrectOrNotParsedExpressionException>(() => parser.ParseExpression(""));
+            Assert.ThrowsException<InvalidExpressionException>(() => parser.ParseExpression(""));
         }
 
         [TestMethod]
         public void ParseWhiteSpaceTest()
         {
-            Assert.ThrowsException<NotCorrectOrNotParsedExpressionException>(() => parser.ParseExpression("    "));
+            Assert.ThrowsException<InvalidExpressionException>(() => parser.ParseExpression("    "));
         }
 
         [TestMethod]
         public void ParseExpressionOfTwoNumbersTest()
         {
-            Assert.ThrowsException<NotCorrectOrNotParsedExpressionException>(() => parser.ParseExpression("1 1"));
+            Assert.ThrowsException<InvalidExpressionException>(() => parser.ParseExpression("1 1"));
         }
 
         [TestMethod]
         public void ParseExpressionOfOperationWithoutOperandsTest()
         {
-            Assert.ThrowsException<NotCorrectOrNotParsedExpressionException>(() => parser.ParseExpression("+"));
+            Assert.ThrowsException<InvalidExpressionException>(() => parser.ParseExpression("+"));
         }
 
         [TestMethod]
         public void ParseExpressionOfOperatorWithOnlyOneOperandTest()
         {
-            Assert.ThrowsException<NotCorrectOrNotParsedExpressionException>(() => parser.ParseExpression("+ 1"));
+            Assert.ThrowsException<InvalidExpressionException>(() => parser.ParseExpression("+ 1"));
         }
 
         [TestMethod]

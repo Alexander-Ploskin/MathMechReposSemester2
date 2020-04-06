@@ -47,8 +47,8 @@
     <Compile Include="Division.cs" />
     <Compile Include="FullNodeException.cs" />
     <Compile Include="INodeOfParserTree.cs" />
+    <Compile Include="InvalidExpressionException.cs" />
     <Compile Include="Multiplication.cs" />
-    <Compile Include="NotCorrectOrNotParsedExpressionException.cs" />
     <Compile Include="NotOperatorException.cs" />
     <Compile Include="NullParentException.cs" />
     <Compile Include="Number.cs" />

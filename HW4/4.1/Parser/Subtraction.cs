@@ -15,15 +15,7 @@ namespace Parser
         /// Subtracts right subtree by left
         /// </summary>
         /// <returns>Result of subtraction</returns>
-        public override int Calculate()
-        {
-            if (!CanCalculate())
-            {
-                throw new NotCorrectOrNotParsedExpressionException();
-            }
-
-            return leftChild.Calculate() - rightChild.Calculate();
-        }
+        public override int Calculate() => leftChild.Calculate() - rightChild.Calculate();
 
         /// <summary>
         /// Print subtree

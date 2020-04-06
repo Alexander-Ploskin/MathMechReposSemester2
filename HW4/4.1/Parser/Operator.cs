@@ -16,12 +16,6 @@ namespace Parser
         protected INodeOfParserTree rightChild = null;
 
         /// <summary>
-        /// Can node be calculated or not
-        /// </summary>
-        /// <returns>Has children or not</returns>
-        protected bool CanCalculate() => leftChild != null && rightChild != null;
-
-        /// <summary>
         /// Print subtree
         /// </summary>
         public abstract void Print();

@@ -64,28 +64,12 @@ namespace Parser
         /// Calculeate expression by built tree
         /// </summary>
         /// <returns>Result of expression</returns>
-        public int CalculateParsedExpression()
-        {
-            if (root == null)
-            {
-                throw new NotCorrectOrNotParsedExpressionException();
-            }
-
-            return root.Calculate();
-        }
+        public int CalculateParsedExpression() => root.Calculate();
 
         /// <summary>
         /// Prints expression
         /// </summary>
-        public void PrintParsedExpression()
-        {
-            if (root == null)
-            {
-                throw new NotCorrectOrNotParsedExpressionException();
-            }
-
-            root.Print();
-        }
+        public void PrintParsedExpression() => root.Print();
 
         /// <summary>
         /// Build tree of arithmetic expression
@@ -141,7 +125,7 @@ namespace Parser
                         }
                         catch (NullParentException)
                         {
-                            throw new Exception("Invalid expression");
+                            throw new InvalidExpressionException();
                         }
                     }
                 }
@@ -171,7 +155,11 @@ namespace Parser
                         break;
                     }
                 }
+            }
 
+            if (root == null)
+            {
+                throw new InvalidExpressionException();
             }
         }
 
