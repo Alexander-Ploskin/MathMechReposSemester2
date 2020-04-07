@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace ListFunctionsTests
 {
@@ -21,29 +22,29 @@ namespace ListFunctionsTests
         [TestMethod]
         public void SimpleMapTest()
         {
-            Assert.AreEqual(new List<int> { 0, 2, 4, 6, -10, 20, 0 }, ListFunctions.Map(list, (x) => x * 2));
-            Assert.AreEqual(new List<int> { 0, 1, 4, 9, 25, 100, 0 }, ListFunctions.Map(list, (x) => x * x));
-            Assert.AreEqual(new List<int> { -5, -4, -3, -2, -10, 5, -5 }, ListFunctions.Map(list, (x) => x * 2));
+            Assert.IsTrue(ListFunctions.Map(list, (x) => x * 2).SequenceEqual(new List<int> { 0, 2, 4, 6, -10, 20, 0 }));
+            Assert.IsTrue(ListFunctions.Map(list, (x) => x * x).SequenceEqual(new List<int> { 0, 1, 4, 9, 25, 100, 0 }));
+            Assert.IsTrue(ListFunctions.Map(list, (x) => x - 5).SequenceEqual(new List<int> { -5, -4, -3, -2, -10, 5, -5 }));
         }
 
         [TestMethod]
         public void MapEmptyListTest()
         {
-            Assert.ThrowsException<Exception>(() => ListFunctions.Map(new List<int> { }, (x) => 49 * x + x * x - 15));
+            ListFunctions.Map(new List<int> { }, (x) => 49 * x + x * x - 15);
         }
 
         [TestMethod]
         public void SimpleFilterTest()
         {
-            Assert.AreEqual(new List<int> { 1, 2, 3, -5, 10 }, ListFunctions.Filter(list, (x) => x != 0));
-            Assert.AreEqual(new List<int> { 2 }, ListFunctions.Filter(list, (x) => x % 2 == 0));
-            Assert.AreEqual(new List<int> { }, ListFunctions.Filter(list, (x) => x > 10));
+            Assert.IsTrue(ListFunctions.Filter(list, (x) => x != 0).SequenceEqual(new List<int> { 1, 2, 3, -5, 10 }));
+            Assert.IsTrue(ListFunctions.Filter(list, (x) => x % 2 == 0).SequenceEqual(new List<int> { 0, 2, 10, 0 }));
+            Assert.IsTrue(ListFunctions.Filter(list, (x) => x > 10).SequenceEqual(new List<int> { }));
         }
 
         [TestMethod]
         public void FilterEmptyListTest()
         {
-            Assert.ThrowsException<Exception>(() => ListFunctions.Filter(new List<int> { }, (x) => x == 420));
+            ListFunctions.Filter(new List<int> { }, (x) => x == 420);
         }
 
         [TestMethod]
@@ -57,7 +58,7 @@ namespace ListFunctionsTests
         [TestMethod]
         public void FoldEmptyListTest()
         {
-            Assert.ThrowsException<Exception>(() => ListFunctions.Fold(new List<int> { }, 0, (acc, elem) => acc + elem * elem));
+            ListFunctions.Fold(new List<int> { }, 0, (acc, elem) => acc + elem * elem);
         }
 
     }

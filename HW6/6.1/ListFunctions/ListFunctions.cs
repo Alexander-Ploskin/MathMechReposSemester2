@@ -19,7 +19,7 @@ namespace ListFunctions
         /// <returns>List of transformed elements</returns>
         public static List<int> Map(List<int> list,Func<int, int> func)
         {
-            var output = new List<int>();
+            var output = new List<int>() { };
 
             foreach (int item in list)
             {
@@ -37,15 +37,22 @@ namespace ListFunctions
         /// <returns>List of desired elements</returns>
         public static List<int> Filter(List<int> list, Func<int, bool> func)
         {
+            var output = new List<int>();
+
             foreach (int item in list)
             {
                 if (func(item))
                 {
-                    list.Remove(item);
+                    output.Add(item);
                 }
             }
 
-            return list;
+            foreach (int item in output)
+            {
+                Console.WriteLine(item);
+            }
+
+            return output;
         }
 
         /// <summary>
