@@ -13,7 +13,7 @@ namespace ConsoleGame
         {
             try
             {
-                var game = new Game(Environment.CurrentDirectory + @"\Maps\Map1.txt");
+                var game = new Game(Environment.CurrentDirectory.TrimEnd(@"\ConsoleGame\bin\Debug".ToCharArray()) +  @"\Maps\Map2.txt");
                 var eventLoop = new EventLoop();
                 eventLoop.LeftHandler += game.OnLeft;
                 eventLoop.RightHandler += game.OnRight;
@@ -26,5 +26,6 @@ namespace ConsoleGame
                 Console.WriteLine("Invalid path or map file");
             }
         }
+
     }
 }

@@ -38,14 +38,14 @@ namespace ConsoleGame
                 }
             }
 
-            setCursor();
+            SetCursor();
             Console.CursorVisible = false;
         }
 
         /// <summary>
         /// Sets cursor and position in mapMatrix during initialization
         /// </summary>
-        private void setCursor()
+        private void SetCursor()
         {
             for (int i = 0; i < height; ++i)
             {
@@ -67,13 +67,13 @@ namespace ConsoleGame
         /// Gets token from map matrix
         /// </summary>
         /// <returns>Token in map matrix in current position</returns>
-        public char getToken() => mapMatrix[position[0]][position[1]];
+        public char GetToken() => mapMatrix[position[0]][position[1]];
 
         /// <summary>
         /// Move @ right
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void goRight()
+        public void GoRight()
         {
             Console.CursorLeft++;
             position[1]++;
@@ -83,7 +83,7 @@ namespace ConsoleGame
         /// Move @ left
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void goLeft()
+        public void GoLeft()
         {
             Console.CursorLeft--;
             position[1]--;
@@ -93,7 +93,7 @@ namespace ConsoleGame
         /// Move @ up
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void goUp()
+        public void GoUp()
         {
             Console.CursorTop--;
             position[0]--;
@@ -103,7 +103,7 @@ namespace ConsoleGame
         /// Move @ down
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void goDown()
+        public void GoDown()
         {
             Console.CursorTop++;
             position[0]++;
@@ -114,7 +114,7 @@ namespace ConsoleGame
         /// </summary>
         /// <param name="newToken">New symbol</param>
         /// <returns>new string</returns>
-        private string createStringWithNewToken(char newToken)
+        private string CreateStringWithNewToken(char newToken)
         {
             var newString = "";
             for (int i = 0; i < mapMatrix[position[0]].Length; ++i)
@@ -133,9 +133,9 @@ namespace ConsoleGame
         /// sets new symbol in position
         /// </summary>
         /// <param name="newToken">New symbol</param>
-        public void setToken(char newToken)
+        public void SetToken(char newToken)
         {
-            mapMatrix[position[0]] = createStringWithNewToken(newToken);
+            mapMatrix[position[0]] = CreateStringWithNewToken(newToken);
             Console.Write($"{newToken}");
             Console.CursorLeft--;
         }

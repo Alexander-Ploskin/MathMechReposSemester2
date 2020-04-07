@@ -12,7 +12,16 @@ namespace ConsoleGame
     /// </summary>
     public class Game
     {
-        GameMap map;
+        private GameMap map;
+
+        /// <summary>
+        /// Only for testing
+        /// </summary>
+        /// <param name="map">Initializated game map</param>
+        public Game(GameMap map)
+        {
+            this.map = map;
+        }
 
         public Game(string path)
         {
@@ -28,17 +37,17 @@ namespace ConsoleGame
         {
             try
             {
-                map.goLeft();
-                if (map.getToken() != '■')
+                map.GoLeft();
+                if (map.GetToken() != '■')
                 {
-                    map.goRight();
-                    map.setToken(' ');
-                    map.goLeft();
-                    map.setToken('@');
+                    map.GoRight();
+                    map.SetToken(' ');
+                    map.GoLeft();
+                    map.SetToken('@');
                 }
                 else
                 {
-                    map.goRight();
+                    map.GoRight();
                     Console.Beep();
                 }
             }
@@ -57,17 +66,17 @@ namespace ConsoleGame
         {
             try
             {
-                map.goRight();
-                if (map.getToken() != '■')
+                map.GoRight();
+                if (map.GetToken() != '■')
                 {
-                    map.goLeft();
-                    map.setToken(' ');
-                    map.goRight();
-                    map.setToken('@');
+                    map.GoLeft();
+                    map.SetToken(' ');
+                    map.GoRight();
+                    map.SetToken('@');
                 }
                 else
                 {
-                    map.goLeft();
+                    map.GoLeft();
                     Console.Beep();
                 }
             }
@@ -86,17 +95,17 @@ namespace ConsoleGame
         {
             try
             {
-                map.goDown();
-                if (map.getToken() != '■')
+                map.GoDown();
+                if (map.GetToken() != '■')
                 {
-                    map.goUp();
-                    map.setToken(' ');
-                    map.goDown();
-                    map.setToken('@');
+                    map.GoUp();
+                    map.SetToken(' ');
+                    map.GoDown();
+                    map.SetToken('@');
                 }
                 else
                 {
-                    map.goUp();
+                    map.GoUp();
                     Console.Beep();
                 }
             }
@@ -115,18 +124,18 @@ namespace ConsoleGame
         {
             try
             {
-                map.goUp();
-                if (map.getToken() != '■')
+                map.GoUp();
+                if (map.GetToken() != '■')
                 {
-                    map.goDown();
-                    map.setToken(' ');
-                    map.goUp();
-                    map.setToken('@');
+                    map.GoDown();
+                    map.SetToken(' ');
+                    map.GoUp();
+                    map.SetToken('@');
                 }
                 else
                 {
                     Console.Beep();
-                    map.goDown();
+                    map.GoDown();
                 }
             }
             catch (MoveException)
