@@ -34,8 +34,7 @@ namespace Calculator
         {
             if (Empty())
             {
-                Console.WriteLine("Stack is empty!");
-                return 0;
+                throw new PopFromEmptyStackException();
             }
 
             int result = arrayOfStackElements[head - 1];

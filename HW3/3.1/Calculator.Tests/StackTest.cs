@@ -3,12 +3,12 @@
 namespace Calculator.Tests
 {
     [TestClass]
-    public class ArrayStackTest
+    public class StackTest
     {
         [TestInitialize]
         public void Initialize()
         {
-            stack = new ArrayStack();
+            stack = new ListStack();
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace Calculator.Tests
         [TestMethod]
         public void PopFromEmptyStackTest()
         {
-            stack.Pop();
+            Assert.ThrowsException<PopFromEmptyStackException>(() => stack.Pop());
         }
 
         [TestMethod]
@@ -40,23 +40,6 @@ namespace Calculator.Tests
             Assert.AreEqual(stack.Pop(), 1);
         }
 
-        [TestMethod]
-
-        public void ResizeTest()
-        {
-            for (int i = 0; i < 11; ++i)
-            {
-                stack.Push(i);
-            }
-
-            for (int i = 0; i < 10; ++i)
-            {
-                stack.Pop();
-            }
-
-            Assert.AreEqual(stack.Pop(), 0);
-        }
-
-        private ArrayStack stack;
+        private ListStack stack;
     }
 }

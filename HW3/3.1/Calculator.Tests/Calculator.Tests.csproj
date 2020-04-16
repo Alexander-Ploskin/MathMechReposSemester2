@@ -49,9 +49,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayStackTest.cs" />
     <Compile Include="CalculatorTest.cs" />
-    <Compile Include="ListStackTest.cs" />
+    <Compile Include="StackTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
