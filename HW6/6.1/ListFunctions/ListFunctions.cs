@@ -17,7 +17,7 @@ namespace ListFunctions
         /// <param name="list">Input list</param>
         /// <param name="func">Int function for elements</param>
         /// <returns>List of transformed elements</returns>
-        public static List<int> Map(List<int> list,Func<int, int> func)
+        public static List<int> Map(List<int> list, Func<int, int> func)
         {
             var output = new List<int>() { };
 
@@ -45,11 +45,6 @@ namespace ListFunctions
                 {
                     output.Add(item);
                 }
-            }
-
-            foreach (int item in output)
-            {
-                Console.WriteLine(item);
             }
 
             return output;
