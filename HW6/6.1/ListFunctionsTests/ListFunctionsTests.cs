@@ -1,25 +1,22 @@
-﻿using System;
+using NUnit.Framework;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace ListFunctionsTests
 {
     using ListFunctions;
 
-    [TestClass]
-    public class ListFunctionsTests
+    public class Tests
     {
         private List<int> list = null;
 
-        [TestInitialize]
-
-        public void Initialize()
+        [SetUp]
+        public void Setup()
         {
-            list = new List<int>() { 0, 1, 2, 3, -5, 10, 0};
+            list = new List<int>() { 0, 1, 2, 3, -5, 10, 0 };
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleMapTest()
         {
             Assert.IsTrue(ListFunctions.Map(list, (x) => x * 2).SequenceEqual(new List<int> { 0, 2, 4, 6, -10, 20, 0 }));
@@ -27,13 +24,13 @@ namespace ListFunctionsTests
             Assert.IsTrue(ListFunctions.Map(list, (x) => x - 5).SequenceEqual(new List<int> { -5, -4, -3, -2, -10, 5, -5 }));
         }
 
-        [TestMethod]
+        [Test]
         public void MapEmptyListTest()
         {
             ListFunctions.Map(new List<int> { }, (x) => 49 * x + x * x - 15);
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleFilterTest()
         {
             Assert.IsTrue(ListFunctions.Filter(list, (x) => x != 0).SequenceEqual(new List<int> { 1, 2, 3, -5, 10 }));
@@ -41,13 +38,13 @@ namespace ListFunctionsTests
             Assert.IsTrue(ListFunctions.Filter(list, (x) => x > 10).SequenceEqual(new List<int> { }));
         }
 
-        [TestMethod]
+        [Test]
         public void FilterEmptyListTest()
         {
             ListFunctions.Filter(new List<int> { }, (x) => x == 420);
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleFoldTest()
         {
             Assert.AreEqual(6, ListFunctions.Fold(new List<int> { 1, 2, 3 }, 1, (acc, elem) => acc * elem));
@@ -55,7 +52,7 @@ namespace ListFunctionsTests
             Assert.AreEqual(14, ListFunctions.Fold(new List<int> { 1, 2, 3 }, 0, (acc, elem) => acc + elem * elem));
         }
 
-        [TestMethod]
+        [Test]
         public void FoldEmptyListTest()
         {
             ListFunctions.Fold(new List<int> { }, 0, (acc, elem) => acc + elem * elem);
