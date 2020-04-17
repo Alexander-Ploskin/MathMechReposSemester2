@@ -79,7 +79,7 @@ namespace QueueTests
         }
 
         [Test]
-        public void QueueTest()
+        public void AdditionOfThreeElementsWithNotSamePriorityTest()
         {
             queue.Enqueue(2, 1);
             queue.Enqueue(3, 1);
@@ -88,5 +88,6 @@ namespace QueueTests
             Assert.AreEqual(2, queue.Dequeue());
             Assert.AreEqual(3, queue.Dequeue());
         }
+
     }
 }
