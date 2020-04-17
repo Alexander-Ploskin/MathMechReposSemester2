@@ -1,9 +1,9 @@
 image: Visual Studio 2019
 before_build:
-  - nuget restore HW6/6.1/ListFunctions.sln
+  - nuget restore HW6/6.1/ListFunctions/ListFunctions.sln
 
 build_script:
-  - dotnet build HW6/6.1/ListFunctions.sln
+  - dotnet build HW6/6.1/ListFunctions/ListFunctions.sln
 
 test_script:
-  - dotnet test HW6/6.1/ListFunctions.sln
+  - dotnet test HW6/6.1/ListFunctions/ListFunctions.sln
