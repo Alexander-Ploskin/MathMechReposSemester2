@@ -17,6 +17,6 @@ namespace HashTable
         /// <param name="inputString">String you wanna to hash</param>
         /// <param name="size">Size of hash table</param>
         /// <returns>Non-random int</returns>
-        int HashFunction(string inputString, int size);
+        int HashFunction(string inputString);
     }
 }

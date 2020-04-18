@@ -1,24 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
-namespace HashTable.Tests
+namespace HashTableTests
 {
-    [TestClass]
-    public class ListTest
+    using HashTable;
+
+    class ListTests
     {
-        [TestInitialize]
-        public void Initialize()
+        [SetUp]
+        public void SetUp()
         {
             list = new List();
         }
 
-        [TestMethod]
+        [Test]
         public void AddTest()
         {
             list.Add("Dog");
             Assert.IsTrue(list.Contains("Dog"));
         }
 
-        [TestMethod]
+        [Test]
         public void AddOfTwoElementsTest()
         {
             list.Add("Dog");
@@ -27,7 +28,7 @@ namespace HashTable.Tests
             Assert.IsTrue(list.Contains("Dog"));
         }
 
-        [TestMethod]
+        [Test]
         public void ResizeTest()
         {
             for (int i = 0; i < 100; ++i)
@@ -37,37 +38,17 @@ namespace HashTable.Tests
             Assert.IsTrue(list.Contains("10"));
         }
 
-        [TestMethod]
+        [Test]
         public void NotContainsTest()
         {
             Assert.IsFalse(list.Contains("Dog"));
         }
 
-        [TestMethod]
-        public void RemoveByPositionTest()
-        {
-            list.Add("0");
-            list.Add("1");
-            list.Add("2");
-            list.Add("3");
-            list.Add("4");
-            list.Add("5");
-
-            list.RemoveByPosition(0);
-            Assert.IsFalse(list.Contains("0"));
-            list.RemoveByPosition(1);
-            Assert.IsFalse(list.Contains("2"));
-            list.RemoveByPosition(3);
-            Assert.IsFalse(list.Contains("5"));
-            list.RemoveByPosition(3);
-            Assert.IsTrue(list.Contains("4"));
-        }
-
-        [TestMethod]
+        [Test]
         public void RemoveByValueTest()
         {
             list.Add("Dog");
-            list.Add("Pig"); 
+            list.Add("Pig");
             list.Add("Cat");
             list.RemoveByValue("Cat");
             Assert.IsFalse(list.Contains("Cat"));
@@ -75,32 +56,26 @@ namespace HashTable.Tests
             Assert.IsTrue(list.Contains("Pig"));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByValueFromEmptyListTest()
         {
             list.RemoveByValue("Pig");
         }
 
-        [TestMethod]
-        public void RemoveByPositionFromEmptyListTest()
-        {
-            list.RemoveByPosition(10);
-        }
-
-        [TestMethod]
+        [Test]
         public void PopFromEmptyListTest()
         {
             list.Pop();
         }
 
-        [TestMethod]
+        [Test]
         public void PopTest()
         {
             list.Add("Dog");
             Assert.AreEqual(list.Pop(), "Dog");
         }
 
-        [TestMethod]
+        [Test]
         public void PopOfTwoElementsTest()
         {
             list.Add("Dog");

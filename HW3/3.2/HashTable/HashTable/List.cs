@@ -73,43 +73,6 @@ namespace HashTable
         }
 
         /// <summary>
-        /// Removes element by position
-        /// </summary>
-        /// <param name="position">Position of element that you wanna to remove</param>
-        /// <remarks>Elements are numbered starting from 0</remarks>
-        public void RemoveByPosition(int position)
-        {
-            if (head == null)
-            {
-                return;
-            }
-
-            if (position == 0)
-            {
-                head = head.next;
-                size--;
-                return;
-            }
-
-            if (position == 1)
-            {
-                head.next = head.next.next;
-                size--;
-                return;
-            }
-
-            var parentOfRemovableElement = GetParentOfElementByPosition(position);
-            if (parentOfRemovableElement == null || parentOfRemovableElement.next == null)
-            {
-                return;
-            }
-
-            size--;
-
-            parentOfRemovableElement.next = parentOfRemovableElement.next.next;
-        }
-
-        /// <summary>
         /// Returns parent of element that have users string
         /// </summary>
         /// <param name="value">String, that you wanna to get parent</param>
@@ -150,6 +113,8 @@ namespace HashTable
             if (head.value == value)
             {
                 head = head.next;
+                size--;
+                return;
             }
 
             var parentOfElement = GetParentOfElementByValue(value);
@@ -160,6 +125,7 @@ namespace HashTable
             }
 
             parentOfElement.next = parentOfElement.next.next;
+            size--;
         }
 
         /// <summary>
@@ -191,6 +157,7 @@ namespace HashTable
 
             string buffer = head.value;
             head = head.next;
+            size--;
             return buffer;
         }
 

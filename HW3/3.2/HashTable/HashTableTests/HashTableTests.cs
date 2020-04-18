@@ -1,31 +1,31 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
-namespace HashTable.Tests
+namespace HashTableTests
 {
-    [TestClass]
-    public class HashTableTest
+    using HashTable;
+
+    public class Tests
     {
-        [TestInitialize]
-        public void Initialize()
+        [SetUp]
+        public void SetUp()
         {
             hashTable = new HashTable();
         }
 
-        [TestMethod]
+        [Test]
         public void ContainsTest()
         {
             hashTable.Add("Dog");
             Assert.IsTrue(hashTable.Contains("Dog"));
         }
 
-        [TestMethod]
+        [Test]
         public void ContainsInCaseOfEmptyTableTest()
         {
             Assert.IsFalse(hashTable.Contains("Dog"));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveTest()
         {
             hashTable.Add("Dog");
@@ -33,7 +33,7 @@ namespace HashTable.Tests
             Assert.IsFalse(hashTable.Contains("Dog"));
         }
 
-        [TestMethod]
+        [Test]
         public void ResizeTest()
         {
             for (int i = 0; i < 100; ++i)
@@ -43,7 +43,7 @@ namespace HashTable.Tests
             Assert.IsTrue(hashTable.Contains("12"));
         }
 
-        [TestMethod]
+        [Test]
         public void ChangeFunctionTest()
         {
             hashTable.Add("Pig");
@@ -56,29 +56,28 @@ namespace HashTable.Tests
             Assert.IsTrue(hashTable.Contains("Goose"));
         }
 
-        [TestMethod]
+        [Test]
         public void AddOfTwoSameStringsTest()
         {
-            hashTable.Add("Scooby doo");
             hashTable.Add("Scooby doo");
             hashTable.Add("Scooby doo");
             Assert.IsTrue(hashTable.Contains("Scooby doo"));
         }
 
 
-        [TestMethod]
+        [Test]
         public void RemoveOfNotContainedStringTest()
         {
             hashTable.Add("1");
             hashTable.Remove("2");
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveFromEmptyTableTest()
         {
             hashTable.Remove("222");
         }
 
-        HashTable hashTable;
+        private HashTable hashTable;
     }
 }

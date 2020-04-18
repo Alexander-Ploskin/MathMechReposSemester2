@@ -11,12 +11,12 @@ namespace HashTable
     /// </summary>
     public class SimpleHashFunction: IHashFunction
     {
-        public int HashFunction(string inputString, int size)
+        public int HashFunction(string inputString)
         {
             int result = 0;
             for (int i = 0; i < inputString.Length; ++i)
             {
-                result += (Convert.ToInt32(inputString[i]) - 10) % size;
+                result += Convert.ToInt32(inputString[i]) - 10;
             }
             return result;
         }
