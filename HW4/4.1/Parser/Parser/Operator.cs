@@ -9,16 +9,33 @@ namespace Parser
     /// <summary>
     /// Implements operator nodes of tree
     /// </summary>
-    abstract class Operator : INodeOfParserTree
+    abstract class Operator : INodeOfExpressionTree
     {
         public Operator parent { get; set; }
-        protected INodeOfParserTree leftChild = null;
-        protected INodeOfParserTree rightChild = null;
+        protected INodeOfExpressionTree leftChild = null;
+        protected INodeOfExpressionTree rightChild = null;
+
+        /// <summary>
+        /// Prints this operator
+        /// </summary>
+        protected abstract void PrintThis();
 
         /// <summary>
         /// Print subtree
         /// </summary>
-        public abstract void Print();
+        public void Print()
+        {
+            PrintThis();
+
+            if (leftChild != null)
+            {
+                leftChild.Print();
+            }
+            if (rightChild != null)
+            {
+                rightChild.Print();
+            }
+        }
 
         /// <summary>
         /// Calculate subtree

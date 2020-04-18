@@ -9,19 +9,15 @@ namespace Parser
     /// <summary>
     /// Parser of arithmetic expressions
     /// </summary>
-    public class Parser
+    public static class Parser
     {
-        private INodeOfParserTree root = null;
-
-        private Operator currentParent = null;
-
         /// <summary>
         /// Create number by consecutive characters
         /// </summary>
         /// <param name="expression">Expression, with those symbols</param>
         /// <param name="index">Index of first symbol</param>
         /// <returns>Number</returns>
-        private int CreateNumber(string expression, ref int index)
+        private static int CreateNumber(string expression, ref int index)
         {
             string number = "";
             while (index < expression.Length && Char.IsDigit(expression[index]))
@@ -40,78 +36,25 @@ namespace Parser
         /// <param name="token">Symbol of operator, that you want to create</param>
         /// <exception cref="NotOperatorException">Throws if token isn't operator</exception>
         /// <returns>New operator</returns>
-        private Operator WhichOperator(char token)
-        {
-            if (token == '+')
-            {
-                return new Addition();
-            }
-            if (token == '-')
-            {
-                return new Subtraction();
-            }
-            if (token == '*')
-            {
-                return new Multiplication();
-            }
-            if (token == '/')
-            {
-                return new Division();
-            }
-
-            throw new NotOperatorException();
-        }
-
-        /// <summary>
-        /// Checks availibility of invalid operators in tree
-        /// </summary>
-        /// <returns>Availibility of invalid operators</returns>
-        private bool Allright()
-        {
-            if (root == null)
-            {
-                return false;
-            }
-
-            return root.Full();
-        }
-
-        /// <summary>
-        /// Calculeate expression by built tree
-        /// </summary>
-        /// <exception cref="NotParsedExpressionException">Throws if parser hasn't tree</exception>
-        /// <returns>Result of expression</returns>
-        public int CalculateParsedExpression()
-        {
-            if (root == null)
-            {
-                throw new NotParsedExpressionException();
-            }
-
-            return root.Calculate();
-        }
-
-        /// <summary>
-        /// Prints expression
-        /// </summary>
-        /// <exception cref="NotParsedExpressionException">Throws if parser hasn't tree</exception>
-        public void PrintParsedExpression()
-        {
-            if (root == null)
-            {
-                throw new NotParsedExpressionException();
-            }
-
-            root.Print();
-        }
+        private static Operator WhichOperator(char token)
+            => token switch
+            { 
+                '+' => new Addition(),
+                '-' => new Subtraction(),
+                '*' => new Multiplication(),
+                '/' => new Division(),
+                _ => throw new NotOperatorException(),
+            };
 
         /// <summary>
         /// Build tree of arithmetic expression
         /// </summary>
         /// <exception cref="InvalidExpressionException">Throws if expression isn't correct</exception>
         /// <param name="expression">Input expression</param>
-        public void ParseExpression(string expression)
+        public static ExpressionTree ParseExpression(string expression)
         {
+            var tree = new ExpressionTree();
+            Operator currentParent = null;
             int index = 0;
 
             while (index < expression.Length)  //Itinialize root of tree
@@ -120,19 +63,18 @@ namespace Parser
 
                 if (Char.IsDigit(token))
                 { 
-                    root = new Number(CreateNumber(expression, ref index));
+                    tree.root = new Number(CreateNumber(expression, ref index));
                     if (index != expression.Length - 1)
                     {
-                        root = null;
                         throw new InvalidExpressionException();
                     }
-                    return;
+                    return tree;
                 }
 
                 try
                 {
                     currentParent = WhichOperator(token);
-                    root = currentParent;
+                    tree.root = currentParent;
                     index++;
                     break;
                 }
@@ -165,7 +107,6 @@ namespace Parser
                         }
                         catch (NullParentException)
                         {
-                            root = null;
                             throw new InvalidExpressionException();
                         }
                     }
@@ -198,11 +139,12 @@ namespace Parser
                 }
             }
 
-            if (!Allright())
+            if (!tree.Allright())
             {
-                root = null;
                 throw new InvalidExpressionException();
             }
+
+            return tree;
         }
 
     }

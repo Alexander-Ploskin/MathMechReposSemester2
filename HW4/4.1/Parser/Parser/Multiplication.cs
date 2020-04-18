@@ -18,19 +18,11 @@ namespace Parser
         public override int Calculate() => leftChild.Calculate() * rightChild.Calculate();
 
         /// <summary>
-        /// Print subtree
+        /// Prints *
         /// </summary>
-        public override void Print()
+        protected override void PrintThis()
         {
             Console.Write("* ");
-            if (leftChild != null)
-            {
-                leftChild.Print();
-            }
-            if (rightChild != null)
-            {
-                rightChild.Print();
-            }
         }
 
     }

@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 namespace Parser
 {
     /// <summary>
-    /// Interface of nodes of arithmetic expression tree
+    /// Throws when someone is trying to calculate or print not correct expression
     /// </summary>
-    interface INodeOfParserTree
-    { 
-        void Print();
-
-        int Calculate();
-
-        bool Full();
+    public class InvalidExpressionException : SystemException
+    {
     }
 }

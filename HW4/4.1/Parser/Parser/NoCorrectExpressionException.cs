@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
-    public class NotParsedExpressionException : SystemException
+    public class NoCorrectExpressionException : SystemException
     {
     }
 }

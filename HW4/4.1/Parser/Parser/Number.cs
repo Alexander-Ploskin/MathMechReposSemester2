@@ -9,7 +9,7 @@ namespace Parser
     /// <summary>
     /// Implements number nodes in tree
     /// </summary>
-    class Number: INodeOfParserTree
+    class Number: INodeOfExpressionTree
     {
         private int value = 0;
 
@@ -35,9 +35,7 @@ namespace Parser
         /// Calculate our subtree
         /// </summary>
         /// <returns>Value</returns>
-        public int Calculate()
-        {
-            return value;
-        }
+        public int Calculate() => value;
+
     }
 }

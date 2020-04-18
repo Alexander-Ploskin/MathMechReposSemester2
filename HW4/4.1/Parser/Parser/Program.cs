@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parser
 {
@@ -12,14 +8,14 @@ namespace Parser
         {
             Console.WriteLine("Enter the expression in polish notation:");
             var expression = Console.ReadLine();
-            var parser = new Parser();
+
             try
             {
-                parser.ParseExpression(expression);
+                var expressionTree = Parser.ParseExpression(expression);
                 Console.WriteLine("Parsed expression");
-                parser.PrintParsedExpression();
+                expressionTree.PrintExpression();
                 Console.WriteLine();
-                Console.WriteLine($"Answer: {parser.CalculateParsedExpression()}");
+                Console.WriteLine($"Answer: {expressionTree.CalculateExpression()}");
             }
             catch (InvalidExpressionException)
             {
@@ -29,10 +25,11 @@ namespace Parser
             {
                 Console.WriteLine("Division by zero!");
             }
-            catch (NotParsedExpressionException)
+            catch (NoCorrectExpressionException)
             {
                 Console.WriteLine("Not correct expression");
             }
         }
+
     }
 }
