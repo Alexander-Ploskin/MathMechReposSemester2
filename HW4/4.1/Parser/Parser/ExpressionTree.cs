@@ -14,13 +14,13 @@ namespace Parser
         /// <summary>
         /// Calculeate expression by built tree
         /// </summary>
-        /// <exception cref="NoCorrectExpressionException">Throws if parser hasn't tree</exception>
+        /// <exception cref="NotCorrectExpressionException">Throws if parser hasn't tree</exception>
         /// <returns>Result of expression</returns>
         public int CalculateExpression()
         {
             if (!Allright())
             {
-                throw new NoCorrectExpressionException();
+                throw new NotCorrectExpressionException();
             }
 
             return root.Calculate();
@@ -29,12 +29,12 @@ namespace Parser
         /// <summary>
         /// Prints expression
         /// </summary>
-        /// <exception cref="NoCorrectExpressionException">Throws if parser hasn't tree</exception>
+        /// <exception cref="NotCorrectExpressionException">Throws if parser hasn't tree</exception>
         public void PrintExpression()
         {
             if (!Allright())
             {
-                throw new NoCorrectExpressionException();
+                throw new NotCorrectExpressionException();
             }
 
             root.Print();

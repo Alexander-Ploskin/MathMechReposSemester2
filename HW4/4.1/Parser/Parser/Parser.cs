@@ -57,7 +57,7 @@ namespace Parser
             Operator currentParent = null;
             int index = 0;
 
-            while (index < expression.Length)  //Itinialize root of tree
+            while (index < expression.Length)  //Initialize root of tree
             {
                 char token = expression[index];
 

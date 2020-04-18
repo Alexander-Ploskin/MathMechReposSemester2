@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Parser
 {
     /// <summary>
-    /// Throws when token, that should be operator isn't operator
+    /// Throws when someone is trying to parse not correct expression
     /// </summary>
-    class NotOperatorException: SystemException
+    public class NotCorrectExpressionException : SystemException
     {
     }
 }
