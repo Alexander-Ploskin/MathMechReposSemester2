@@ -50,22 +50,10 @@ namespace ConsoleGame
             try
             {
                 map.GoLeft();
+                Console.Write(' ');
+                Console.CursorLeft -= 2;
+                Console.Write('@');
                 Console.CursorLeft--;
-                if (map.GetToken() != '■')
-                {
-                    map.GoRight();
-                    Console.CursorLeft++;
-                    map.SetToken(' ');
-                    map.GoLeft();
-                    Console.CursorLeft--;
-                    map.SetToken('@');
-                }
-                else
-                {
-                    map.GoRight();
-                    Console.CursorLeft++;
-                    Console.Beep();
-                }
             }
             catch (IndexOutOfRangeException)
             {
@@ -87,22 +75,9 @@ namespace ConsoleGame
             try
             {
                 map.GoRight();
-                Console.CursorLeft++;
-                if (map.GetToken() != '■')
-                {
-                    map.GoLeft();
-                    Console.CursorLeft--;
-                    map.SetToken(' ');
-                    map.GoRight();
-                    Console.CursorLeft++;
-                    map.SetToken('@');
-                }
-                else
-                {
-                    map.GoLeft();
-                    Console.CursorLeft--;
-                    Console.Beep();
-                }
+                Console.Write(' ');
+                Console.Write('@');
+                Console.CursorLeft--;
             }
             catch (MoveException)
             {
@@ -124,22 +99,11 @@ namespace ConsoleGame
             try
             {
                 map.GoDown();
+                Console.Write(' ');
+                Console.CursorLeft--;
                 Console.CursorTop++;
-                if (map.GetToken() != '■')
-                {
-                    map.GoUp();
-                    Console.CursorTop--;
-                    map.SetToken(' ');
-                    map.GoDown();
-                    Console.CursorTop++;
-                    map.SetToken('@');
-                }
-                else
-                {
-                    map.GoUp();
-                    Console.CursorTop--;
-                    Console.Beep();
-                }
+                Console.Write('@');
+                Console.CursorLeft--;
             }
             catch (MoveException)
             {
@@ -161,22 +125,12 @@ namespace ConsoleGame
             try
             {
                 map.GoUp();
+                Console.Write(' ');
+                Console.CursorLeft--;
                 Console.CursorTop--;
-                if (map.GetToken() != '■')
-                {
-                    map.GoDown();
-                    Console.CursorTop++;
-                    map.SetToken(' ');
-                    map.GoUp();
-                    Console.CursorTop--;
-                    map.SetToken('@');
-                }
-                else
-                {
-                    Console.Beep();
-                    map.GoDown();
-                    Console.CursorTop++;
-                }
+                Console.Write('@');
+                Console.CursorLeft--;
+               
             }
             catch (MoveException)
             {

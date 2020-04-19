@@ -60,20 +60,17 @@ namespace ConsoleGame
         }
 
         /// <summary>
-        /// Gets token from map matrix
-        /// </summary>
-        /// <returns>Token in map matrix in current position</returns>
-        public char GetToken() => mapMatrix[position[0]][position[1]];
-
-        /// <summary>
         /// Move @ right
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
         public void GoRight()
         {
-            mapMatrix[position[0]] = CreateStringWithNewToken(' ');
             position[1]++;
-
+            if (mapMatrix[position[0]][position[1]] == '■')
+            {
+                position[1]--;
+                throw new MoveException();
+            }
         }
 
         /// <summary>
@@ -83,6 +80,11 @@ namespace ConsoleGame
         public void GoLeft()
         {
             position[1]--;
+            if (mapMatrix[position[0]][position[1]] == '■')
+            {
+                position[1]++;
+                throw new MoveException();
+            }
         }
 
         /// <summary>
@@ -92,6 +94,11 @@ namespace ConsoleGame
         public void GoUp()
         {
             position[0]--;
+            if (mapMatrix[position[0]][position[1]] == '■')
+            {
+                position[0]++;
+                throw new MoveException();
+            }
         }
 
         /// <summary>
@@ -101,37 +108,11 @@ namespace ConsoleGame
         public void GoDown()
         {
             position[0]++;
-        }
-        
-        /// <summary>
-        /// Changes symbol in position
-        /// </summary>
-        /// <param name="newToken">New symbol</param>
-        /// <returns>new string</returns>
-        private string CreateStringWithNewToken(char newToken)
-        {
-            var newString = "";
-            for (int i = 0; i < mapMatrix[position[0]].Length; ++i)
+            if (mapMatrix[position[0]][position[1]] == '■')
             {
-                if (i != position[1])
-                {
-                    newString += mapMatrix[position[0]][i];
-                    continue;
-                }
-                newString += newToken;
+                position[0]--;
+                throw new MoveException();
             }
-            return newString;
-        }
-
-        /// <summary>
-        /// Sets new symbol in position
-        /// </summary>
-        /// <param name="newToken">New symbol</param>
-        public void SetToken(char newToken)
-        {
-            mapMatrix[position[0]] = CreateStringWithNewToken(newToken);
-            Console.Write($"{newToken}");
-            Console.CursorLeft--;
         }
 
     }
