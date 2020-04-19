@@ -21,14 +21,7 @@ namespace ParserTests
         [TestCaseSource("InvalidExpressions")]
         public void ParseInvalidExpressionsTest(string expression)
         {
-            try
-            {
-                Parser.ParseExpression(expression);
-            }
-            catch (InvalidExpressionException)
-            {
-                Assert.Pass();
-            }
+            Assert.Throws<InvalidExpressionException>(() => Parser.ParseExpression(expression));
         }
 
         [TestCase("+ 2 2", 4)]
@@ -48,14 +41,7 @@ namespace ParserTests
         [Test]
         public void DivideBeZeroTest()
         {
-            try
-            {
-                Parser.ParseExpression("/ 10 - 5 5").CalculateExpression();
-            }
-            catch (DivideByZeroException)
-            {
-                Assert.Pass();
-            }
+            Assert.Throws<DivideByZeroException>(() => Parser.ParseExpression("/ 10 - 5 5").CalculateExpression());
         }
 
     }

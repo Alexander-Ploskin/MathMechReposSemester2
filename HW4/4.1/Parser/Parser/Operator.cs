@@ -16,17 +16,10 @@ namespace Parser
         protected INodeOfExpressionTree rightChild = null;
 
         /// <summary>
-        /// Prints this operator
-        /// </summary>
-        protected abstract void PrintThis();
-
-        /// <summary>
         /// Print subtree
         /// </summary>
-        public void Print()
+        public virtual void Print()
         {
-            PrintThis();
-
             if (leftChild != null)
             {
                 leftChild.Print();

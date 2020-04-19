@@ -20,9 +20,11 @@ namespace Parser
         /// <summary>
         /// Prints - 
         /// </summary>
-        protected override void PrintThis()
+        public override void Print()
         {
-            Console.WriteLine("- ");
+            Console.Write("- ");
+            base.Print();
+
         }
 
     }
