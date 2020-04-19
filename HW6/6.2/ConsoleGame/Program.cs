@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace ConsoleGame
@@ -13,7 +9,7 @@ namespace ConsoleGame
         {
             try
             {
-                var game = new Game(Environment.CurrentDirectory.TrimEnd(@"\ConsoleGame\bin\Debug".ToCharArray()) +  @"\Maps\Map2.txt");
+                var game = new Game(Environment.CurrentDirectory.TrimEnd(@"\ConsoleGame\bin\Debugnetcoreapp3.1".ToCharArray()) + @"\Maps\Map2.txt");
                 var eventLoop = new EventLoop();
                 eventLoop.LeftHandler += game.OnLeft;
                 eventLoop.RightHandler += game.OnRight;

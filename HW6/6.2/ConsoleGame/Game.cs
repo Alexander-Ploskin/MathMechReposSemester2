@@ -21,11 +21,23 @@ namespace ConsoleGame
         public Game(GameMap map)
         {
             this.map = map;
+            SetCursor();
         }
 
         public Game(string path)
         {
-            this.map = new GameMap(path);
+            map = new GameMap(path);
+            SetCursor();
+        }
+
+        /// <summary>
+        /// Sets cursor of console
+        /// </summary>
+        private void SetCursor()
+        {
+            Console.CursorLeft = map.position[0];
+            Console.CursorTop = map.position[1];
+            Console.CursorVisible = false;
         }
 
         /// <summary>
@@ -38,18 +50,26 @@ namespace ConsoleGame
             try
             {
                 map.GoLeft();
+                Console.CursorLeft--;
                 if (map.GetToken() != '■')
                 {
                     map.GoRight();
+                    Console.CursorLeft++;
                     map.SetToken(' ');
                     map.GoLeft();
+                    Console.CursorLeft--;
                     map.SetToken('@');
                 }
                 else
                 {
                     map.GoRight();
+                    Console.CursorLeft++;
                     Console.Beep();
                 }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.Beep();
             }
             catch (MoveException)
             {
@@ -67,20 +87,28 @@ namespace ConsoleGame
             try
             {
                 map.GoRight();
+                Console.CursorLeft++;
                 if (map.GetToken() != '■')
                 {
                     map.GoLeft();
+                    Console.CursorLeft--;
                     map.SetToken(' ');
                     map.GoRight();
+                    Console.CursorLeft++;
                     map.SetToken('@');
                 }
                 else
                 {
                     map.GoLeft();
+                    Console.CursorLeft--;
                     Console.Beep();
                 }
             }
             catch (MoveException)
+            {
+                Console.Beep();
+            }
+            catch (IndexOutOfRangeException)
             {
                 Console.Beep();
             }
@@ -96,20 +124,28 @@ namespace ConsoleGame
             try
             {
                 map.GoDown();
+                Console.CursorTop++;
                 if (map.GetToken() != '■')
                 {
                     map.GoUp();
+                    Console.CursorTop--;
                     map.SetToken(' ');
                     map.GoDown();
+                    Console.CursorTop++;
                     map.SetToken('@');
                 }
                 else
                 {
                     map.GoUp();
+                    Console.CursorTop--;
                     Console.Beep();
                 }
             }
             catch (MoveException)
+            {
+                Console.Beep();
+            }
+            catch (IndexOutOfRangeException)
             {
                 Console.Beep();
             }
@@ -125,20 +161,28 @@ namespace ConsoleGame
             try
             {
                 map.GoUp();
+                Console.CursorTop--;
                 if (map.GetToken() != '■')
                 {
                     map.GoDown();
+                    Console.CursorTop++;
                     map.SetToken(' ');
                     map.GoUp();
+                    Console.CursorTop--;
                     map.SetToken('@');
                 }
                 else
                 {
                     Console.Beep();
                     map.GoDown();
+                    Console.CursorTop++;
                 }
             }
             catch (MoveException)
+            {
+                Console.Beep();
+            }
+            catch (IndexOutOfRangeException)
             {
                 Console.Beep();
             }

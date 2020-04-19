@@ -14,7 +14,7 @@ namespace ConsoleGame
     {
         private string[] mapMatrix;
         private int height = 0;
-        private int[] position = new int[2]{ 0, 0 };
+        public int[] position { get; set; }
 
         /// <summary>
         /// Initializes game map and outputs to console 
@@ -22,6 +22,7 @@ namespace ConsoleGame
         /// <param name="path">Path to the map</param>
         public GameMap(string path)
         {
+            position = new int[2] { 0, 0 };
             using (var sr = new StreamReader(path))
             {
                 if (!int.TryParse(sr.ReadLine(), out height))
@@ -38,28 +39,23 @@ namespace ConsoleGame
                 }
             }
 
-            SetCursor();
-            Console.CursorVisible = false;
+            SetPosition();
         }
 
-        /// <summary>
-        /// Sets cursor and position in mapMatrix during initialization
-        /// </summary>
-        private void SetCursor()
+        private void SetPosition()
         {
-            for (int i = 0; i < height; ++i)
+            for (int i = 0; i < mapMatrix.Length; ++i)
             {
                 for (int j = 0; j < mapMatrix[i].Length; ++j)
                 {
                     if (mapMatrix[i][j] == '@')
                     {
-                        Console.CursorLeft += j;
-                        Console.CursorTop -= height - i;
-                        position[0] = i;
-                        position[1] = j;
                         return;
                     }
+                    position[0]++;
                 }
+                position[0] = 0;
+                position[1]++;
             }
         }
 
@@ -75,8 +71,9 @@ namespace ConsoleGame
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
         public void GoRight()
         {
-            Console.CursorLeft++;
+            mapMatrix[position[0]] = CreateStringWithNewToken(' ');
             position[1]++;
+
         }
 
         /// <summary>
@@ -85,7 +82,6 @@ namespace ConsoleGame
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
         public void GoLeft()
         {
-            Console.CursorLeft--;
             position[1]--;
         }
 
@@ -95,7 +91,6 @@ namespace ConsoleGame
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
         public void GoUp()
         {
-            Console.CursorTop--;
             position[0]--;
         }
 
@@ -105,7 +100,6 @@ namespace ConsoleGame
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
         public void GoDown()
         {
-            Console.CursorTop++;
             position[0]++;
         }
         
@@ -130,7 +124,7 @@ namespace ConsoleGame
         }
 
         /// <summary>
-        /// sets new symbol in position
+        /// Sets new symbol in position
         /// </summary>
         /// <param name="newToken">New symbol</param>
         public void SetToken(char newToken)
