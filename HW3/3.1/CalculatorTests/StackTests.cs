@@ -31,14 +31,7 @@ namespace CalculatorTests
         [TestCaseSource("TestCases")]
         public void PopFromEmptyStackTest(IStack stack)
         {
-            try
-            {
-                stack.Pop();
-            }
-            catch (PopFromEmptyStackException)
-            {
-                Assert.Pass();
-            }
+            Assert.Throws<PopFromEmptyStackException>(() => stack.Pop());
         }
 
         [TestCaseSource("TestCases")]
