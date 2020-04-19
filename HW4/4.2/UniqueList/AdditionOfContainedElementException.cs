@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniqueList
 {
+    /// <summary>
+    /// Throws in case of addition of already contained element to uniqe list 
+    /// </summary>
     public class AdditionOfContainedElementException: SystemException
     {
 

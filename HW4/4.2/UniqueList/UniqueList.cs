@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniqueList
 {
@@ -23,35 +19,7 @@ namespace UniqueList
                 throw new AdditionOfContainedElementException();
             }
 
-            if (position < 0)
-            {
-                throw new Exception("Position can't be negative");
-            }
-
-            size++;
-
-            if (position == 0)
-            {
-                if (head == null)
-                {
-                    head = new ListElement(value, null);
-                    return;
-                }
-
-                head = new ListElement(value, head);
-                return;
-            }
-
-            var currentElement = head;
-            for (int i = 0; i < position; ++i)
-            {
-                if (currentElement == null)
-                {
-                    throw new Exception("There are not that position");
-                }
-            }
-
-            currentElement.next = new ListElement(value, currentElement.next);
+            base.Add(value, position);
         }
 
     }

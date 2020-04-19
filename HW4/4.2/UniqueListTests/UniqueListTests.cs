@@ -1,35 +1,32 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UniqueListTests
 {
-    using UniqueList;
+    using UniqueList; 
 
-    [TestClass]
     public class UniqueListTests
-    { 
+    {
         private UniqueList list;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
             list = new UniqueList();
             list.Add(4, 0);
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleAdditionTest()
         {
             list.Add(5, 1);
             Assert.IsTrue(list.Contains(5));
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionOfAlreadyContainedValueTest()
         {
-            Assert.ThrowsException<AdditionOfContainedElementException>(() => list.Add(4, 0));
-            Assert.ThrowsException<AdditionOfContainedElementException>(() => list.Add(4, 1));
+            Assert.Throws<AdditionOfContainedElementException>(() => list.Add(4, 0));
+            Assert.Throws<AdditionOfContainedElementException>(() => list.Add(4, 1));
         }
     }
-
 }

@@ -10,7 +10,7 @@ namespace UniqueList
         /// <summary>
         /// Element of list
         /// </summary>
-        protected class ListElement
+        private class ListElement
         {
             public ListElement(int value, ListElement next)
             {
@@ -22,9 +22,9 @@ namespace UniqueList
             public ListElement next;
         }
 
-        protected ListElement head;
+        private ListElement head;
 
-        protected int size;
+        private int size;
 
         /// <summary>
         /// Add new element to desired position

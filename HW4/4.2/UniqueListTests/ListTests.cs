@@ -1,22 +1,20 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace UniqueListTests
 {
     using UniqueList;
 
-    [TestClass]
     public class ListTests
     {
         private List list;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
             list = new List();
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionToEmptyListTest()
         {
             list.Add(5, 0);
@@ -24,7 +22,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 1);
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionToNotEmptyListTest()
         {
             list.Add(0, 0);
@@ -33,7 +31,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionToHeadOfNotEmptyListTest()
         {
             list.Add(0, 0);
@@ -42,7 +40,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionToNotHeadPositionOfBigList()
         {
             list.Add(0, 0);
@@ -52,57 +50,57 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 3);
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionByNegativePositionTest()
         {
-            Assert.ThrowsException<InvalidPositionException>(() => list.Add(5, -7));
+            Assert.Throws<InvalidPositionException>(() => list.Add(5, -7));
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionByNotExistPositionTest()
         {
             list.Add(2, 0);
             list.Add(3, 1);
-            Assert.ThrowsException<InvalidPositionException>(() => list.Add(5, 7));
+            Assert.Throws<InvalidPositionException>(() => list.Add(5, 7));
             Assert.IsTrue(list.Length() == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void GetValueByInvalidPositionTest()
         {
-            Assert.ThrowsException<InvalidPositionException>(() => list.GetValueOfElementByPosition(-1));
-            Assert.ThrowsException<InvalidPositionException>(() => list.GetValueOfElementByPosition(0));
+            Assert.Throws<InvalidPositionException>(() => list.GetValueOfElementByPosition(-1));
+            Assert.Throws<InvalidPositionException>(() => list.GetValueOfElementByPosition(0));
         }
 
-        [TestMethod]
+        [Test]
         public void SetValueOnInvalidPositionTest()
         {
-            Assert.ThrowsException<InvalidPositionException>(() => list.SetValueOnPosition(-1, 1));
-            Assert.ThrowsException<InvalidPositionException>(() => list.SetValueOnPosition(1, 1));
+            Assert.Throws<InvalidPositionException>(() => list.SetValueOnPosition(-1, 1));
+            Assert.Throws<InvalidPositionException>(() => list.SetValueOnPosition(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByValueFromEmptyListTest()
         {
-            Assert.ThrowsException<RemoveFromEmptyListException>(() => list.RemoveByValue(5));
+            Assert.Throws<RemoveFromEmptyListException>(() => list.RemoveByValue(5));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByInvalidPositionTest()
         {
             list.Add(0, 0);
-            Assert.ThrowsException<RemoveByNotExistPositionException>(() => list.RemoveByPosition(7));
-            Assert.ThrowsException<RemoveByNotExistPositionException>(() => list.RemoveByPosition(-1));
+            Assert.Throws<RemoveByNotExistPositionException>(() => list.RemoveByPosition(7));
+            Assert.Throws<RemoveByNotExistPositionException>(() => list.RemoveByPosition(-1));
             Assert.IsTrue(list.Length() == 1);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByPositionFromEmptyListTest()
         {
-            Assert.ThrowsException<RemoveFromEmptyListException>(() => list.RemoveByPosition(1));
+            Assert.Throws<RemoveFromEmptyListException>(() => list.RemoveByPosition(1));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByNullPositionTest()
         {
             list.Add(1, 0);
@@ -112,7 +110,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 1);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByMiddlePositionTest()
         {
             list.Add(0, 0);
@@ -124,7 +122,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 3);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByTailPositionTest()
         {
             list.Add(0, 0);
@@ -135,7 +133,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Length() == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByValueFromHeadTest()
         {
             list.Add(0, 0);
@@ -144,7 +142,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Contains(1) && !list.Contains(0) && list.Length() == 1);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByValueFromTailTest()
         {
             list.Add(0, 0);
@@ -153,7 +151,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Contains(0) && !list.Contains(1) && list.Length() == 1);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveByValueFromMidTest()
         {
             list.Add(0, 0);
@@ -163,7 +161,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Contains(2) && list.Contains(0) && !list.Contains(1) && list.Length() == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void SetValueTest()
         {
             list.Add(0, 0);
@@ -173,7 +171,7 @@ namespace UniqueListTests
             Assert.IsTrue(list.Contains(3) && !list.Contains(1) && list.Length() == 3);
         }
 
-        [TestMethod]
+        [Test]
         public void GetValueTest()
         {
             list.Add(0, 0);
@@ -183,6 +181,5 @@ namespace UniqueListTests
             Assert.AreEqual(list.GetValueOfElementByPosition(1), 1);
             Assert.AreEqual(list.GetValueOfElementByPosition(2), 2);
         }
-
     }
 }

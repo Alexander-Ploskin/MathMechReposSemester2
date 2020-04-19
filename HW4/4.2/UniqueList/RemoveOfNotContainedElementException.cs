@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniqueList
 {
+    /// <summary>
+    /// Throws in case of removing of not contained element from list
+    /// </summary>
     public class RemoveOfNotContainedElementException: RemoveFromListException
     {
     }
