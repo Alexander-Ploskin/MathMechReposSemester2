@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Collections;
 
 namespace MySet
@@ -60,6 +59,7 @@ namespace MySet
             if (root == null)
             {
                 root = new TreeElement(null, item);
+                Count++;
                 return true;
             }
 
@@ -89,6 +89,15 @@ namespace MySet
 
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Implementation of method in ICollection
+        /// </summary>
+        /// <param name="item"></param>
+        void ICollection<T>.Add(T item)
+        {
+            Add(item);
         }
 
         /// <summary>
@@ -143,9 +152,19 @@ namespace MySet
         /// </summary>
         /// <param name="array">Array to copy</param>
         /// <param name="arrayIndex">Index, starts with, will set items</param>
+        /// <exception cref="ArgumentException">Throws when array doesn't have enough place</exception>
         public void CopyTo(T[] array, int arrayIndex)
-        {
+        { 
+            foreach (var item in this)
+            {
+                if (arrayIndex >= array.Length)
+                {
+                    throw new ArgumentException();
+                }
 
+                array[arrayIndex] = item;
+                arrayIndex++;
+            }
         }
 
         /// <summary>
@@ -164,9 +183,31 @@ namespace MySet
             }
         }
 
+        /// <summary>
+        /// Gets enumerator
+        /// </summary>
+        /// <returns>MyEnum</returns>
         public MyEnum GetEnumerator()
         {
             return new MyEnum(this);
+        }
+
+        /// <summary>
+        /// Implementation for the GetEnumerator method in IEnumerable
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Implementation for the GetEnumerator in IEnumerable<T>
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            return (IEnumerator<T>)GetEnumerator();
         }
 
         public class MyEnum : IEnumerator
@@ -256,42 +297,89 @@ namespace MySet
         }
 
         /// <summary>
-        /// Checks, is this subset of other collection
+        /// Checks is this subset of other 
         /// </summary>
         /// <param name="other">Other collection</param>
-        /// <returns>True if all elements of this contains in other</returns>
+        /// <returns>True if all items of this contains in other, else false;</returns>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
-            int counterOfContainedElements = 0;
+            var helpSet = new MySet<T>(comparer);
 
             foreach (var item in other)
             {
-                if (Contains(item))
+                helpSet.Add(item);
+            }
+
+            foreach (var item in this)
+            {
+                if (!helpSet.Contains(item))
                 {
-                    counterOfContainedElements++;
+                    return false;
                 }
             }
 
-            return counterOfContainedElements == Count;
+            return true;
         }
 
         /// <summary>
-        /// Checks, is this proper subset of other collection
+        /// Checks is this proper subset of other 
         /// </summary>
         /// <param name="other">Other collection</param>
-        /// <returns>True if all elements of this contains in other 
-        /// and other has one or more eleents, that doesn't contain in this</returns>
+        /// <returns>True if all items of this contains in other and 
+        /// other has one or more not common items, else false</returns>
         public bool IsProperSubsetOf(IEnumerable<T> other)
+        {
+            var helpSet = new MySet<T>(comparer);
+
+            foreach (var item in other)
+            {
+                helpSet.Add(item);
+            }
+
+            foreach (var item in this)
+            {
+                if (!helpSet.Contains(item))
+                {
+                    return false;
+                }
+            }
+
+            return helpSet.Count > Count;
+        }
+
+        /// <summary>
+        /// Checks, is this a superset of other
+        /// </summary>
+        /// <param name="other">Other collection</param>
+        /// <returns>True if all items of other contains in this, else false</returns>
+        public bool IsSupersetOf(IEnumerable<T> other)
         {
             foreach (var item in other)
             {
                 if (!Contains(item))
                 {
-                    return IsSubsetOf(other);
+                    return false;
                 }
             }
 
-            return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Checks, is 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool IsProperSupersetOf(IEnumerable<T> other)
+        {
+            var helpSet = new MySet<T>(comparer);
+
+            foreach (var item in other)
+            {
+                helpSet.Add(item);
+            }
+
+            return helpSet.IsProperSubsetOf(this);
         }
 
         /// <summary>
@@ -368,6 +456,11 @@ namespace MySet
             return currentElement;
         }
 
+        /// <summary>
+        /// Removes item from set
+        /// </summary>
+        /// <param name="item">Item? that you want to remove</param>
+        /// <returns>True if item successfully revoed from set, false if it not contains</returns>
         public bool Remove(T item)
         {
             try
@@ -402,6 +495,57 @@ namespace MySet
             catch (ArgumentException)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks is this equal to other collection
+        /// </summary>
+        /// <param name="other">Input collection</param>
+        /// <returns>True if other has same items than other</returns>
+        public bool SetEquals(IEnumerable<T> other)
+        {
+            int counter = 0;
+            foreach (var item in other)
+            {
+                counter++;
+                if (!Contains(item))
+                {
+                    return false;
+                }
+            }
+
+            return counter == Count;
+        }
+
+        /// <summary>
+        /// Removes all common items and adds all not contained items from other to this
+        /// </summary>
+        /// <param name="other">Other collection</param>
+        public void SymmetricExceptWith(IEnumerable<T> other)
+        {
+            foreach (var item in other)
+            {
+                if (Contains(item))
+                {
+                    Remove(item);
+                }
+                else
+                {
+                    Add(item);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds all items from other to this
+        /// </summary>
+        /// <param name="other">Other collection</param>
+        public void UnionWith(IEnumerable<T> other)
+        {
+            foreach (var item in other)
+            {
+                Add(item);
             }
         }
 
