@@ -165,6 +165,7 @@ namespace MySet
                 }
                 CopySubtreeToArray(element.LeftChild);
                 array[arrayIndex] = element.Value;
+                arrayIndex++;
                 CopySubtreeToArray(element.RightChild);
             }
 
@@ -218,15 +219,14 @@ namespace MySet
         {
             private MySet<T> set;
             private T[] array;
+            private int index = -1;
 
             public MyEnum(MySet<T> set)
             {
                 this.set = set;
-                array = new T[set.Count] { };
+                array = new T[set.Count];
                 set.CopyTo(array, 0);
             }
-
-            private T currentElement;
 
             object IEnumerator.Current
             {
@@ -240,19 +240,19 @@ namespace MySet
             {
                 get
                 {
-                    return currentElement;
+                    return array[index];
                 }
             }
 
             public bool MoveNext()
             {
-                
+                index++;
+                return index < set.Count;
             }
 
             public void Reset()
             {
-                currentElement = set.root;
-                stack.Clear();
+                index = 0;
             }
 
         }
