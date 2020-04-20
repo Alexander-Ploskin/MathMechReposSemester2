@@ -1,0 +1,168 @@
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+
+namespace MySetTests
+{
+    using MySet;
+
+    public class Tests
+    {
+        private MySet<int> set;
+
+        [SetUp]
+        public void Setup()
+        {
+            set = new MySet<int>(new IntComparer()) { 1, 2, -10, 5, -14,-12, 3 };
+        }
+
+        [Test]
+        public void EnumTest()
+        {
+            var previous = -1000;
+            foreach (var item in set)
+            {
+                if (previous < item)
+                {
+                    Assert.Fail();
+                }
+            }
+            Assert.Pass();
+        }
+
+        [Test]
+        public void SimpleAdditionTest()
+        {
+            set = new MySet<int>(new IntComparer());
+            set.Add(1);
+            Assert.IsTrue(set.Contains(1));
+        }
+
+        [Test]
+        public void AdditionOfTwoSameItemsTest()
+        {
+            set = new MySet<int>(new IntComparer());
+            set.Add(0);
+            Assert.IsFalse(set.Add(0));
+        }
+
+        [Test]
+        public void AdditionInOrderTest()
+        {
+            set = new MySet<int>(new IntComparer());
+            set.Add(0);
+            set.Add(1);
+            set.Add(2);
+            Assert.IsTrue(set.Contains(0));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+        }
+
+        [Test]
+        public void AdditionPreOrderTest()
+        {
+            set = new MySet<int>(new IntComparer());
+            set.Add(2);
+            set.Add(1);
+            set.Add(0);
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(0));
+        }
+
+        [Test]
+        public void AdditionOfManyItemsTest()
+        {
+            set = new MySet<int>(new IntComparer());
+            set.Add(1);
+            set.Add(2);
+            set.Add(-10);
+            set.Add(-14);
+            set.Add(5);
+            set.Add(-12);
+            set.Add(3);
+            set.Add(4);
+            Assert.IsTrue(set.Contains(1) && set.Contains(2) && set.Contains(-10)
+               && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
+               && set.Contains(3) && set.Contains(4));
+        }
+
+        [Test]
+        public void ClearTest()
+        {
+            set.Clear();
+            Assert.IsEmpty(set);
+        }
+
+        [Test]
+        public void ContainsTest()
+        {
+            Assert.IsTrue(set.Contains(-14) && set.Contains(1) && set.Contains(3));
+            Assert.IsFalse(set.Contains(0) || set.Contains(-15) || set.Contains(4));
+        }
+
+        [Test]
+        public void CopyToTest()
+        {
+            var array = new int[7];
+            set.CopyTo(array, 0);
+            Assert.IsTrue(array.Equals(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
+        }
+
+        [Test]
+        public void ExceptWithTest()
+        {
+            set.ExceptWith(new int[7] { -14, 10, -10, 1, 6, 5, 19 });
+            Assert.IsTrue(new int[3] { -12, 2, 3 }.Equals(set));
+        }
+
+        [Test]
+        public void IntersectWithTest()
+        {
+            set.IntersectWith(new int[7] { -14, 10, -10, 1, 6, 5, 19 });
+            Assert.IsTrue(new int[4] { -14, -10, 1, 5 }.Equals(set));
+        }
+
+        [Test]
+        public void IsSubsetOfTest()
+        {
+            Assert.IsTrue(set.IsSubsetOf(new int[10] { -14, -12, -10, 1, 2, 3, 5, -10, 30, 45 }));
+            Assert.IsTrue(set.IsSubsetOf(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
+            Assert.IsFalse(set.IsSubsetOf(new int[6] { -14, -12, -10, 1, 3, 5 }));
+        }
+
+        [Test]
+        public void IsProperSubsetOfTest()
+        {
+            Assert.IsTrue(set.IsProperSubsetOf(new int[10] { -14, -12, -10, 1, 2, 3, 5, -10, 30, 45 }));
+            Assert.IsFalse(set.IsProperSubsetOf(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
+            Assert.IsFalse(set.IsProperSubsetOf(new int[6] { -14, -12, -10, 1, 3, 5 }));
+        }
+
+        [Test]
+        public void IsSupersetOfTest()
+        {
+            Assert.IsFalse(set.IsSupersetOf(new int[10] { -14, -12, -10, 1, 2, 3, 5, -10, 30, 45 }));
+            Assert.IsTrue(set.IsSupersetOf(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
+            Assert.IsTrue(set.IsSupersetOf(new int[10] { -14, -14, -10, 1, 3, 5, 10, 3, 3, 5 }));
+        }
+
+        [Test]
+        public void IsProperSupersetOfTest()
+        {
+            Assert.IsFalse(set.IsProperSupersetOf(new int[10] { -14, -12, -10, 1, 2, 3, 5, -10, 30, 45 }));
+            Assert.IsFalse(set.IsProperSupersetOf(new int[12] { -14, -12, -10, 1, 2, 3, 5, -14, 1, 2, 3, 3 }));
+            Assert.IsTrue(set.IsProperSupersetOf(new int[10] { -14, -14, -10, 1, 3, 5, 10, 3, 3, 5 }));
+        }
+
+        [Test]
+        public void OverlapsTest()
+        {
+            Assert.IsTrue(set.Overlaps(new int[10] { -14, -4, -14, 6, 2, 2, 1, 15, 30, 45 }));
+            Assert.IsTrue(set.Overlaps(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
+            Assert.IsFalse(set.Overlaps(new int[10] { -13, -4, -100, 6, 16, 11, 7, 15, 30, 45 }));
+        }
+
+        
+    }
+}

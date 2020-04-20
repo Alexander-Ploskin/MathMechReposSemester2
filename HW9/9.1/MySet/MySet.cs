@@ -215,6 +215,9 @@ namespace MySet
             return (IEnumerator<T>)GetEnumerator();
         }
 
+        /// <summary>
+        /// Enumerator of tree. In-order tree traversal
+        /// </summary>
         public class MyEnum : IEnumerator
         {
             private MySet<T> set;
@@ -228,6 +231,9 @@ namespace MySet
                 set.CopyTo(array, 0);
             }
 
+            /// <summary>
+            /// Implementation of IEnumerator.Current
+            /// </summary>
             object IEnumerator.Current
             {
                 get
@@ -236,6 +242,9 @@ namespace MySet
                 }
             }
 
+            /// <summary>
+            /// Current item in traversal
+            /// </summary>
             public T Current
             {
                 get
@@ -244,12 +253,19 @@ namespace MySet
                 }
             }
 
+            /// <summary>
+            /// Move to next item
+            /// </summary>
+            /// <returns>True, if set has not used items, else false</returns>
             public bool MoveNext()
             {
                 index++;
                 return index < set.Count;
             }
 
+            /// <summary>
+            /// To first item in traversal
+            /// </summary>
             public void Reset()
             {
                 index = 0;
@@ -263,9 +279,16 @@ namespace MySet
         /// <param name="other">Other collection</param>
         public void IntersectWith(IEnumerable<T> other)
         {
+            var helpSet = new MySet<T>(comparer);
+
             foreach (var item in other)
             {
-                if (!Contains(item))
+                helpSet.Add(item);
+            }
+
+            foreach (var item in this)
+            {
+                if (!helpSet.Contains(item))
                 {
                     Remove(item);
                 }
@@ -376,6 +399,12 @@ namespace MySet
             return false;
         }
 
+        /// <summary>
+        /// Find tree element by value
+        /// </summary>
+        /// <param name="value">Value, that you want to find</param>
+        /// <returns>Reference to node of tree</returns>
+        /// <exception cref="ArgumentException">Throws when tree hasn't node with that value</exception>
         private TreeElement GetElementByValue(T value)
         {
             var currentElement = root;
