@@ -8,7 +8,7 @@ namespace MySet
     /// Generic implementation of ISet, based on non-selfbalanced tree
     /// </summary>
     /// <typeparam name="T">Type of values in tree</typeparam>
-    class MySet<T> : ISet<T>
+    public class MySet<T> : ISet<T>
     {
         private IComparer<T> comparer;
 
@@ -86,8 +86,10 @@ namespace MySet
                     }
                     currentElement = currentElement.RightChild;
                 }
-
-                return false;
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -155,16 +157,18 @@ namespace MySet
         /// <exception cref="ArgumentException">Throws when array doesn't have enough place</exception>
         public void CopyTo(T[] array, int arrayIndex)
         { 
-            foreach (var item in this)
+            void CopySubtreeToArray(TreeElement element)
             {
-                if (arrayIndex >= array.Length)
+                if (element == null)
                 {
-                    throw new ArgumentException();
+                    return;
                 }
-
-                array[arrayIndex] = item;
-                arrayIndex++;
+                CopySubtreeToArray(element.LeftChild);
+                array[arrayIndex] = element.Value;
+                CopySubtreeToArray(element.RightChild);
             }
+
+            CopySubtreeToArray(root);
         }
 
         /// <summary>
@@ -213,16 +217,16 @@ namespace MySet
         public class MyEnum : IEnumerator
         {
             private MySet<T> set;
-            private Stack<TreeElement> stack;
+            private T[] array;
 
             public MyEnum(MySet<T> set)
             {
-                stack = new Stack<TreeElement>();
                 this.set = set;
-                currentElement = set.root;
+                array = new T[set.Count] { };
+                set.CopyTo(array, 0);
             }
 
-            private TreeElement currentElement;
+            private T currentElement;
 
             object IEnumerator.Current
             {
@@ -236,41 +240,13 @@ namespace MySet
             {
                 get
                 {
-                    return currentElement.Value;
+                    return currentElement;
                 }
             }
 
-            private bool moveRight = false;
-
             public bool MoveNext()
             {
-                if (stack.Count != 0 || currentElement != null)
-                {
-                    if (moveRight)
-                    {
-                        currentElement = currentElement.RightChild;
-                        moveRight = false;
-                        stack.Push(currentElement);
-                        MoveNext();
-                    }
-                    else
-                    {
-                        if (currentElement != null)
-                        {
-                            stack.Push(currentElement);
-                            currentElement = currentElement.LeftChild;
-                        }
-                        else
-                        {
-                            currentElement = stack.Pop();
-                            moveRight = true;
-                        }
-                    }
-
-                    return true;
-                }
-
-                return false;
+                
             }
 
             public void Reset()
