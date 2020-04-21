@@ -23,7 +23,7 @@ namespace MySetTests
             var previous = -1000;
             foreach (var item in set)
             {
-                if (previous < item)
+                if (previous >= item)
                 {
                     Assert.Fail();
                 }
@@ -121,7 +121,7 @@ namespace MySetTests
         public void IntersectWithTest()
         {
             set.IntersectWith(new int[7] { -14, 10, -10, 1, 6, 5, 19 });
-            Assert.IsTrue(new int[4] { -14, -10, 1, 5 }.Equals(set));
+            Assert.IsTrue(set.SetEquals(new int[4] { -14, -10, 1, 5 }));
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace MySetTests
         {
             Assert.IsFalse(set.IsSupersetOf(new int[10] { -14, -12, -10, 1, 2, 3, 5, -10, 30, 45 }));
             Assert.IsTrue(set.IsSupersetOf(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
-            Assert.IsTrue(set.IsSupersetOf(new int[10] { -14, -14, -10, 1, 3, 5, 10, 3, 3, 5 }));
+            Assert.IsTrue(set.IsSupersetOf(new int[10] { -14, -14, -10, 1, 3, 5, -10, 3, 3, 5 }));
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace MySetTests
         {
             Assert.IsFalse(set.IsProperSupersetOf(new int[10] { -14, -12, -10, 1, 2, 3, 5, -10, 30, 45 }));
             Assert.IsFalse(set.IsProperSupersetOf(new int[12] { -14, -12, -10, 1, 2, 3, 5, -14, 1, 2, 3, 3 }));
-            Assert.IsTrue(set.IsProperSupersetOf(new int[10] { -14, -14, -10, 1, 3, 5, 10, 3, 3, 5 }));
+            Assert.IsTrue(set.IsProperSupersetOf(new int[10] { -14, -14, -10, 1, 3, 5, -10, 3, 3, 5 }));
         }
 
         [Test]
@@ -170,17 +170,17 @@ namespace MySetTests
             set.Remove(1);
             Assert.IsTrue(!set.Contains(1) && set.Contains(2) && set.Contains(-10)
                && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3) && set.Contains(4));
+               && set.Contains(3));
         }
 
         [Test]
-        public void RemoveSecondAItemTest()
+        public void RemoveSecondItemTest()
         {
             set.Add(-9);
             set.Remove(-10);
             Assert.IsTrue(set.Contains(1) && set.Contains(2) && !set.Contains(-10)
                && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3) && set.Contains(4) && set.Contains(9));
+               && set.Contains(3) && set.Contains(-9));
         }
 
         [Test]
@@ -205,7 +205,7 @@ namespace MySetTests
             set.Remove(2);
             Assert.IsTrue(set.Contains(1) && !set.Contains(2) && set.Contains(-10)
                && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3) && set.Contains(4));
+               && set.Contains(3));
         }
 
         [Test]
@@ -213,9 +213,9 @@ namespace MySetTests
         {
             set.Remove(-14);
             set.Remove(5);
-            Assert.IsTrue(!set.Contains(1) && set.Contains(2) && set.Contains(-10)
-               && set.Contains(-14) && !set.Contains(5) && set.Contains(-12)
-               && set.Contains(3) && set.Contains(4));
+            Assert.IsTrue(set.Contains(1) && set.Contains(2) && set.Contains(-10)
+               && !set.Contains(-14) && !set.Contains(5) && set.Contains(-12)
+               && set.Contains(3));
 
         }
 
@@ -228,10 +228,15 @@ namespace MySetTests
         }
 
         [Test]
-        public void SymmetricExceptWith()
+        public void SymmetricExceptWithItselfTest()
         {
             set.SymmetricExceptWith(new int[10] { -14, -12, -10, 1, 2, 3, 5, -14, 1, 2 });
             Assert.IsTrue(set.SetEquals(new int[0] { }));
+        }
+
+        [Test]
+        public void SimpleSymmetricExceptionTest()
+        {
             set.SymmetricExceptWith(new int[5] { -14, -10, 4, 4, 11 });
             Assert.IsTrue(set.SetEquals(new int[7] { 1, 2, 4, 5, 11, -12, 3 }));
         }

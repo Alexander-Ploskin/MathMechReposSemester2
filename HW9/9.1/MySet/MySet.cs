@@ -219,11 +219,19 @@ namespace MySet
         /// <summary>
         /// Enumerator of tree. In-order tree traversal
         /// </summary>
-        public class MyEnum : IEnumerator
+        public class MyEnum : IEnumerator<T>
         {
             private MySet<T> set;
             private T[] array;
             private int index = -1;
+
+            /// <summary>
+            /// Implementation of method IDisposable
+            /// </summary>
+            public void Dispose()
+            {
+                GC.SuppressFinalize(this);
+            }
 
             public MyEnum(MySet<T> set)
             {
@@ -287,12 +295,18 @@ namespace MySet
                 helpSet.Add(item);
             }
 
+            var listToRemove = new List<T>();
             foreach (var item in this)
             {
                 if (!helpSet.Contains(item))
                 {
-                    Remove(item);
+                    listToRemove.Add(item);
                 }
+            }
+
+            foreach (var item in listToRemove)
+            {
+                Remove(item);
             }
         }
 
@@ -444,6 +458,11 @@ namespace MySet
             {
                 element.LeftChild = newChild;
             }
+
+            if (newChild != null)
+            {
+                newChild.Parent = element;
+            }
         }
 
         /// <summary>
@@ -481,24 +500,19 @@ namespace MySet
                         Count--;
                         return true;
                     }
-                    if (element.LeftChild != null)
+                    if (element.LeftChild != null && element.RightChild == null)
                     {
                         root = element.LeftChild;
                         Count--;
                         return true;
                     }
-                    if (element.RightChild != null)
+                    if (element.RightChild != null && element.LeftChild == null)
                     {
                         root = element.RightChild;
+                        root.Parent = null;
                         Count--;
                         return true;
                     }
-
-                    var newChildValue = GetNewChild(element).Value;
-                    Remove(newChildValue);
-                    element.Value = newChildValue;
-                    Count--;
-                    return true;
                 }
 
                 if (element.IsLeaf())
@@ -507,22 +521,22 @@ namespace MySet
                     Count--;
                     return true;
                 }
-                if (element.LeftChild != null)
+                if (element.LeftChild != null && element.RightChild == null)
                 {
                     SetNewChid(element.Parent, element, element.LeftChild);
                     Count--;
                     return true;
                 }
-                if (element.RightChild != null)
+                if (element.RightChild != null && element.LeftChild == null)
                 {
                     SetNewChid(element.Parent, element, element.RightChild);
                     Count--;
                     return true;
                 }
+
                 var buffer = GetNewChild(element).Value;
                 Remove(buffer);
                 element.Value = buffer;
-                Count--;
                 return true;
             }
             catch (ArgumentException)
@@ -561,7 +575,13 @@ namespace MySet
         /// <param name="other">Other collection</param>
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
+            var helpSet = new MySet<T>(comparer);
             foreach (var item in other)
+            {
+                helpSet.Add(item);
+            }
+
+            foreach (var item in helpSet)
             {
                 if (Contains(item))
                 {
