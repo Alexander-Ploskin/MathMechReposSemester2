@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Net.Http.Headers;
 
 namespace MySet
 {
@@ -31,7 +32,7 @@ namespace MySet
                 Parent = parent;
             }
 
-            public T Value { get; }
+            public T Value { get; set; }
             public TreeElement LeftChild { get; set; }
             public TreeElement RightChild { get; set; }
             public TreeElement Parent { get; set; }
@@ -472,30 +473,57 @@ namespace MySet
             {
                 var element = GetElementByValue(item);
                 
+                if (element == root)
+                {
+                    if (element.IsLeaf())
+                    {
+                        root = null;
+                        Count--;
+                        return true;
+                    }
+                    if (element.LeftChild != null)
+                    {
+                        root = element.LeftChild;
+                        Count--;
+                        return true;
+                    }
+                    if (element.RightChild != null)
+                    {
+                        root = element.RightChild;
+                        Count--;
+                        return true;
+                    }
+
+                    var newChildValue = GetNewChild(element).Value;
+                    Remove(newChildValue);
+                    element.Value = newChildValue;
+                    Count--;
+                    return true;
+                }
+
                 if (element.IsLeaf())
                 {
                     SetNewChid(element.Parent, element, null);
+                    Count--;
                     return true;
                 }
-                else if (element.RightChild == null && element.LeftChild != null)
+                if (element.LeftChild != null)
                 {
                     SetNewChid(element.Parent, element, element.LeftChild);
+                    Count--;
                     return true;
                 }
-                else if (element.RightChild != null && element.LeftChild == null)
+                if (element.RightChild != null)
                 {
                     SetNewChid(element.Parent, element, element.RightChild);
+                    Count--;
                     return true;
                 }
-                else
-                {
-                    var newChild = GetNewChild(element);
-                    newChild.LeftChild = element.LeftChild;
-                    newChild.RightChild = element.RightChild;
-                    SetNewChid(element.Parent, element, newChild);
-                    SetNewChid(newChild.Parent, newChild, null);
-                    return true;
-                }
+                var buffer = GetNewChild(element).Value;
+                Remove(buffer);
+                element.Value = buffer;
+                Count--;
+                return true;
             }
             catch (ArgumentException)
             {
@@ -510,17 +538,21 @@ namespace MySet
         /// <returns>True if other has same items than other</returns>
         public bool SetEquals(IEnumerable<T> other)
         {
-            int counter = 0;
+            var helpSet = new MySet<T>(comparer);
             foreach (var item in other)
             {
-                counter++;
+                helpSet.Add(item);
+            }
+
+            foreach (var item in other)
+            {
                 if (!Contains(item))
                 {
                     return false;
                 }
             }
 
-            return counter == Count;
+            return Count == helpSet.Count;
         }
 
         /// <summary>
