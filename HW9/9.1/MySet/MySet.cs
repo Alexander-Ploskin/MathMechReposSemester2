@@ -170,6 +170,10 @@ namespace MySet
                 CopySubtreeToArray(element.RightChild);
             }
 
+            if (array.Length - arrayIndex + 1 < Count)
+            {
+                throw new ArgumentException();
+            }
             CopySubtreeToArray(root);
         }
 
