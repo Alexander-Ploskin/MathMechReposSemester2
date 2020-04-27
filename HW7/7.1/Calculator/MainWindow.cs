@@ -18,149 +18,132 @@ namespace Calculator
         public MainWindow()
         {
             calculator = new Calculator();
-            this.KeyUp += new KeyEventHandler(Calculate_Click);
             InitializeComponent();
         }
 
-        private void ChangeText()
+        private void UpdateText()
         {
-            outputBox.Text = calculator.Number1 + calculator.Operation + calculator.Number2;
+            OutputBox.Text = calculator.Expression;
         }
 
-        private void OnDivideClick(object sender, EventArgs e)
+        private void EraseAll_Click(object sender, EventArgs e)
         {
-            calculator.Add('/');
-            ChangeText();
+            calculator.Add('c');
+            UpdateText();
         }
 
-        private void Multiply_Click(object sender, EventArgs e)
+        private void Sqrt_Click(object sender, EventArgs e)
         {
-            calculator.Add('*');
-            ChangeText();
-        }
-
-        private void Minus_Click(object sender, EventArgs e)
-        {
-            calculator.Add('-');
-            ChangeText();
-        }
-
-        private void Plus_Click(object sender, EventArgs e)
-        {
-            calculator.Add('+');
-            ChangeText();
+            calculator.Add('r');
+            UpdateText();
         }
 
         private void Backspace_Click(object sender, EventArgs e)
         {
             calculator.Add('b');
-            ChangeText();
+            UpdateText();
         }
 
-        private void One_Click(object sender, EventArgs e)
+        private void Divivide_Click(object sender, EventArgs e)
         {
-            calculator.Add('1');
-            ChangeText();
-        }
-
-        private void Two_Click(object sender, EventArgs e)
-        {
-            calculator.Add('2');
-            ChangeText();
-        }
-
-        private void Three_Click(object sender, EventArgs e)
-        {
-            calculator.Add('3');
-            ChangeText();
-        }
-
-        private void Four_Click(object sender, EventArgs e)
-        {
-            calculator.Add('4');
-            ChangeText();
-        }
-
-        private void Five_Click(object sender, EventArgs e)
-        {
-            calculator.Add('5');
-            ChangeText();
-        }
-
-        private void Six_Click(object sender, EventArgs e)
-        {
-            calculator.Add('6');
-            ChangeText();
+            calculator.Add('/');
+            UpdateText();
         }
 
         private void Seven_Click(object sender, EventArgs e)
         {
             calculator.Add('7');
-            ChangeText();
+            UpdateText();
         }
 
         private void Eight_Click(object sender, EventArgs e)
         {
             calculator.Add('8');
-            ChangeText();
+            UpdateText();
         }
 
         private void Nine_Click(object sender, EventArgs e)
         {
             calculator.Add('9');
-            ChangeText();
+            UpdateText();
         }
 
-        private void Zero_Click(object sender, EventArgs e)
+        private void Multiply_Click(object sender, EventArgs e)
         {
-            calculator.Add('0');
-            ChangeText();
+            calculator.Add('*');
+            UpdateText();
         }
 
-        private void EraseAll_Click(object sender, EventArgs e)
+        private void Four_Click(object sender, EventArgs e)
         {
-            calculator.Clear();
-            ChangeText();
+            calculator.Add('4');
+            UpdateText();
+        }
+
+        private void Five_Click(object sender, EventArgs e)
+        {
+            calculator.Add('5');
+            UpdateText();
+        }
+
+        private void Six_Click(object sender, EventArgs e)
+        {
+            calculator.Add('6');
+            UpdateText();
+        }
+
+        private void Minus_Click(object sender, EventArgs e)
+        {
+            calculator.Add('-');
+            UpdateText();
+        }
+
+        private void One_Click(object sender, EventArgs e)
+        {
+            calculator.Add('1');
+            UpdateText();
+        }
+
+        private void Two_Click(object sender, EventArgs e)
+        {
+            calculator.Add('2');
+            UpdateText();
+        }
+
+        private void Three_Click(object sender, EventArgs e)
+        {
+            calculator.Add('3');
+            UpdateText();
+        }
+
+        private void Plus_Click(object sender, EventArgs e)
+        {
+            calculator.Add('+');
+            UpdateText();
         }
 
         private void Sign_Click(object sender, EventArgs e)
         {
             calculator.Add('s');
-            ChangeText();
+            UpdateText();
+        }
+
+        private void Zero_Click(object sender, EventArgs e)
+        {
+            calculator.Add('0');
+            UpdateText();
         }
 
         private void Point_Click(object sender, EventArgs e)
         {
             calculator.Add(',');
-            ChangeText();
+            UpdateText();
         }
 
         private void Calculate_Click(object sender, EventArgs e)
         {
-            try
-            {
-                calculator.Add('=');
-                ChangeText();
-            }
-            catch (DivideByZeroException)
-            {
-                outputBox.Text = "Divide by zero!";
-                calculator.Clear();
-            }
-        }
-
-        private void Sqrt_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                calculator.Add('√');
-                ChangeText();
-            }
-            catch (ArithmeticException)
-            {
-                outputBox.Text = "Invalid input!";
-                calculator.Clear();
-            }
+            calculator.Add('=');
+            UpdateText();
         }
 
     }
