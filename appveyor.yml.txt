@@ -1,0 +1,7 @@
+image: Visual Studio 2019
+
+before_build:
+    - nuget restore HW7/7.2/Clock.sln
+
+build:
+    project: HW7/7.2/Clock.sln
