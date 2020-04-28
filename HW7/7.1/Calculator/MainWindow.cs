@@ -136,7 +136,7 @@ namespace Calculator
 
         private void Point_Click(object sender, EventArgs e)
         {
-            calculator.Add(',');
+            calculator.Add('.');
             UpdateText();
         }
 

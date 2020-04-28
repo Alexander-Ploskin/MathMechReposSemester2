@@ -1,5 +1,6 @@
 ﻿using Calculator.Operators;
 using Calculator.Statements;
+using Calculator.States;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,11 +14,13 @@ using System.Windows.Forms.VisualStyles;
 
 namespace Calculator
 {
-    class Calculator
+    public class Calculator
     {
         public IOperator Operator { get; set; }
         public Number Number1 { get; }
         public Number Number2 { get; }
+
+        public string ErrorMessege { get; set; }
 
         private CalculatorState currentState;
         private StateTransitionTable stateTransitionTable;
@@ -36,12 +39,17 @@ namespace Calculator
             Operator = new NullOperator();
             Number1.Clear();
             Number2.Clear();
+            ErrorMessege = "";
         }
 
         public string Expression
         {
             get
             {
+                if (ErrorMessege != "")
+                {
+                    return ErrorMessege;
+                }
                 return Number1.Value + Operator.Print() + Number2.Value;
             }
         }
@@ -67,7 +75,14 @@ namespace Calculator
             catch (DivideByZeroException)
             {
                 Clear();
-                currentState = new FirstDigitOfNumber1State(this);
+                ErrorMessege = "Divide by zero!";
+                currentState = new ErrorMessegeState(this);
+            }
+            catch (SqrtByNegativeNumberException)
+            {
+                Clear();
+                ErrorMessege = "Sqrt by negative number!";
+                currentState = new ErrorMessegeState(this);
             }
         }
 

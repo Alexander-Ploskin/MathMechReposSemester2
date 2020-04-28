@@ -7,7 +7,7 @@ using System.Xml.XPath;
 
 namespace Calculator
 {
-    class Number
+    public class Number
     {
         public string Value { get; set; }
 
@@ -16,11 +16,19 @@ namespace Calculator
 
         public void ChangeSign() => sign *= -1;
 
-        public void CalculateSqrt() => Value = Math.Sqrt(sign * double.Parse(Value)).ToString();
+        public void CalculateSqrt()
+        {
+            double buffer = Math.Sqrt(sign * double.Parse(Value));
+            if (double.IsNaN(buffer))
+            {
+                throw new SqrtByNegativeNumberException();
+            }
+            Value = buffer.ToString();
+        }
 
         public void Clear()
         {
-            Value = " ";
+            Value = "";
         }
 
         public void RemoveLastSymbol() => Value = Value.Remove(Value.Length - 1);

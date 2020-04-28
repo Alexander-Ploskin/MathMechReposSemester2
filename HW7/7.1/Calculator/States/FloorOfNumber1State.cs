@@ -22,7 +22,7 @@ namespace Calculator.Statements
 
         protected override void DoInCaseOfSqrt() => calculator.Number1.CalculateSqrt();
 
-        protected override void DoInCaseOfPoint() => calculator.Number1.Value += ',';
+        protected override void DoInCaseOfPoint() => calculator.Number1.Value += '.';
 
         protected override void DoInCaseOfCalculate() => throw new ArgumentException();
 

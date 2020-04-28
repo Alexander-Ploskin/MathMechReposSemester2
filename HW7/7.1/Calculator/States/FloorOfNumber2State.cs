@@ -21,7 +21,7 @@ namespace Calculator.States
 
         protected override void DoInCaseOfSqrt() => calculator.Number2.CalculateSqrt();
 
-        protected override void DoInCaseOfPoint() => calculator.Number2.Value += ',';
+        protected override void DoInCaseOfPoint() => calculator.Number2.Value += '.';
 
         protected override void DoInCaseOfCalculate() => calculator.Calculate();
 

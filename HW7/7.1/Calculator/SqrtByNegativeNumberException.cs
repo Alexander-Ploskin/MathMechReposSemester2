@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public interface IOperator
+    public class SqrtByNegativeNumberException : SystemException
     {
-        double Calculate();
-
-        string Print();
     }
 }

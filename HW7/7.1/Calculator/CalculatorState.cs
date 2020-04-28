@@ -49,8 +49,14 @@ namespace Calculator
                         calculator.Clear();
                         return;
                     }
+                case '.':
+                    {
+                        DoInCaseOfPoint();
+                        return;
+                    }
             }
 
+            throw new ArgumentException();
         }
 
         public abstract CalculatorState Backspace();

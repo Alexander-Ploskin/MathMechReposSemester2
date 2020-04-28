@@ -64,6 +64,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqrtByNegativeNumberException.cs" />
+    <Compile Include="States\ErrorMessegeState.cs" />
     <Compile Include="States\FirstDigitAfterPointOfNumber1State.cs" />
     <Compile Include="States\FirstDigitAfterPointOfNumber2State.cs" />
     <Compile Include="States\FirstDigitOfNumber1State.cs" />

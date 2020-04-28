@@ -84,6 +84,7 @@ namespace Calculator
                 case 8: return new FractionalPartOfNumber2State(calculator);
                 case 9: return new InputedNumber2State(calculator);
                 case 10: return new JustCalculatedState(calculator);
+                case 11: return new ErrorMessegeState(calculator);
             }
 
             throw new ArgumentException();
