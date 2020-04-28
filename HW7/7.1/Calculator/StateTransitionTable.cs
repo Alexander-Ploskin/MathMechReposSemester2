@@ -17,7 +17,7 @@ namespace Calculator
 
         private Calculator calculator;
 
-        private int[,] table = new int[11, 7]
+        private int[,] table = new int[12, 7]
         {
             { 1, -1, 0, -1, -1, -1, 0 },
             { 1, 5, 1, 4, -1, 2, 0 },
@@ -30,6 +30,7 @@ namespace Calculator
             { 8, 5, 8, 9, 10, -1, 0},
            { -1, 5, 9, 9, 10, -1, 0},
             { 0, 5, 10, 4, -1, -1, 0},
+            { 0, },
         };
 
         private int GetNumberOfCharInTabble(char token)
@@ -60,7 +61,7 @@ namespace Calculator
                     {
                         return 5;
                     }
-                case ',':
+                case '.':
                     {
                         return 6;
                     }
