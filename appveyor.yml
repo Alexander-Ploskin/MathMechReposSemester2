@@ -1,0 +1,9 @@
+image: Visual Studio 2019
+before_build:
+- nuget restore Test1\PriotiryQueue\PriotiryQueue.sln
+
+build_script:
+  - dotnet build Test1\PriotiryQueue\PriotiryQueue.sln
+
+test_script:
+  - dotnet test Test1\PriotiryQueue\PriotiryQueue.sln
