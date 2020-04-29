@@ -45,16 +45,6 @@ namespace Calculator
         public string Expression { get => ErrorMessege + Number1.Value + Operator.Print() + Number2.Value; }
 
         /// <summary>
-        /// Calculates expression
-        /// </summary>
-        public void Calculate()
-        {
-            Number1.Value = Operator.Calculate(double.Parse(Number1.Value), double.Parse(Number2.Value)).ToString();
-            Number2.Value = "";
-            Operator = new NullOperator();
-        }
-
-        /// <summary>
         /// Adds new symbol to calculator, ignores tokens, that calculator doesn't take  
         /// </summary>
         /// <param name="token">

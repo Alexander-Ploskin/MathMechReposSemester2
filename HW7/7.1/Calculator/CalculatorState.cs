@@ -68,6 +68,10 @@ namespace Calculator
         /// <returns>State after removing</returns>
         public abstract CalculatorState Backspace();
 
+        /// <summary>
+        /// Sets new operator in calculator
+        /// </summary>
+        /// <param name="token">New operator</param>
         protected void SetOperator(char token)
         {
             switch (token)
@@ -93,6 +97,16 @@ namespace Calculator
                         return;
                     }
             }
+        }
+
+        /// <summary>
+        /// Calculates expression
+        /// </summary>
+        public void Calculate()
+        {
+            calculator.Number1.Value = calculator.Operator.Calculate(double.Parse(calculator.Number1.Value), double.Parse(calculator.Number2.Value)).ToString();
+            calculator.Number2.Value = "";
+            calculator.Operator = new NullOperator();
         }
 
         /// <summary>

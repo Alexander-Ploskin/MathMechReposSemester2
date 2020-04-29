@@ -12,7 +12,7 @@ namespace CalculatorTests
         public void SetUp()
         {
             number = new Number();
-            number.Value += "6.25";
+            number.Value += "6,25";
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace CalculatorTests
         [Test]
         public void SqrtByNegativeNumberTest()
         {
-            number.CalculateSqrt();
+            number.ChangeSign();
             Assert.Throws<SqrtByNegativeNumberException>(() => number.CalculateSqrt());
         }
 

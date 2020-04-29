@@ -9,15 +9,16 @@ namespace CalculatorTests
 
     class OperatorsTests
     {
-        private static IEnumerable<(IOperator, double)> TestCases()
-        {
-            yield return (new Addition(), 7.5);
-            yield return (new Division(), 2);
-            yield return (new Multiplication(), 12.5);
-            yield return (new Subtraction(), 2.5);
-        }
 
-        [TestCaseSource("TestCases")]
+        private static object[] CalculateCases =
+        {
+            new object[] { new Addition(), 7.5 },
+            new object[] { new Division(), 2 },
+            new object[] { new Multiplication(), 12.5 },
+            new object[] { new Subtraction(), 2.5 }
+        };
+
+        [TestCaseSource("CalculateCases")]
         public void CalculateTest(IOperator testOperator, double expextedResult)
             => Assert.AreEqual(expextedResult, testOperator.Calculate(5, 2.5));
 

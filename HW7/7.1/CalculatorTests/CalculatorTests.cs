@@ -24,11 +24,31 @@ namespace CalculatorTests
             }
         }
 
+        [TestCase("11-1=", "10")]
         [TestCase("1+1=", "2")]
-        [TestCase("1.2-1=", "0.2")]
         [TestCase("10/5=", "2")]
         [TestCase("5*5=", "25")]
         public void CorrectSimpleExpressionsTest(string expression, string expectedOutput)
+        {
+            EnterExpression(expression);
+            Assert.AreEqual(expectedOutput, calculator.Expression);
+        }
+
+        [TestCase("1,2-1=", "0,2")]
+        [TestCase("1,1+1=", "2,1")]
+        [TestCase("2,5/2=", "1,25")]
+        [TestCase("2,5*2=", "5")]
+        public void FirstNumberIsNotIntegerTest(string expression, string expectedOutput)
+        {
+            EnterExpression(expression);
+            Assert.AreEqual(expectedOutput, calculator.Expression);
+        }
+
+        [TestCase("1-0,5=", "0,2")]
+        [TestCase("1,1+1=", "2,1")]
+        [TestCase("2,5/2=", "1,25")]
+        [TestCase("2,5*2=", "5")]
+        public void SecondNumberIsNotIntegerTest(string expression, string expectedOutput)
         {
             EnterExpression(expression);
             Assert.AreEqual(expectedOutput, calculator.Expression);

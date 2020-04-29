@@ -42,7 +42,7 @@ namespace Calculator.States
         /// <summary>
         /// Calculates expression in calculator
         /// </summary>
-        protected override void DoInCaseOfCalculate() => calculator.Calculate();
+        protected override void DoInCaseOfCalculate() => Calculate();
 
         /// <summary>
         /// 
@@ -50,7 +50,7 @@ namespace Calculator.States
         /// <param name="token"></param>
         protected override void DoInCaseOfOperator(char token)
         {
-            calculator.Calculate();
+            Calculate();
             SetOperator(token);
         }
 
