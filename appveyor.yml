@@ -3,4 +3,4 @@ before_build:
 - nuget restore HW7\7.2\7.2.sln
 
 build_script:
-  - dotnet build Test1\PriotiryQueue\PriotiryQueue.sln
+  - dotnet build HW7\7.2\7.2.sln
