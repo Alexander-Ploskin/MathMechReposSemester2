@@ -39,7 +39,7 @@
             this.Front.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Front.Location = new System.Drawing.Point(0, 0);
             this.Front.Name = "Front";
-            this.Front.Size = new System.Drawing.Size(800, 450);
+            this.Front.Size = new System.Drawing.Size(384, 361);
             this.Front.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Front.TabIndex = 1;
             this.Front.TabStop = false;
@@ -48,8 +48,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(384, 361);
             this.Controls.Add(this.Front);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "Clock";
             this.Text = "Clock";
             ((System.ComponentModel.ISupportInitialize)(this.Front)).EndInit();
