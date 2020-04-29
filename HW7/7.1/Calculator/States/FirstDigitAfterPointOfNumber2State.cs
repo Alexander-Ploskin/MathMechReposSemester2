@@ -16,15 +16,17 @@ namespace Calculator.States
 
         public override int NumberInStateTransitionTable { get; } = 7;
 
-        protected override void DoInCaseOfDigit(char token) => calculator.Number1.Value += token;
+        protected override void DoInCaseOfDigit(char token) => calculator.Number2.Value += token;
 
-        protected override void DoInCaseOfSign() => calculator.Number1.ChangeSign();
+        protected override void DoInCaseOfSign() => calculator.Number2.ChangeSign();
 
         protected override void DoInCaseOfSqrt() => throw new ArgumentException();
 
         protected override void DoInCaseOfPoint() => throw new ArgumentException();
 
         protected override void DoInCaseOfCalculate() => throw new ArgumentException();
+
+        protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
 
         public override CalculatorState Backspace()
         {

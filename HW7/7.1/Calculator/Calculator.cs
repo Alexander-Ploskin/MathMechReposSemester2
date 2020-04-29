@@ -2,15 +2,6 @@
 using Calculator.Statements;
 using Calculator.States;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace Calculator
 {
@@ -20,7 +11,7 @@ namespace Calculator
         public Number Number1 { get; }
         public Number Number2 { get; }
 
-        public string ErrorMessege { get; set; }
+        public string ErrorMessege { get; set; } = "";
 
         private CalculatorState currentState;
         private StateTransitionTable stateTransitionTable;
@@ -46,11 +37,7 @@ namespace Calculator
         {
             get
             {
-                if (ErrorMessege != "")
-                {
-                    return ErrorMessege;
-                }
-                return Number1.Value + Operator.Print() + Number2.Value;
+                return ErrorMessege + Number1.Value + Operator.Print() + Number2.Value + "   " + currentState.NumberInStateTransitionTable.ToString();
             }
         }
 
@@ -58,13 +45,18 @@ namespace Calculator
         {
             Number1.Value = Operator.Calculate().ToString();
             Number2.Value = "";
-            Operator = null;
+            Operator = new NullOperator();
         }
 
         public void Add(char token)
         {
             try
             {
+                if (token == 'b')
+                {
+                    currentState = currentState.Backspace();
+                    return;
+                }
                 currentState.Do(token);
                 currentState = stateTransitionTable.DoTransition(currentState, token);
             }

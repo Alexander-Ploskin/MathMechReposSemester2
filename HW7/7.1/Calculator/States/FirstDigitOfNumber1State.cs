@@ -25,6 +25,8 @@ namespace Calculator.Statements
 
         protected override void DoInCaseOfCalculate() => throw new ArgumentException();
 
+        protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
+
         public override CalculatorState Backspace() => this;
 
     }

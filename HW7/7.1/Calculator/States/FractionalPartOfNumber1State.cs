@@ -25,6 +25,8 @@ namespace Calculator.States
 
         protected override void DoInCaseOfCalculate() => throw new ArgumentException();
 
+        protected override void DoInCaseOfOperator(char token) => SetOperator(token);
+
         public override CalculatorState Backspace()
         {
             calculator.Number1.RemoveLastSymbol();

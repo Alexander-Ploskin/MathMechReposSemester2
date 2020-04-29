@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calculator.Statements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,14 +22,14 @@ namespace Calculator.States
 
         protected override void DoInCaseOfSqrt() => calculator.Number2.CalculateSqrt();
 
-        protected override void DoInCaseOfPoint() => calculator.Number2.Value += '.';
+        protected override void DoInCaseOfPoint() => calculator.Number2.Value += ',';
 
         protected override void DoInCaseOfCalculate() => calculator.Calculate();
 
         protected override void DoInCaseOfOperator(char token)
         {
             calculator.Calculate();
-            base.DoInCaseOfOperator(token);
+            SetOperator(token);
         }
 
         public override CalculatorState Backspace()
@@ -36,7 +37,7 @@ namespace Calculator.States
             calculator.Number2.RemoveLastSymbol();
             if (calculator.Number2.Value.Length == 0)
             {
-                return new FirstDigitAfterPointOfNumber2State(calculator);
+                return new FirstDigitOfNumber2State(calculator);
             }
             return this;
         }

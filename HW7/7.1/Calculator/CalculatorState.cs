@@ -1,9 +1,5 @@
 ﻿using Calculator.Operators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
@@ -49,7 +45,7 @@ namespace Calculator
                         calculator.Clear();
                         return;
                     }
-                case '.':
+                case ',':
                     {
                         DoInCaseOfPoint();
                         return;
@@ -61,7 +57,7 @@ namespace Calculator
 
         public abstract CalculatorState Backspace();
 
-        protected virtual void DoInCaseOfOperator(char token)
+        protected void SetOperator(char token)
         {
             switch (token)
             {
@@ -97,6 +93,8 @@ namespace Calculator
         protected abstract void DoInCaseOfPoint();
 
         protected abstract void DoInCaseOfCalculate();
+
+        protected abstract void DoInCaseOfOperator(char token);
 
     }
 }

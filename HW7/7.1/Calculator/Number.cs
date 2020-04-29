@@ -9,16 +9,27 @@ namespace Calculator
 {
     public class Number
     {
-        public string Value { get; set; }
+        public string Value { get; set; } = "";
 
+        public void ChangeSign()
+        {
+            if (Value.Length == 0)
+            {
+                Value = "-";
+                return;
+            }
+            if (Value[0] == '-')
+            {
+                Value = Value.Remove(0, 1);
+                return;
+            }
 
-        private int sign = 1;
-
-        public void ChangeSign() => sign *= -1;
+            Value = "-" + Value;
+        }
 
         public void CalculateSqrt()
         {
-            double buffer = Math.Sqrt(sign * double.Parse(Value));
+            double buffer = Math.Sqrt(double.Parse(Value));
             if (double.IsNaN(buffer))
             {
                 throw new SqrtByNegativeNumberException();

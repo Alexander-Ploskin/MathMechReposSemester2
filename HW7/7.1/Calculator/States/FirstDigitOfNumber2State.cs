@@ -1,4 +1,5 @@
-﻿using Calculator.States;
+﻿using Calculator.Operators;
+using Calculator.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,11 @@ namespace Calculator.Statements
 
         protected override void DoInCaseOfCalculate() => throw new ArgumentException();
 
+        protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
+
         public override CalculatorState Backspace()
         {
-            calculator.Operator = null;
+            calculator.Operator = new NullOperator();
             return new InputedNumber1State(calculator);
         }
 

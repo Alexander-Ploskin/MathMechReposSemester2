@@ -28,7 +28,7 @@ namespace Calculator.States
         protected override void DoInCaseOfOperator(char token)
         {
             calculator.Calculate();
-            base.DoInCaseOfOperator(token);
+            SetOperator(token);
         }
 
         public override CalculatorState Backspace()
