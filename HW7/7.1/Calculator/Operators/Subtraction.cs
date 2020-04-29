@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace Calculator.Operators
 {
-    class Subtraction : IOperator
+    /// <summary>
+    /// Implementation of subtraction for calculator
+    /// </summary>
+    public class Subtraction : IOperator
     {
-        private Calculator calculator;
+        /// <summary>
+        /// Subtracts second number by first
+        /// </summary>
+        /// <param name="number1">First number</param>
+        /// <param name="number2">Second number</param>
+        /// <returns>Result of subtraction</returns>
+        public double Calculate(double number1, double number2) => number1 - number2;
 
-        public Subtraction(Calculator calculator)
-        {
-            this.calculator = calculator;
-        }
-
-        public double Calculate() => double.Parse(calculator.Number1.Value) - double.Parse(calculator.Number2.Value);
-
+        /// <summary>
+        /// Prints this 
+        /// </summary>
+        /// <returns>String with -</returns>
         public string Print() => " - ";
 
     }

@@ -1,22 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator.Operators
 {
-    class Division : IOperator
+    /// <summary>
+    /// Implementation of division for calculator
+    /// </summary>
+    public class Division : IOperator
     {
-        private Calculator calculator;
-
-        public Division(Calculator calculator)
+        /// <summary>
+        /// Divides two numbers
+        /// </summary>
+        /// <param name="number1">First number</param>
+        /// <param name="number2">Second number</param>
+        /// <returns>Result of division</returns>
+        public double Calculate(double number1, double number2)
         {
-            this.calculator = calculator;
+            if (number2 == 0)
+            {
+                throw new DivideByZeroException();
+            }
+            return number1 / number2;
         }
 
-        public double Calculate() => double.Parse(calculator.Number1.Value) / double.Parse(calculator.Number2.Value);
-
+        /// <summary>
+        /// Prints this 
+        /// </summary>
+        /// <returns>String with /</returns>
         public string Print() => " / ";
 
     }

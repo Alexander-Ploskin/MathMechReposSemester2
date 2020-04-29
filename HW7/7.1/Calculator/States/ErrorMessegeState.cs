@@ -3,6 +3,9 @@ using System;
 
 namespace Calculator.States
 {
+    /// <summary>
+    /// State of error messege in calculator
+    /// </summary>
     class ErrorMessegeState : CalculatorState
     {
         public ErrorMessegeState(Calculator calculator)
@@ -12,17 +15,25 @@ namespace Calculator.States
 
         public override int NumberInStateTransitionTable { get; } = 11;
 
+        /// <summary>
+        /// Inputs new number
+        /// </summary>
         protected override void DoInCaseOfDigit(char token)
         {
             calculator.ErrorMessege = "";
             calculator.Number1.Value += token;
         }
 
+        /// <summary>
+        /// Inputs sign of new number
+        /// </summary>
         protected override void DoInCaseOfSign()
         {
             calculator.ErrorMessege = "";
             calculator.Number1.ChangeSign();
         }
+
+        //Other cases doesn't have implementation
 
         protected override void DoInCaseOfSqrt() => throw new ArgumentException();
 
@@ -32,6 +43,10 @@ namespace Calculator.States
 
         protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
 
+        /// <summary>
+        /// Returns calculator to start state
+        /// </summary>
+        /// <returns>New start state</returns>
         public override CalculatorState Backspace()
         {
             calculator.ErrorMessege = "";

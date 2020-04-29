@@ -1,4 +1,6 @@
-﻿   D O s  r =  c ,
+﻿More readability state transition table here:
+
+   D O s  r =  c ,
 0  1 - 0  - -  0 -
 1  1 5 1  4 -  0 2
 2  3 - 2  - -  0 -

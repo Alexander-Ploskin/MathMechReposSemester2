@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Calculator.Statements
 {
+    /// <summary>
+    /// State of inputed number1 and operator
+    /// </summary>
     class FirstDigitOfNumber2State : CalculatorState
     {
         public FirstDigitOfNumber2State(Calculator calculator)
@@ -17,9 +20,17 @@ namespace Calculator.Statements
 
         public override int NumberInStateTransitionTable { get; } = 5;
 
+        /// <summary>
+        /// Adds new digit to number2
+        /// </summary>
         protected override void DoInCaseOfDigit(char token) => calculator.Number2.Value += token;
 
+        /// <summary>
+        /// Changes sign of number2
+        /// </summary>
         protected override void DoInCaseOfSign() => calculator.Number2.ChangeSign();
+
+        //Other cases doesn't have implementation
 
         protected override void DoInCaseOfSqrt() => throw new ArgumentException();
 
@@ -29,6 +40,10 @@ namespace Calculator.Statements
 
         protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
 
+        /// <summary>
+        /// Removes operator
+        /// </summary>
+        /// <returns>Inputed number1 state</returns>
         public override CalculatorState Backspace()
         {
             calculator.Operator = new NullOperator();

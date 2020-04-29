@@ -5,6 +5,9 @@ using System;
 
 namespace Calculator
 {
+    /// <summary>
+    /// FSM-Implementation of graphical calculator iterface 
+    /// </summary>
     public class Calculator
     {
         public IOperator Operator { get; set; }
@@ -25,6 +28,9 @@ namespace Calculator
             stateTransitionTable = new StateTransitionTable(this);
         }
 
+        /// <summary>
+        /// Returns calculator to start state
+        /// </summary>
         public void Clear()
         {
             Operator = new NullOperator();
@@ -33,21 +39,31 @@ namespace Calculator
             ErrorMessege = "";
         }
 
-        public string Expression
-        {
-            get
-            {
-                return ErrorMessege + Number1.Value + Operator.Print() + Number2.Value + "   " + currentState.NumberInStateTransitionTable.ToString();
-            }
-        }
+        /// <summary>
+        /// Current expression in calculator
+        /// </summary>
+        public string Expression { get => ErrorMessege + Number1.Value + Operator.Print() + Number2.Value; }
 
+        /// <summary>
+        /// Calculates expression
+        /// </summary>
         public void Calculate()
         {
-            Number1.Value = Operator.Calculate().ToString();
+            Number1.Value = Operator.Calculate(double.Parse(Number1.Value), double.Parse(Number2.Value)).ToString();
             Number2.Value = "";
             Operator = new NullOperator();
         }
 
+        /// <summary>
+        /// Adds new symbol to calculator, ignores tokens, that calculator doesn't take  
+        /// </summary>
+        /// <param name="token">
+        /// New symbol.
+        /// Token = r means square root
+        /// Token = s means sign
+        /// Token = b means backspace
+        /// Token = c means clear        
+        /// /// </param>
         public void Add(char token)
         {
             try

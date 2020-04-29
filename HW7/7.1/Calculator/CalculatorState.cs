@@ -3,12 +3,19 @@ using System;
 
 namespace Calculator
 {
+    /// <summary>
+    /// General class of all states
+    /// </summary>
     abstract class CalculatorState
     {
         protected Calculator calculator;
 
         public abstract int NumberInStateTransitionTable { get; }
 
+        /// <summary>
+        /// Do something with calculator in case of token
+        /// </summary>
+        /// <param name="token">Input token</param>
         public void Do(char token)
         {
             if (char.IsDigit(token))
@@ -55,6 +62,10 @@ namespace Calculator
             throw new ArgumentException();
         }
 
+        /// <summary>
+        /// Removes one symbol from calculator
+        /// </summary>
+        /// <returns>State after removing</returns>
         public abstract CalculatorState Backspace();
 
         protected void SetOperator(char token)
@@ -63,27 +74,31 @@ namespace Calculator
             {
                 case '+':
                     {
-                        calculator.Operator = new Addition(calculator);
+                        calculator.Operator = new Addition();
                         return;
                     }
                 case '-':
                     {
-                        calculator.Operator = new Subtraction(calculator);
+                        calculator.Operator = new Subtraction();
                         return;
                     }
                 case '*':
                     {
-                        calculator.Operator = new Multiplication(calculator);
+                        calculator.Operator = new Multiplication();
                         return;
                     }
                 case '/':
                     {
-                        calculator.Operator = new Division(calculator);
+                        calculator.Operator = new Division();
                         return;
                     }
             }
         }
 
+        /// <summary>
+        /// Something, that calculator does in case of input token is digit
+        /// </summary>
+        /// <param name="token"></param>
         protected abstract void DoInCaseOfDigit(char token);
 
         protected abstract void DoInCaseOfSign();

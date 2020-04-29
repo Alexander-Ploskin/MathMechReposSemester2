@@ -12,19 +12,29 @@ namespace CalculatorTests
         public void SetUp()
         {
             number = new Number();
+            number.Value += "6.25";
         }
 
         [Test]
         public void ChangeSignTest()
         {
-
+            number.ChangeSign();
+            Assert.AreEqual(-6.25, double.Parse(number.Value));
+            number.ChangeSign();
+            Assert.AreEqual(6.25, double.Parse(number.Value));
         }
 
         [Test]
-        public void SqrtBYNegativeNumberTest()
+        public void SqrtTest()
         {
-            number.Value = "144";
-            number.ChangeSign();
+            number.CalculateSqrt();
+            Assert.AreEqual(2.5, double.Parse(number.Value));
+        }
+
+        [Test]
+        public void SqrtByNegativeNumberTest()
+        {
+            number.CalculateSqrt();
             Assert.Throws<SqrtByNegativeNumberException>(() => number.CalculateSqrt());
         }
 

@@ -1,13 +1,12 @@
 ﻿using Calculator.Statements;
 using Calculator.States;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
+    /// <summary>
+    /// Class that makes transitions between states of calculator
+    /// </summary>
     class StateTransitionTable
     {
         public StateTransitionTable(Calculator calculator)
@@ -17,22 +16,30 @@ namespace Calculator
 
         private Calculator calculator;
 
+        /// <summary>
+        /// State transition table
+        /// </summary>
         private int[,] table = new int[12, 7]
         {
            { 1, -1, 0,  -1, -1,  0, -1},
            { 1, 5, 1, 4, -1,  0, 2 },
            { 3, -1, 2, -1, -1,  0, -1 },
            { 3, 5, 3, 4, -1,  0, -1 },
-           { -1, 5, 4, 4, -1,  0, -1 },
+           { 1, 5, 4, 4, -1,  0, -1 },
            { 6, -1, 5, -1, -1,  0, -1 },
            { 6, 5, 6, 9, 10, 0, 7 },
            { 8, -1, 7, -1, -1,  0, -1 },
            { 8, 5, 8, 9, 10, 0, -1 },
-           { -1, 5, 9, 9, 10, 0, -1 },
+           { 6, 5, 9, 9, 10, 0, -1 },
            { 1, 5, 10, 4, -1,  0, -1 },
            { 1, -1, 0,  -1, -1,  0, -1 }
         };
 
+        /// <summary>
+        /// Gets number of token in table
+        /// </summary>
+        /// <param name="token">Input token</param>
+        /// <returns>Number of column of input token in table</returns>
         private int GetNumberOfCharInTabble(char token)
         {
             if (char.IsDigit(token))
@@ -70,11 +77,16 @@ namespace Calculator
             throw new ArgumentException();
         }
 
+        /// <summary>
+        /// Creates new calculator state by its number in table
+        /// </summary>
+        /// <param name="number">Number in table</param>
+        /// <returns>New state</returns>
         private CalculatorState CreateNewStateByNumber(int number)
         {
             switch (number)
             {
-                case 0: return new FirstDigitAfterPointOfNumber1State(calculator);
+                case 0: return new FirstDigitOfNumber1State(calculator);
                 case 1: return new FloorOfNumber1State(calculator);
                 case 2: return new FirstDigitAfterPointOfNumber1State(calculator);
                 case 3: return new FractionalPartOfNumber1State(calculator);
@@ -91,6 +103,12 @@ namespace Calculator
             throw new ArgumentException();
         }
 
+        /// <summary>
+        /// Does transition by current state and input token
+        /// </summary>
+        /// <param name="currentState">Current state of calculator</param>
+        /// <param name="token">Input token</param>
+        /// <returns>New state</returns>
         public CalculatorState DoTransition(CalculatorState currentState, char token)
             => CreateNewStateByNumber(table[currentState.NumberInStateTransitionTable, GetNumberOfCharInTabble(token)]);
 
