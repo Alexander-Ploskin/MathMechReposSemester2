@@ -41,11 +41,16 @@ namespace Calculator.Statements
         protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
 
         /// <summary>
-        /// Removes operator
+        /// Removes operator or sign if in was inputed
         /// </summary>
-        /// <returns>Inputed number1 state</returns>
+        /// <returns>Inputed number1 state or this</returns>
         public override CalculatorState Backspace()
         {
+            if (calculator.Number2.Value.Length != 0)
+            {
+                calculator.Number2.RemoveLastSymbol();
+                return this;
+            }
             calculator.Operator = new NullOperator();
             return new InputedNumber1State(calculator);
         }

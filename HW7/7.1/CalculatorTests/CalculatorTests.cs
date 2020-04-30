@@ -28,13 +28,13 @@ namespace CalculatorTests
         [TestCase("1+1=", "2")]
         [TestCase("10/5=", "2")]
         [TestCase("5*5=", "25")]
-        public void CorrectSimpleExpressionsTest(string expression, string expectedOutput)
+        public void CorrectIntegerExpressionsTest(string expression, string expectedOutput)
         {
             EnterExpression(expression);
             Assert.AreEqual(expectedOutput, calculator.Expression);
         }
 
-        [TestCase("1,2-1=", "0,2")]
+        [TestCase("10,5-1=", "9,5")]
         [TestCase("1,1+1=", "2,1")]
         [TestCase("2,5/2=", "1,25")]
         [TestCase("2,5*2=", "5")]
@@ -44,7 +44,7 @@ namespace CalculatorTests
             Assert.AreEqual(expectedOutput, calculator.Expression);
         }
 
-        [TestCase("1-0,5=", "0,2")]
+        [TestCase("1-0,5=", "0,5")]
         [TestCase("1,1+1=", "2,1")]
         [TestCase("2,5/2=", "1,25")]
         [TestCase("2,5*2=", "5")]
@@ -54,9 +54,9 @@ namespace CalculatorTests
             Assert.AreEqual(expectedOutput, calculator.Expression);
         }
 
-        [TestCase("1+2+3", "6")]
-        [TestCase("1+2/3", "1")]
-        [TestCase("1+2-3", "0")]
+        [TestCase("1+2+3=", "6")]
+        [TestCase("1+2/3=", "1")]
+        [TestCase("1+2-3=", "0")]
         public void ManyOperatorsTest(string expression, string expectedOutput)
         {
             EnterExpression(expression);
@@ -79,6 +79,7 @@ namespace CalculatorTests
             Assert.AreEqual("", calculator.Expression);
         }
 
+        [Test]
         public void RandomTokensTest()
         {
             EnterExpression("5+F4%))=");
@@ -96,14 +97,40 @@ namespace CalculatorTests
             Assert.AreEqual(expectedOutput, calculator.Expression);
         }
 
-        [TestCase("4s+5=", "-1")]
+        [TestCase("4s+5=", "1")]
         [TestCase("4+4s=", "0")]
         [TestCase("s4+5=", "1")]
         [TestCase("4+s5=", "-1")]
-        [TestCase("2+2=r", "-4")]
-        [TestCase("44,s5+55,5s=", "101")]
+        [TestCase("2+2=s", "-4")]
+        [TestCase("44,s5+55,5s=", "-100")]
         [TestCase("16rs", "-4")]
+        [TestCase("4ss+5ss=", "9")]
         public void ChangeSignTests(string expression, string expectedOutput)
+        {
+            EnterExpression(expression);
+            Assert.AreEqual(expectedOutput, calculator.Expression);
+        }
+
+        [TestCase("b", "")]
+        [TestCase("4b", "")]
+        [TestCase("55b", "5")]
+        [TestCase("55bb", "")]
+        [TestCase("4,4b", "4,")]
+        [TestCase("4,44b", "4,4")]
+        [TestCase("4,b", "4")]
+        [TestCase("16rb", "4")]
+        [TestCase("sb4", "4")]
+        [TestCase("4+b", "4")]
+        [TestCase("4+4b", "4 + ")]
+        [TestCase("4+55b", "4 + 5")]
+        [TestCase("4+55bb=", "4 + ")]
+        [TestCase("4+4,4b", "4 + 4,")]
+        [TestCase("4+4,44b", "4 + 4,4")]
+        [TestCase("4+4,b", "4 + 4")]
+        [TestCase("4+16rb", "4 + 4")]
+        [TestCase("4+sb4", "4 + 4")]
+        [TestCase("4+4=b", "")]
+        public void BackspaceTests(string expression, string expectedOutput)
         {
             EnterExpression(expression);
             Assert.AreEqual(expectedOutput, calculator.Expression);

@@ -37,10 +37,14 @@ namespace Calculator.Statements
         protected override void DoInCaseOfOperator(char token) => throw new ArgumentException();
 
         /// <summary>
-        /// Do nothing
+        /// Erase sign if it was inputed
         /// </summary>
         /// <returns>This</returns>
-        public override CalculatorState Backspace() => this;
+        public override CalculatorState Backspace()
+        {
+            calculator.Number1.RemoveLastSymbol();
+            return this;
+        }
 
     }
 }
