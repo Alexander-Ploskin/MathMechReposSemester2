@@ -19,16 +19,16 @@ namespace CalculatorTests
         public void ChangeSignTest()
         {
             number.ChangeSign();
-            Assert.AreEqual(-6.25, double.Parse(number.Value));
+            Assert.AreEqual(-6.25, double.Parse(number.Value, System.Globalization.CultureInfo.InvariantCulture));
             number.ChangeSign();
-            Assert.AreEqual(6.25, double.Parse(number.Value));
+            Assert.AreEqual(6.25, double.Parse(number.Value, System.Globalization.CultureInfo.InvariantCulture));
         }
 
         [Test]
         public void SqrtTest()
         {
             number.CalculateSqrt();
-            Assert.AreEqual(2.5, double.Parse(number.Value));
+            Assert.AreEqual(2.5, double.Parse(number.Value, System.Globalization.CultureInfo.InvariantCulture));
         }
 
         [Test]

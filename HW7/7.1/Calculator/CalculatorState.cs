@@ -104,7 +104,7 @@ namespace Calculator
         /// </summary>
         public void Calculate()
         {
-            calculator.Number1.Value = calculator.Operator.Calculate(double.Parse(calculator.Number1.Value), double.Parse(calculator.Number2.Value)).ToString();
+            calculator.Number1.Value = calculator.Operator.Calculate(double.Parse(calculator.Number1.Value, System.Globalization.CultureInfo.InvariantCulture), double.Parse(calculator.Number2.Value, System.Globalization.CultureInfo.InvariantCulture)).ToString(System.Globalization.CultureInfo.InvariantCulture);
             calculator.Number2.Value = "";
             calculator.Operator = new NullOperator();
         }

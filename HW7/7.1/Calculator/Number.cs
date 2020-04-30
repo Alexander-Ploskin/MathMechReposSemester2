@@ -41,12 +41,12 @@ namespace Calculator
         /// </summary>
         public void CalculateSqrt()
         {
-            double buffer = Math.Sqrt(double.Parse(Value));
+            double buffer = Math.Sqrt(double.Parse(Value, System.Globalization.CultureInfo.InvariantCulture));
             if (double.IsNaN(buffer))
             {
                 throw new SqrtByNegativeNumberException();
             }
-            Value = buffer.ToString();
+            Value = buffer.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>

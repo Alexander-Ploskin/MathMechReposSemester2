@@ -4,7 +4,6 @@ namespace CalculatorTests
 {
     using Calculator;
     using NUnit.Framework.Internal;
-    using System;
 
     public class Tests
     {
