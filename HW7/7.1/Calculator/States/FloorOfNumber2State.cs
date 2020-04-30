@@ -37,7 +37,7 @@ namespace Calculator.States
         /// <summary>
         /// Adds point to number 2
         /// </summary>
-        protected override void DoInCaseOfPoint() => calculator.Number2.Value += ',';
+        protected override void DoInCaseOfPoint() => calculator.Number2.Value += '.';
 
         /// <summary>
         /// Calculates expression in calculator

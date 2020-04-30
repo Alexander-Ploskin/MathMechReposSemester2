@@ -68,7 +68,7 @@ namespace Calculator
                     {
                         return 5;
                     }
-                case ',':
+                case '.':
                     {
                         return 6;
                     }

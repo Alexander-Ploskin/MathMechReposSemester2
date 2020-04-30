@@ -34,20 +34,20 @@ namespace CalculatorTests
             Assert.AreEqual(expectedOutput, calculator.Expression);
         }
 
-        [TestCase("10,5-1=", "9,5")]
-        [TestCase("1,1+1=", "2,1")]
-        [TestCase("2,5/2=", "1,25")]
-        [TestCase("2,5*2=", "5")]
+        [TestCase("10.5-1=", "9.5")]
+        [TestCase("1.1+1=", "2.1")]
+        [TestCase("2.5/2=", "1.25")]
+        [TestCase("2.5*2=", "5")]
         public void FirstNumberIsNotIntegerTest(string expression, string expectedOutput)
         {
             EnterExpression(expression);
             Assert.AreEqual(expectedOutput, calculator.Expression);
         }
 
-        [TestCase("1-0,5=", "0,5")]
-        [TestCase("1,1+1=", "2,1")]
-        [TestCase("2,5/2=", "1,25")]
-        [TestCase("2,5*2=", "5")]
+        [TestCase("1-0.5=", "0.5")]
+        [TestCase("1.1+1=", "2.1")]
+        [TestCase("2.5/2=", "1.25")]
+        [TestCase("2.5*2=", "5")]
         public void SecondNumberIsNotIntegerTest(string expression, string expectedOutput)
         {
             EnterExpression(expression);
@@ -102,7 +102,7 @@ namespace CalculatorTests
         [TestCase("s4+5=", "1")]
         [TestCase("4+s5=", "-1")]
         [TestCase("2+2=s", "-4")]
-        [TestCase("44,s5+55,5s=", "-100")]
+        [TestCase("44.s5+55.5s=", "-100")]
         [TestCase("16rs", "-4")]
         [TestCase("4ss+5ss=", "9")]
         public void ChangeSignTests(string expression, string expectedOutput)
@@ -115,18 +115,18 @@ namespace CalculatorTests
         [TestCase("4b", "")]
         [TestCase("55b", "5")]
         [TestCase("55bb", "")]
-        [TestCase("4,4b", "4,")]
-        [TestCase("4,44b", "4,4")]
-        [TestCase("4,b", "4")]
+        [TestCase("4.4b", "4.")]
+        [TestCase("4.44b", "4.4")]
+        [TestCase("4.b", "4")]
         [TestCase("16rb", "4")]
         [TestCase("sb4", "4")]
         [TestCase("4+b", "4")]
         [TestCase("4+4b", "4 + ")]
         [TestCase("4+55b", "4 + 5")]
         [TestCase("4+55bb=", "4 + ")]
-        [TestCase("4+4,4b", "4 + 4,")]
-        [TestCase("4+4,44b", "4 + 4,4")]
-        [TestCase("4+4,b", "4 + 4")]
+        [TestCase("4+4.4b", "4 + 4.")]
+        [TestCase("4+4.44b", "4 + 4.4")]
+        [TestCase("4+4.b", "4 + 4")]
         [TestCase("4+16rb", "4 + 4")]
         [TestCase("4+sb4", "4 + 4")]
         [TestCase("4+4=b", "")]

@@ -52,7 +52,7 @@ namespace Calculator
                         calculator.Clear();
                         return;
                     }
-                case ',':
+                case '.':
                     {
                         DoInCaseOfPoint();
                         return;
