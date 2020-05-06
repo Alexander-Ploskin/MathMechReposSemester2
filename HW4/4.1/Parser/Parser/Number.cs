@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parser
 {
     /// <summary>
     /// Implements number nodes in tree
     /// </summary>
-    class Number: INodeOfExpressionTree
+    class Number : INodeOfExpressionTree
     {
         private int value = 0;
 

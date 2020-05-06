@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parser
+﻿namespace Parser
 {
     /// <summary>
     /// Implements operator nodes of tree
     /// </summary>
     abstract class Operator : INodeOfExpressionTree
     {
-        public Operator parent { get; set; }
+        public Operator Parent { get; set; }
         protected INodeOfExpressionTree leftChild = null;
         protected INodeOfExpressionTree rightChild = null;
 
         /// <summary>
-        /// Print subtree
+        /// Prints subtrees
         /// </summary>
         public virtual void Print()
         {
@@ -47,13 +41,13 @@ namespace Parser
             if (leftChild == null)
             {
                 leftChild = newChild;
-                newChild.parent = this;
+                newChild.Parent = this;
                 return newChild;
             }
             if (rightChild == null)
             {
                 rightChild = newChild;
-                newChild.parent = this;
+                newChild.Parent = this;
                 return newChild;
             }
             throw new FullNodeException();
@@ -76,7 +70,7 @@ namespace Parser
         /// Add child
         /// </summary>
         /// <param name="newChild">New child of node</param>
-        public void AddChildAndMove(Number newChild)
+        public void AddChild(Number newChild)
         {
             if (leftChild == null)
             {

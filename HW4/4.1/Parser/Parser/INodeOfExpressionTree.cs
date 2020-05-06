@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parser
+﻿namespace Parser
 {
     /// <summary>
     /// Interface of nodes of arithmetic expression tree
     /// </summary>
     public interface INodeOfExpressionTree
-    { 
+    {
         /// <summary>
         /// Prints itself and its subtree
         /// </summary>
         void Print();
-        
+
         /// <summary>
         /// Calculates subtree
         /// </summary>

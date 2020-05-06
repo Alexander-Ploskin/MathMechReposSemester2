@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parser
 {
     /// <summary>
     /// Addition operator in tree
     /// </summary>
-    class Addition: Operator
+    class Addition : Operator
     {
         /// <summary>
         /// Addition of right and left subtree

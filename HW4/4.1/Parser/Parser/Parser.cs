@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parser
 {
@@ -38,7 +34,7 @@ namespace Parser
         /// <returns>New operator</returns>
         private static Operator WhichOperator(char token)
             => token switch
-            { 
+            {
                 '+' => new Addition(),
                 '-' => new Subtraction(),
                 '*' => new Multiplication(),
@@ -62,7 +58,7 @@ namespace Parser
                 char token = expression[index];
 
                 if (Char.IsDigit(token))
-                { 
+                {
                     tree.root = new Number(CreateNumber(expression, ref index));
                     if (index != expression.Length - 1)
                     {
@@ -94,7 +90,7 @@ namespace Parser
                     var number = new Number(CreateNumber(expression, ref index));
                     try
                     {
-                        currentParent.AddChildAndMove(number);
+                        currentParent.AddChild(number);
                         index++;
                         continue;
                     }
@@ -102,7 +98,7 @@ namespace Parser
                     {
                         try
                         {
-                            currentParent = currentParent.parent;
+                            currentParent = currentParent.Parent;
                             continue;
                         }
                         catch (NullParentException)
@@ -116,7 +112,7 @@ namespace Parser
                 {
                     var lastParent = currentParent;
                     currentParent = currentParent.AddChildAndMove(WhichOperator(token));
-                    currentParent.parent = lastParent;
+                    currentParent.Parent = lastParent;
                     index++;
                     continue;
                 }
@@ -127,15 +123,12 @@ namespace Parser
                 }
                 catch (FullNodeException)
                 {
-                    try
-                    {
-                        currentParent = currentParent.parent;
-                        continue;
-                    }
-                    catch (NullParentException)
+                    if (currentParent.Parent == null)
                     {
                         break;
                     }
+
+                    currentParent = currentParent.Parent;
                 }
             }
 
