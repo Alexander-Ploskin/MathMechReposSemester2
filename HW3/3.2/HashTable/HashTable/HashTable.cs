@@ -47,14 +47,17 @@ namespace HashTable
         }
 
         /// <summary>
-        /// Changes hash function of hash table
+        /// Calculates number in hash array
         /// </summary>
-        /// <param name="newHashFunction">
-        /// Instance of class that inplements interface IHashTable
-        /// </param>
-        public void ChangeHashFunction(IHashFunction newHashFunction)
+        /// <param name="input">String whose number you wanna to get</param>
+        /// <returns>Number in hash array</returns>
+        private int GetHash(string input) => Math.Abs(hashFunction.HashFunction(input) % size);
+
+        /// <summary>
+        /// Resets hash array with new parameters
+        /// </summary>
+        private void ResetHashArray()
         {
-            hashFunction = newHashFunction;
             var newHashArray = new List[size];
             for (int i = 0; i < size; ++i)
             {
@@ -66,11 +69,23 @@ namespace HashTable
                 while (!hashArray[i].Empty())
                 {
                     string buffer = hashArray[i].Pop();
-                    newHashArray[Math.Abs(hashFunction.HashFunction(buffer) % size)].Add(buffer);
+                    newHashArray[GetHash(buffer)].Add(buffer);
                 }
             }
 
             hashArray = newHashArray;
+        }
+
+        /// <summary>
+        /// Changes hash function of hash table
+        /// </summary>
+        /// <param name="newHashFunction">
+        /// Instance of class that inplements interface IHashTable
+        /// </param>
+        public void ChangeHashFunction(IHashFunction newHashFunction)
+        {
+            hashFunction = newHashFunction;
+            ResetHashArray();
         }
 
         /// <summary>
@@ -85,7 +100,7 @@ namespace HashTable
             }
 
             loadFactor += 1.0 / size;
-            hashArray[Math.Abs(hashFunction.HashFunction(inputString) % size)].Add(inputString);
+            hashArray[GetHash(inputString)].Add(inputString);
             if (loadFactor >= 1.2)
             {
                 Resize();
@@ -99,24 +114,9 @@ namespace HashTable
         /// <remarks>load factor = amount of elements in table / hash size </remarks>
         private void Resize()
         {
-            var newHashArray = new List[size * 2];
-            for (int i = 0; i < size * 2; ++i)
-            {
-                newHashArray[i] = new List();
-            }
-
-            for (int i = 0; i < hashArray.Length; ++i)
-            {
-                while (!hashArray[i].Empty())
-                {
-                    string buffer = hashArray[i].Pop();
-                    newHashArray[Math.Abs(hashFunction.HashFunction(buffer) % (size * 2))].Add(buffer);
-                }
-            }
-
-            hashArray = newHashArray;
-            loadFactor /= 2;
+            loadFactor = 0;
             size *= 2;
+            ResetHashArray();
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace HashTable
         /// <remarks>If string doesn't contain in table, function do nothing</remarks>
         public void Remove(string value)
         {
-            hashArray[Math.Abs(hashFunction.HashFunction(value) % size)].RemoveByValue(value);
+            hashArray[GetHash(value)].RemoveByValue(value);
             loadFactor -= 1 / size;
         }
 
@@ -135,7 +135,7 @@ namespace HashTable
         /// </summary>
         /// <param name="value">String that you wanna to check</param>
         /// <returns>True if string contains in hash table, else false</returns>
-        public bool Contains(string value) => hashArray[Math.Abs(hashFunction.HashFunction(value) % size)].Contains(value);
+        public bool Contains(string value) => hashArray[GetHash(value)].Contains(value);
 
     }
 }
