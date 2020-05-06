@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace ConsoleGame
 {
@@ -35,9 +30,35 @@ namespace ConsoleGame
         /// </summary>
         private void SetCursor()
         {
-            Console.CursorLeft = map.position[0];
-            Console.CursorTop = map.position[1];
+            Console.CursorLeft = map.LeftPosition;
+            Console.CursorTop = map.TopPosition;
             Console.CursorVisible = false;
+        }
+
+        /// <summary>
+        /// Makes game tuen
+        /// </summary>
+        /// <param name="turnOnMap">Action on the map</param>
+        /// <param name="turnOnConsole">Action on the console</param>
+        private void MakeTurn(Action turnOnMap, Action turnOnConsole)
+        {
+            try
+            {
+                turnOnMap();
+                Console.Write(' ');
+                Console.CursorLeft--;
+                turnOnConsole();
+                Console.Write('@');
+                Console.CursorLeft--;
+            }
+            catch (MoveException)
+            {
+                Console.Beep();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.Beep();
+            }
         }
 
         /// <summary>
@@ -45,102 +66,28 @@ namespace ConsoleGame
         /// </summary>
         /// <param name="sender">Waits event from keyboard</param>
         /// <param name="args">Empty param</param>
-        public void OnLeft(object sender, EventArgs args)
-        {
-            try
-            {
-                map.GoLeft();
-                Console.Write(' ');
-                Console.CursorLeft -= 2;
-                Console.Write('@');
-                Console.CursorLeft--;
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.Beep();
-            }
-            catch (MoveException)
-            {
-                Console.Beep();
-            }
-        }
+        public void OnLeft(object sender, EventArgs args) => MakeTurn(() => map.GoLeft(), () => Console.CursorLeft--);
 
         /// <summary>
         /// Tries to move @ right
         /// </summary>
         /// <param name="sender">Waits event from keyboard</param>
         /// <param name="args">Empty param</param>
-        public void OnRight(object sender, EventArgs args)
-        {
-            try
-            {
-                map.GoRight();
-                Console.Write(' ');
-                Console.Write('@');
-                Console.CursorLeft--;
-            }
-            catch (MoveException)
-            {
-                Console.Beep();
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.Beep();
-            }
-        }
+        public void OnRight(object sender, EventArgs args) => MakeTurn(() => map.GoRight(), () => Console.CursorLeft++);
 
         /// <summary>
         /// Tries to move @ down
         /// </summary>
         /// <param name="sender">Waits event from keyboard</param>
         /// <param name="args">Empty param</param>
-        public void OnDown(object sender, EventArgs args)
-        {
-            try
-            {
-                map.GoDown();
-                Console.Write(' ');
-                Console.CursorLeft--;
-                Console.CursorTop++;
-                Console.Write('@');
-                Console.CursorLeft--;
-            }
-            catch (MoveException)
-            {
-                Console.Beep();
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.Beep();
-            }
-        }
+        public void OnDown(object sender, EventArgs args) => MakeTurn(() => map.GoDown(), () => Console.CursorTop++);
 
         /// <summary>
         /// Tries to move @ up
         /// </summary>
         /// <param name="sender">Waits event from keyboard</param>
         /// <param name="args">Empty param</param>
-        public void OnUp(object sender, EventArgs args)
-        {
-            try
-            {
-                map.GoUp();
-                Console.Write(' ');
-                Console.CursorLeft--;
-                Console.CursorTop--;
-                Console.Write('@');
-                Console.CursorLeft--;
-               
-            }
-            catch (MoveException)
-            {
-                Console.Beep();
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.Beep();
-            }
-        }
+        public void OnUp(object sender, EventArgs args) => MakeTurn(() => map.GoUp(), () => Console.CursorTop--);
 
     }
 }

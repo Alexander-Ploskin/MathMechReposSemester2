@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace ConsoleGame
@@ -14,7 +10,8 @@ namespace ConsoleGame
     {
         private string[] mapMatrix;
         private int height = 0;
-        public int[] position { get; set; }
+        public int LeftPosition { get; set; } = 0;
+        public int TopPosition { get; set; } = 0;
 
         /// <summary>
         /// Initializes game map and outputs to console 
@@ -22,14 +19,13 @@ namespace ConsoleGame
         /// <param name="path">Path to the map</param>
         public GameMap(string path)
         {
-            position = new int[2] { 0, 0 };
             using (var sr = new StreamReader(path))
             {
                 if (!int.TryParse(sr.ReadLine(), out height))
                 {
                     throw new IOException("Invalid map file");
                 }
-                Array.Resize<string>(ref mapMatrix, height);
+                Array.Resize(ref mapMatrix, height);
 
                 for (int i = 0; i < height; ++i)
                 {
@@ -52,10 +48,20 @@ namespace ConsoleGame
                     {
                         return;
                     }
-                    position[0]++;
+                    LeftPosition++;
                 }
-                position[0] = 0;
-                position[1]++;
+                LeftPosition = 0;
+                TopPosition++;
+            }
+        }
+
+        private void Go(Action changePosition, Action doInCaseOfWall)
+        {
+            changePosition();
+            if (mapMatrix[TopPosition][LeftPosition] == '■')
+            {
+                doInCaseOfWall();
+                throw new MoveException();
             }
         }
 
@@ -63,57 +69,25 @@ namespace ConsoleGame
         /// Move @ right
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void GoRight()
-        {
-            position[1]++;
-            if (mapMatrix[position[0]][position[1]] == '■')
-            {
-                position[1]--;
-                throw new MoveException();
-            }
-        }
+        public void GoRight() => Go(() => LeftPosition++, () => LeftPosition--);
 
         /// <summary>
         /// Move @ left
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void GoLeft()
-        {
-            position[1]--;
-            if (mapMatrix[position[0]][position[1]] == '■')
-            {
-                position[1]++;
-                throw new MoveException();
-            }
-        }
+        public void GoLeft() => Go(() => LeftPosition--, () => LeftPosition++);
 
         /// <summary>
         /// Move @ up
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void GoUp()
-        {
-            position[0]--;
-            if (mapMatrix[position[0]][position[1]] == '■')
-            {
-                position[0]++;
-                throw new MoveException();
-            }
-        }
+        public void GoUp() => Go(() => TopPosition--, () => TopPosition++);
 
         /// <summary>
         /// Move @ down
         /// </summary>
         /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
-        public void GoDown()
-        {
-            position[0]++;
-            if (mapMatrix[position[0]][position[1]] == '■')
-            {
-                position[0]--;
-                throw new MoveException();
-            }
-        }
+        public void GoDown() => Go(() => TopPosition++, () => TopPosition--);
 
     }
 }
