@@ -162,7 +162,7 @@ namespace UniqueList
         public void Print()
         {
             var currentElement = head;
-            
+
             while (currentElement != null)
             {
                 Console.Write("{0} ", currentElement.value);
@@ -204,7 +204,7 @@ namespace UniqueList
         /// <exception cref="InvalidPositionException">Throws in case of invalid position</exception>
         /// <param name="position">Position in list</param>
         /// <param name="newValue">new value</param>
-        public void SetValueOnPosition(int position, int newValue)
+        public virtual void SetValueOnPosition(int position, int newValue)
         {
             if (position < 0)
             {

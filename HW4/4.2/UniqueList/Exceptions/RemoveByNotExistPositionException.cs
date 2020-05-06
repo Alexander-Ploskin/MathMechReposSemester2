@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UniqueList
+﻿namespace UniqueList
 {
     /// <summary>
     /// Throws when someone is trying to remove element from not exist position of list

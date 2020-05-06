@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace UniqueListTests
 {
-    using UniqueList; 
+    using UniqueList;
 
     public class UniqueListTests
     {
@@ -28,5 +28,13 @@ namespace UniqueListTests
             Assert.Throws<AdditionOfContainedElementException>(() => list.Add(4, 0));
             Assert.Throws<AdditionOfContainedElementException>(() => list.Add(4, 1));
         }
+
+        [Test]
+        public void SettigOfAlreadyContainedValueTest()
+        {
+            list.Add(5, 1);
+            Assert.Throws<AdditionOfContainedElementException>(() => list.SetValueOnPosition(1, 4));
+        }
+
     }
 }

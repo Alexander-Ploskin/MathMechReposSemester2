@@ -19,7 +19,7 @@ namespace UniqueListTests
         {
             list.Add(5, 0);
             Assert.IsTrue(list.Contains(5));
-            Assert.IsTrue(list.Length() == 1);
+            Assert.AreEqual(1, list.Length());
         }
 
         [Test]
@@ -27,8 +27,9 @@ namespace UniqueListTests
         {
             list.Add(0, 0);
             list.Add(1, 1);
-            Assert.IsTrue(list.Contains(1) && list.Contains(0));
-            Assert.IsTrue(list.Length() == 2);
+            Assert.IsTrue(list.Contains(1));
+            Assert.IsTrue(list.Contains(0));
+            Assert.AreEqual(list.Length(), 2);
         }
 
         [Test]
@@ -36,8 +37,9 @@ namespace UniqueListTests
         {
             list.Add(0, 0);
             list.Add(1, 0);
-            Assert.IsTrue(list.Contains(1) && list.Contains(0));
-            Assert.IsTrue(list.Length() == 2);
+            Assert.IsTrue(list.Contains(1));
+            Assert.IsTrue(list.Contains(0));
+            Assert.AreEqual(list.Length(), 2);
         }
 
         [Test]
@@ -46,8 +48,10 @@ namespace UniqueListTests
             list.Add(0, 0);
             list.Add(1, 1);
             list.Add(2, 1);
-            Assert.IsTrue(list.Contains(1) && list.Contains(0) && list.Contains(2));
-            Assert.IsTrue(list.Length() == 3);
+            Assert.IsTrue(list.Contains(1));
+            Assert.IsTrue(list.Contains(0));
+            Assert.IsTrue(list.Contains(2));
+            Assert.AreEqual(list.Length(), 3);
         }
 
         [Test]
@@ -62,7 +66,7 @@ namespace UniqueListTests
             list.Add(2, 0);
             list.Add(3, 1);
             Assert.Throws<InvalidPositionException>(() => list.Add(5, 7));
-            Assert.IsTrue(list.Length() == 2);
+            Assert.AreEqual(list.Length(), 2);
         }
 
         [Test]
@@ -91,7 +95,7 @@ namespace UniqueListTests
             list.Add(0, 0);
             Assert.Throws<RemoveByNotExistPositionException>(() => list.RemoveByPosition(7));
             Assert.Throws<RemoveByNotExistPositionException>(() => list.RemoveByPosition(-1));
-            Assert.IsTrue(list.Length() == 1);
+            Assert.AreEqual(list.Length(), 1);
         }
 
         [Test]
@@ -106,8 +110,9 @@ namespace UniqueListTests
             list.Add(1, 0);
             list.Add(2, 1);
             list.RemoveByPosition(0);
-            Assert.IsTrue(!list.Contains(1) && list.Contains(2));
-            Assert.IsTrue(list.Length() == 1);
+            Assert.IsTrue(list.Contains(2));
+            Assert.IsFalse(list.Contains(1));
+            Assert.AreEqual(list.Length(), 1);
         }
 
         [Test]
@@ -118,8 +123,10 @@ namespace UniqueListTests
             list.Add(2, 2);
             list.Add(3, 3);
             list.RemoveByPosition(2);
-            Assert.IsTrue(list.Contains(1) && list.Contains(3) && !list.Contains(2));
-            Assert.IsTrue(list.Length() == 3);
+            Assert.IsTrue(list.Contains(1));
+            Assert.IsFalse(list.Contains(2));
+            Assert.IsTrue(list.Contains(3));
+            Assert.AreEqual(list.Length(), 3);
         }
 
         [Test]
@@ -130,7 +137,7 @@ namespace UniqueListTests
             list.Add(2, 2);
             list.RemoveByPosition(2);
             Assert.IsFalse(list.Contains(2));
-            Assert.IsTrue(list.Length() == 2);
+            Assert.AreEqual(list.Length(), 2);
         }
 
         [Test]
@@ -139,7 +146,9 @@ namespace UniqueListTests
             list.Add(0, 0);
             list.Add(1, 1);
             list.RemoveByValue(0);
-            Assert.IsTrue(list.Contains(1) && !list.Contains(0) && list.Length() == 1);
+            Assert.IsTrue(list.Contains(1));
+            Assert.IsFalse(list.Contains(0));
+            Assert.AreEqual(list.Length(), 1);
         }
 
         [Test]
@@ -148,7 +157,9 @@ namespace UniqueListTests
             list.Add(0, 0);
             list.Add(1, 1);
             list.RemoveByValue(1);
-            Assert.IsTrue(list.Contains(0) && !list.Contains(1) && list.Length() == 1);
+            Assert.IsTrue(list.Contains(0));
+            Assert.IsFalse(list.Contains(1));
+            Assert.AreEqual(list.Length(), 1);
         }
 
         [Test]
@@ -158,7 +169,10 @@ namespace UniqueListTests
             list.Add(1, 1);
             list.Add(2, 2);
             list.RemoveByValue(1);
-            Assert.IsTrue(list.Contains(2) && list.Contains(0) && !list.Contains(1) && list.Length() == 2);
+            Assert.IsTrue(list.Contains(2));
+            Assert.IsTrue(list.Contains(0));
+            Assert.IsFalse(list.Contains(1));
+            Assert.AreEqual(list.Length(), 2);
         }
 
         [Test]
@@ -168,7 +182,9 @@ namespace UniqueListTests
             list.Add(1, 1);
             list.Add(2, 2);
             list.SetValueOnPosition(1, 3);
-            Assert.IsTrue(list.Contains(3) && !list.Contains(1) && list.Length() == 3);
+            Assert.IsTrue(list.Contains(3));
+            Assert.IsFalse(list.Contains(1));
+            Assert.AreEqual(list.Length(), 3);
         }
 
         [Test]
