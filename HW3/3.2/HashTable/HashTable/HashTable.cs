@@ -22,14 +22,8 @@ namespace HashTable
         /// <summary>
         /// Basic constructor, uses basic hash function
         /// </summary>
-        public HashTable()
+        public HashTable() : this(new BasicHashFunction())
         {
-            hashFunction = new BasicHashFunction();
-
-            for (int i = 0; i < size; ++i)
-            {
-                hashArray[i] = new List();
-            }
         }
 
         /// <summary>
