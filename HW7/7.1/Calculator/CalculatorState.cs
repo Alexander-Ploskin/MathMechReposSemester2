@@ -23,8 +23,8 @@ namespace Calculator
                 DoInCaseOfDigit(token);
                 return;
             }
-            
-            if (GetTypeOfChar.IsOperator(token))
+
+            if (RecogniserOfChar.IsOperator(token))
             {
                 DoInCaseOfOperator(token);
                 return;

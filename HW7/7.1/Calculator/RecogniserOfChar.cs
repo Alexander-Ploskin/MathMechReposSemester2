@@ -3,7 +3,7 @@
     /// <summary>
     /// Includes methods for distinction of chars
     /// </summary>
-    static class GetTypeOfChar
+    static class RecogniserOfChar
     {
         /// <summary>
         /// Checks, is char operator

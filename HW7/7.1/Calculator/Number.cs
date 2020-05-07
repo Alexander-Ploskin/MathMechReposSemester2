@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.XPath;
 
 namespace Calculator
 {
@@ -62,14 +57,12 @@ namespace Calculator
         /// </summary>
         public void RemoveLastSymbol()
         {
-            try
-            {
-                Value = Value.Remove(Value.Length - 1);
-            }
-            catch (IndexOutOfRangeException)
+            if (Value.Length == 0)
             {
                 return;
             }
+
+            Value = Value.Remove(Value.Length - 1);
         }
 
     }

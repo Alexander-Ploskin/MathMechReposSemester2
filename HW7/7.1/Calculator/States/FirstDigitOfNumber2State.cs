@@ -1,10 +1,6 @@
 ﻿using Calculator.Operators;
 using Calculator.States;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator.Statements
 {
@@ -34,7 +30,7 @@ namespace Calculator.Statements
 
         protected override void DoInCaseOfSqrt() => throw new ArgumentException();
 
-        protected override void DoInCaseOfPoint() =>  throw new ArgumentException();
+        protected override void DoInCaseOfPoint() => throw new ArgumentException();
 
         protected override void DoInCaseOfCalculate() => throw new ArgumentException();
 

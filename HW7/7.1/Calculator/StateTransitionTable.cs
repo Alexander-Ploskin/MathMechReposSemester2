@@ -1,6 +1,7 @@
 ﻿using Calculator.Statements;
 using Calculator.States;
 using System;
+using System.IO;
 
 namespace Calculator
 {
@@ -12,41 +13,81 @@ namespace Calculator
         public StateTransitionTable(Calculator calculator)
         {
             this.calculator = calculator;
+            LoadStateTransitionTable();
         }
 
         private Calculator calculator;
 
+        private const int numberOfStates = 12;
+        private const int numberOfRecievedSymbols = 7;
+
         /// <summary>
         /// State transition table
         /// </summary>
-        private int[,] table = new int[12, 7]
+        private int[,] table = new int[numberOfStates, numberOfRecievedSymbols];
+
+        /// <summary>
+        /// Loads state transition table from the file
+        /// </summary>
+        private void LoadStateTransitionTable()
         {
-           { 1, -1, 0,  -1, -1,  0, -1},
-           { 1, 5, 1, 4, -1,  0, 2 },
-           { 3, -1, 2, -1, -1,  0, -1 },
-           { 3, 5, 3, 4, -1,  0, -1 },
-           { 1, 5, 4, 4, -1,  0, -1 },
-           { 6, -1, 5, -1, -1,  0, -1 },
-           { 6, 5, 6, 9, 10, 0, 7 },
-           { 8, -1, 7, -1, -1,  0, -1 },
-           { 8, 5, 8, 9, 10, 0, -1 },
-           { 6, 5, 9, 9, 10, 0, -1 },
-           { 1, 5, 10, 4, -1,  0, -1 },
-           { 1, -1, 0,  -1, -1,  0, -1 }
-        };
+            var path = Environment.CurrentDirectory.Clone() as string;
+            int i = 0;
+            while (path.Substring(i, 3) != "7.1")
+            {
+                i++;
+            }
+            path = path.Remove(i + 3);
+            path += @"\Calculator\FSM Table.txt";
+
+            using (var sr = new StreamReader(path))
+            {
+                int numberOfCurrentColumn = 0;
+
+                sr.ReadLine();
+                for (int numberOfCurrentRow = 0; numberOfCurrentRow < numberOfStates; ++numberOfCurrentRow)
+                {
+                    sr.Read();
+                    string buffer = "";
+
+                    string token = char.ConvertFromUtf32(sr.Read());
+
+                    while (!sr.EndOfStream && token != "\n")
+                    {
+                        token = char.ConvertFromUtf32(sr.Read());
+
+                        if (token == " ")
+                        {
+                            if (buffer != "")
+                            {
+                                table[numberOfCurrentRow, numberOfCurrentColumn] = int.Parse(buffer);
+                                buffer = "";
+                                numberOfCurrentColumn++;
+                            }
+                            continue;
+                        }
+
+                        buffer += token;
+                    }
+
+                    table[numberOfCurrentRow, numberOfCurrentColumn] = int.Parse(buffer);
+                    numberOfCurrentColumn = 0;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets number of token in table
         /// </summary>
         /// <param name="token">Input token</param>
         /// <returns>Number of column of input token in table</returns>
-        private int GetNumberOfCharInTabble(char token)
+        private int GetNumberOfCharInTable(char token)
         {
             if (char.IsDigit(token))
             {
                 return 0;
             }
-            if (GetTypeOfChar.IsOperator(token))
+            if (RecogniserOfChar.IsOperator(token))
             {
                 return 1;
             }
@@ -97,7 +138,7 @@ namespace Calculator
                 case 8: return new FractionalPartOfNumber2State(calculator);
                 case 9: return new InputedNumber2State(calculator);
                 case 10: return new JustCalculatedState(calculator);
-                case 11: return new ErrorMessegeState(calculator);
+                case 11: return new ErrorMessageState(calculator);
             }
 
             throw new ArgumentException();
@@ -110,7 +151,7 @@ namespace Calculator
         /// <param name="token">Input token</param>
         /// <returns>New state</returns>
         public CalculatorState DoTransition(CalculatorState currentState, char token)
-            => CreateNewStateByNumber(table[currentState.NumberInStateTransitionTable, GetNumberOfCharInTabble(token)]);
+            => CreateNewStateByNumber(table[currentState.NumberInStateTransitionTable, GetNumberOfCharInTable(token)]);
 
     }
 }

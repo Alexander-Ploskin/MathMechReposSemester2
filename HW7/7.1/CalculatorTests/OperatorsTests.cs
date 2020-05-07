@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace CalculatorTests
 {
@@ -23,7 +22,7 @@ namespace CalculatorTests
             => Assert.AreEqual(expextedResult, testOperator.Calculate(5, 2.5));
 
         [Test]
-        public void DivideByZeroTest() 
+        public void DivideByZeroTest()
             => Assert.Throws<DivideByZeroException>(() => new Division().Calculate(5, 0));
 
     }

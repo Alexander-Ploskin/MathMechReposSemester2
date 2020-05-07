@@ -6,9 +6,9 @@ namespace Calculator.States
     /// <summary>
     /// State of error messege in calculator
     /// </summary>
-    class ErrorMessegeState : CalculatorState
+    class ErrorMessageState : CalculatorState
     {
-        public ErrorMessegeState(Calculator calculator)
+        public ErrorMessageState(Calculator calculator)
         {
             this.calculator = calculator;
         }
@@ -20,7 +20,7 @@ namespace Calculator.States
         /// </summary>
         protected override void DoInCaseOfDigit(char token)
         {
-            calculator.ErrorMessege = "";
+            calculator.ErrorMessage = "";
             calculator.Number1.Value += token;
         }
 
@@ -29,7 +29,7 @@ namespace Calculator.States
         /// </summary>
         protected override void DoInCaseOfSign()
         {
-            calculator.ErrorMessege = "";
+            calculator.ErrorMessage = "";
             calculator.Number1.ChangeSign();
         }
 
@@ -49,7 +49,7 @@ namespace Calculator.States
         /// <returns>New start state</returns>
         public override CalculatorState Backspace()
         {
-            calculator.ErrorMessege = "";
+            calculator.ErrorMessage = "";
             return new FirstDigitOfNumber1State(calculator);
         }
 

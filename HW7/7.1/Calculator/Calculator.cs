@@ -14,7 +14,7 @@ namespace Calculator
         public Number Number1 { get; }
         public Number Number2 { get; }
 
-        public string ErrorMessege { get; set; } = "";
+        public string ErrorMessage { get; set; } = "";
 
         private CalculatorState currentState;
         private StateTransitionTable stateTransitionTable;
@@ -29,20 +29,20 @@ namespace Calculator
         }
 
         /// <summary>
-        /// Returns calculator to start state
+        /// Returns calculator to start of calculating
         /// </summary>
         public void Clear()
         {
             Operator = new NullOperator();
             Number1.Clear();
             Number2.Clear();
-            ErrorMessege = "";
+            ErrorMessage = "";
         }
 
         /// <summary>
         /// Current expression in calculator
         /// </summary>
-        public string Expression { get => ErrorMessege + Number1.Value + Operator.Print() + Number2.Value; }
+        public string Expression { get => ErrorMessage + Number1.Value + Operator.Print() + Number2.Value; }
 
         /// <summary>
         /// Adds new symbol to calculator, ignores tokens, that calculator doesn't take  
@@ -52,7 +52,7 @@ namespace Calculator
         /// Token = r means square root
         /// Token = s means sign
         /// Token = b means backspace
-        /// Token = c means clear        
+        /// Token = c means clear
         /// /// </param>
         public void Add(char token)
         {
@@ -73,14 +73,14 @@ namespace Calculator
             catch (DivideByZeroException)
             {
                 Clear();
-                ErrorMessege = "Divide by zero!";
-                currentState = new ErrorMessegeState(this);
+                ErrorMessage = "Divide by zero!";
+                currentState = new ErrorMessageState(this);
             }
             catch (SqrtByNegativeNumberException)
             {
                 Clear();
-                ErrorMessege = "Sqrt by negative number!";
-                currentState = new ErrorMessegeState(this);
+                ErrorMessage = "Sqrt by negative number!";
+                currentState = new ErrorMessageState(this);
             }
         }
 
