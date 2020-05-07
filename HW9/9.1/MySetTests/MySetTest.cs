@@ -1,6 +1,4 @@
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace MySetTests
 {
@@ -14,7 +12,7 @@ namespace MySetTests
         [SetUp]
         public void Setup()
         {
-            set = new MySet<int>(new IntComparer()) { 1, 2, -10, 5, -14,-12, 3 };
+            set = new MySet<int>(new IntComparer()) { 1, 2, -10, 5, -14, -12, 3 };
         }
 
         [Test]
@@ -83,9 +81,14 @@ namespace MySetTests
             set.Add(-12);
             set.Add(3);
             set.Add(4);
-            Assert.IsTrue(set.Contains(1) && set.Contains(2) && set.Contains(-10)
-               && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3) && set.Contains(4));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(-10));
+            Assert.IsTrue(set.Contains(-14));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-12));
+            Assert.IsTrue(set.Contains(3));
+            Assert.IsTrue(set.Contains(4));
         }
 
         [Test]
@@ -98,8 +101,12 @@ namespace MySetTests
         [Test]
         public void ContainsTest()
         {
-            Assert.IsTrue(set.Contains(-14) && set.Contains(1) && set.Contains(3));
-            Assert.IsFalse(set.Contains(0) || set.Contains(-15) || set.Contains(4));
+            Assert.IsTrue(set.Contains(-14));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(3));
+            Assert.IsFalse(set.Contains(0));
+            Assert.IsFalse(set.Contains(-15));
+            Assert.IsFalse(set.Contains(4));
         }
 
         [Test]
@@ -118,10 +125,24 @@ namespace MySetTests
         }
 
         [Test]
+        public void ExceptWithItselfTest()
+        {
+            set.ExceptWith(set);
+            Assert.IsTrue(set.SetEquals(new int[0] { }));
+        }
+
+        [Test]
         public void IntersectWithTest()
         {
             set.IntersectWith(new int[7] { -14, 10, -10, 1, 6, 5, 19 });
             Assert.IsTrue(set.SetEquals(new int[4] { -14, -10, 1, 5 }));
+        }
+
+        [Test]
+        public void IntersectWithItselfTest()
+        {
+            set.IntersectWith(set);
+            Assert.IsTrue(set.SetEquals(new int[7] { -14, -12, -10, 1, 2, 3, 5 }));
         }
 
         [Test]
@@ -168,9 +189,14 @@ namespace MySetTests
         public void RemoveFirstItemTest()
         {
             set.Remove(1);
-            Assert.IsTrue(!set.Contains(1) && set.Contains(2) && set.Contains(-10)
-               && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3));
+
+            Assert.IsFalse(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(-10));
+            Assert.IsTrue(set.Contains(-14));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-12));
+            Assert.IsTrue(set.Contains(3));
         }
 
         [Test]
@@ -178,9 +204,14 @@ namespace MySetTests
         {
             set.Add(-9);
             set.Remove(-10);
-            Assert.IsTrue(set.Contains(1) && set.Contains(2) && !set.Contains(-10)
-               && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3) && set.Contains(-9));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsFalse(set.Contains(-10));
+            Assert.IsTrue(set.Contains(-14));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-12));
+            Assert.IsTrue(set.Contains(3));
+            Assert.IsTrue(set.Contains(-9));
         }
 
         [Test]
@@ -203,9 +234,14 @@ namespace MySetTests
         public void RemoveOfThirdItemTest()
         {
             set.Remove(2);
-            Assert.IsTrue(set.Contains(1) && !set.Contains(2) && set.Contains(-10)
-               && set.Contains(-14) && set.Contains(5) && set.Contains(-12)
-               && set.Contains(3));
+
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsFalse(set.Contains(2));
+            Assert.IsTrue(set.Contains(-10));
+            Assert.IsTrue(set.Contains(-14));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-12));
+            Assert.IsTrue(set.Contains(3));
         }
 
         [Test]
@@ -213,10 +249,14 @@ namespace MySetTests
         {
             set.Remove(-14);
             set.Remove(5);
-            Assert.IsTrue(set.Contains(1) && set.Contains(2) && set.Contains(-10)
-               && !set.Contains(-14) && !set.Contains(5) && set.Contains(-12)
-               && set.Contains(3));
 
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(-10));
+            Assert.IsFalse(set.Contains(-14));
+            Assert.IsFalse(set.Contains(5));
+            Assert.IsTrue(set.Contains(-12));
+            Assert.IsTrue(set.Contains(3));
         }
 
         [Test]

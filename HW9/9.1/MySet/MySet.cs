@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
-using System.Net.Http.Headers;
+using System.Collections.Generic;
 
 namespace MySet
 {
@@ -19,7 +18,7 @@ namespace MySet
         }
 
         public int Count { get; set; }
-        public bool IsReadOnly { get; }
+        public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// Elements of tree
@@ -43,7 +42,7 @@ namespace MySet
         private TreeElement root;
 
         /// <summary>
-        /// Abbriviated comparing of tree element value and input value
+        /// Abbreviated comparing of tree element value and input value
         /// </summary>
         /// <param name="element">Element of tree</param>
         /// <param name="value">Input value</param>
@@ -106,14 +105,8 @@ namespace MySet
         /// <summary>
         /// Remove all items from collection
         /// </summary>
-        /// <exception cref="NotSupportedException">Throws when set is readonly</exception>
         public void Clear()
         {
-            if (IsReadOnly)
-            {
-                throw new NotSupportedException();
-            }
-
             root = null;
             Count = 0;
         }
@@ -123,7 +116,7 @@ namespace MySet
         /// </summary>
         /// <param name="item">Item, that you want to check</param>
         /// <returns>True if contains else false</returns>
-        public bool Contains (T item)
+        public bool Contains(T item)
         {
             if (root == null)
             {
@@ -157,7 +150,12 @@ namespace MySet
         /// <param name="arrayIndex">Index, starts with, will set items</param>
         /// <exception cref="ArgumentException">Throws when array doesn't have enough place</exception>
         public void CopyTo(T[] array, int arrayIndex)
-        { 
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             void CopySubtreeToArray(TreeElement element)
             {
                 if (element == null)
@@ -184,12 +182,20 @@ namespace MySet
         /// <param name="other">Collection</param>
         public void ExceptWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (other.Equals(this))
+            {
+                Clear();
+                return;
+            }
+
             foreach (var item in other)
             {
-                if (Contains(item))
-                {
-                    Remove(item);
-                }
+                Remove(item);
             }
         }
 
@@ -247,24 +253,12 @@ namespace MySet
             /// <summary>
             /// Implementation of IEnumerator.Current
             /// </summary>
-            object IEnumerator.Current
-            {
-                get
-                {
-                    return Current;
-                }
-            }
+            object IEnumerator.Current { get => Current; }
 
             /// <summary>
             /// Current item in traversal
             /// </summary>
-            public T Current
-            {
-                get
-                {
-                    return array[index];
-                }
-            }
+            public T Current { get => array[index]; }
 
             /// <summary>
             /// Move to next item
@@ -292,6 +286,11 @@ namespace MySet
         /// <param name="other">Other collection</param>
         public void IntersectWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var helpSet = new MySet<T>(comparer);
 
             foreach (var item in other)
@@ -321,6 +320,11 @@ namespace MySet
         /// <returns>True if all items of this contains in other, else false;</returns>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var helpSet = new MySet<T>(comparer);
 
             foreach (var item in other)
@@ -347,6 +351,11 @@ namespace MySet
         /// other has one or more not common items, else false</returns>
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var helpSet = new MySet<T>(comparer);
 
             foreach (var item in other)
@@ -372,6 +381,11 @@ namespace MySet
         /// <returns>True if all items of other contains in this, else false</returns>
         public bool IsSupersetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             foreach (var item in other)
             {
                 if (!Contains(item))
@@ -390,6 +404,11 @@ namespace MySet
         /// <returns></returns>
         public bool IsProperSupersetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var helpSet = new MySet<T>(comparer);
 
             foreach (var item in other)
@@ -407,6 +426,11 @@ namespace MySet
         /// <returns>True, if has, else false</returns>
         public bool Overlaps(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             foreach (var item in other)
             {
                 if (Contains(item))
@@ -495,7 +519,7 @@ namespace MySet
             try
             {
                 var element = GetElementByValue(item);
-                
+
                 if (element == root)
                 {
                     if (element.IsLeaf())
@@ -556,6 +580,11 @@ namespace MySet
         /// <returns>True if other has same items than other</returns>
         public bool SetEquals(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var helpSet = new MySet<T>(comparer);
             foreach (var item in other)
             {
@@ -579,6 +608,16 @@ namespace MySet
         /// <param name="other">Other collection</param>
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (other.Equals(this))
+            {
+                Clear();
+            }
+
             var helpSet = new MySet<T>(comparer);
             foreach (var item in other)
             {
@@ -604,6 +643,11 @@ namespace MySet
         /// <param name="other">Other collection</param>
         public void UnionWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             foreach (var item in other)
             {
                 Add(item);
