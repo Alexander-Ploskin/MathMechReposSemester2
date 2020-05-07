@@ -55,10 +55,6 @@ namespace ConsoleGame
             {
                 Console.Beep();
             }
-            catch (IndexOutOfRangeException)
-            {
-                Console.Beep();
-            }
         }
 
         /// <summary>

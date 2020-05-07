@@ -5,7 +5,7 @@ namespace ConsoleGame
     /// <summary>
     /// Throws when user is trying move @ to wall or edge of the map
     /// </summary>
-    class MoveException : SystemException
+    public class MoveException : SystemException
     {
     }
 }

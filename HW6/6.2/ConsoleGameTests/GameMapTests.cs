@@ -4,11 +4,11 @@ using System;
 namespace ConsoleGameTests
 {
     using ConsoleGame;
+    using System.Collections.Generic;
 
     public class GameMapTests
     {
-        private Game game;
-        private GameMap map;
+        private static GameMap map;
 
         [SetUp]
         public void Initialize()
@@ -22,32 +22,43 @@ namespace ConsoleGameTests
             Assert.AreEqual(map.GetToken(), '@');
         }
 
-        [Test]
-        public void MoveLeftTest()
+        private static IEnumerable<Action> Moves()
         {
-            map.GoLeft();
+            yield return () => map.GoDown();
+            yield return () => map.GoLeft();
+            yield return () => map.GoRight();
+            yield return () => map.GoUp();
+        }
+
+        private static IEnumerable<(Action, Action)> DoubleMoves()
+        {
+            yield return (() => map.GoDown(), () => map.GoRight());
+            yield return (() => map.GoDown(), () => map.GoLeft());
+            yield return (() => map.GoRight(), () => map.GoUp());
+            yield return (() => map.GoRight(), () => map.GoDown());
+        }
+
+        [TestCaseSource("Moves")]
+        public void MoveToTheWhiteSpaceTest(Action move)
+        {
+            move();
             Assert.AreEqual(map.GetToken(), '@');
         }
 
-        [Test]
-        public void MoveRightTest()
+        [TestCaseSource("Moves")]
+        public void MoveToTheWallTest(Action move)
         {
-            map.GoRight();
-            Assert.AreEqual(map.GetToken(), '@');
+            move();
+            Assert.Throws<MoveException>(() => move());
         }
 
-        [Test]
-        public void MoveUpTest()
+        [TestCaseSource("DoubleMoves")]
+        public void MoveAboardTheMapTest((Action firstMove, Action secondMove) moves)
         {
-            map.GoUp();
-            Assert.AreEqual(map.GetToken(), '@');
-        }
-
-        [Test]
-        public void MoveDownTest()
-        {
-            map.GoDown();
-            Assert.AreEqual(map.GetToken(), '@');
+            moves.firstMove();
+            moves.secondMove();
+            moves.secondMove();
+            Assert.Throws<MoveException>(() => moves.secondMove());
         }
     }
 }

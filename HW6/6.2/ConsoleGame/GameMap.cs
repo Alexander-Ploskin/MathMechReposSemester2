@@ -38,6 +38,9 @@ namespace ConsoleGame
             SetPosition();
         }
 
+        /// <summary>
+        /// Calculates position of the character
+        /// </summary>
         private void SetPosition()
         {
             for (int i = 0; i < mapMatrix.Length; ++i)
@@ -55,12 +58,39 @@ namespace ConsoleGame
             }
         }
 
+        /// <summary>
+        /// Gets token on this position
+        /// </summary>
+        /// <returns>Token</returns>
+        public char GetToken() => mapMatrix[TopPosition][LeftPosition];
+
+        /// <summary>
+        /// Sets new symbol to the position
+        /// </summary>
+        private void SetSymbol(char newSymbol)
+            => mapMatrix[TopPosition] = mapMatrix[TopPosition].Remove(LeftPosition) + newSymbol.ToString() + mapMatrix[TopPosition].Remove(0, LeftPosition + 1);
+
+        /// <summary>
+        /// Make turn of the game
+        /// </summary>
+        /// <param name="changePosition">Action, that changes position of the character</param>
+        /// <param name="doInCaseOfWall">Reverse action</param>
         private void Go(Action changePosition, Action doInCaseOfWall)
         {
-            changePosition();
-            if (mapMatrix[TopPosition][LeftPosition] == '■')
+            try
             {
-                doInCaseOfWall();
+                SetSymbol(' ');
+                changePosition();
+                if (mapMatrix[TopPosition][LeftPosition] == '■')
+                {
+                    doInCaseOfWall();
+                    SetSymbol('@');
+                    throw new MoveException();
+                }
+                SetSymbol('@');
+            }
+            catch (IndexOutOfRangeException)
+            {
                 throw new MoveException();
             }
         }
@@ -68,25 +98,25 @@ namespace ConsoleGame
         /// <summary>
         /// Move @ right
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
+        /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
         public void GoRight() => Go(() => LeftPosition++, () => LeftPosition--);
 
         /// <summary>
         /// Move @ left
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
+        /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
         public void GoLeft() => Go(() => LeftPosition--, () => LeftPosition++);
 
         /// <summary>
         /// Move @ up
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
+        /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
         public void GoUp() => Go(() => TopPosition--, () => TopPosition++);
 
         /// <summary>
         /// Move @ down
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Throws when user tries to move aboeard map</exception>
+        /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
         public void GoDown() => Go(() => TopPosition++, () => TopPosition--);
 
     }
