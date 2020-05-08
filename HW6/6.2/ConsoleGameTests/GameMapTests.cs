@@ -19,7 +19,7 @@ namespace ConsoleGameTests
         [Test]
         public void InitializationTest()
         {
-            Assert.AreEqual(map.GetToken(), '@');
+            Assert.AreEqual('@', map.GetToken());
         }
 
         private static IEnumerable<Action> Moves()

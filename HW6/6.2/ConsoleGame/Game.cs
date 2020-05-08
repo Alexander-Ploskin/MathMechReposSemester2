@@ -9,16 +9,6 @@ namespace ConsoleGame
     {
         private GameMap map;
 
-        /// <summary>
-        /// Only for testing
-        /// </summary>
-        /// <param name="map">Initializated game map</param>
-        public Game(GameMap map)
-        {
-            this.map = map;
-            SetCursor();
-        }
-
         public Game(string path)
         {
             map = new GameMap(path);
@@ -30,8 +20,7 @@ namespace ConsoleGame
         /// </summary>
         private void SetCursor()
         {
-            Console.CursorLeft = map.LeftPosition;
-            Console.CursorTop = map.TopPosition;
+            (Console.CursorLeft, Console.CursorTop) = map.Position;
             Console.CursorVisible = false;
         }
 

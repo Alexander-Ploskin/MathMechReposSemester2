@@ -8,10 +8,10 @@ namespace ConsoleGame
     /// </summary>
     public class GameMap
     {
-        private string[] mapMatrix;
+        private char[][] mapMatrix;
         private int height = 0;
-        public int LeftPosition { get; set; } = 0;
-        public int TopPosition { get; set; } = 0;
+
+        private (int Left, int Top) CharacterPosition = (0, 0);
 
         /// <summary>
         /// Initializes game map and outputs to console 
@@ -30,13 +30,18 @@ namespace ConsoleGame
                 for (int i = 0; i < height; ++i)
                 {
                     var line = sr.ReadLine();
-                    mapMatrix[i] = line;
+                    mapMatrix[i] = line.ToCharArray();
                     Console.WriteLine(line);
                 }
             }
 
             SetPosition();
         }
+
+        /// <summary>
+        /// Position of the @ on the map
+        /// </summary>
+        public (int, int) Position { get => (CharacterPosition.Top, CharacterPosition.Left); }
 
         /// <summary>
         /// Calculates position of the character
@@ -51,10 +56,10 @@ namespace ConsoleGame
                     {
                         return;
                     }
-                    LeftPosition++;
+                    CharacterPosition.Left++;
                 }
-                LeftPosition = 0;
-                TopPosition++;
+                CharacterPosition.Left = 0;
+                CharacterPosition.Top++;
             }
         }
 
@@ -62,28 +67,28 @@ namespace ConsoleGame
         /// Gets token on this position
         /// </summary>
         /// <returns>Token</returns>
-        public char GetToken() => mapMatrix[TopPosition][LeftPosition];
+        public char GetToken() => mapMatrix[CharacterPosition.Top][CharacterPosition.Left];
 
         /// <summary>
         /// Sets new symbol to the position
         /// </summary>
-        private void SetSymbol(char newSymbol)
-            => mapMatrix[TopPosition] = mapMatrix[TopPosition].Remove(LeftPosition) + newSymbol.ToString() + mapMatrix[TopPosition].Remove(0, LeftPosition + 1);
+        private void SetSymbol(char newSymbol) => mapMatrix[CharacterPosition.Top][CharacterPosition.Left] = newSymbol;
 
         /// <summary>
         /// Make turn of the game
         /// </summary>
         /// <param name="changePosition">Action, that changes position of the character</param>
         /// <param name="doInCaseOfWall">Reverse action</param>
-        private void Go(Action changePosition, Action doInCaseOfWall)
+        private void Go(Action changePosition)
         {
             try
             {
                 SetSymbol(' ');
+                var positionBeforeMove = CharacterPosition;
                 changePosition();
-                if (mapMatrix[TopPosition][LeftPosition] == '■')
+                if (mapMatrix[CharacterPosition.Top][CharacterPosition.Left] == '■')
                 {
-                    doInCaseOfWall();
+                    CharacterPosition = positionBeforeMove;
                     SetSymbol('@');
                     throw new MoveException();
                 }
@@ -99,25 +104,25 @@ namespace ConsoleGame
         /// Move @ right
         /// </summary>
         /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
-        public void GoRight() => Go(() => LeftPosition++, () => LeftPosition--);
+        public void GoRight() => Go(() => CharacterPosition.Left++);
 
         /// <summary>
         /// Move @ left
         /// </summary>
         /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
-        public void GoLeft() => Go(() => LeftPosition--, () => LeftPosition++);
+        public void GoLeft() => Go(() => CharacterPosition.Left--);
 
         /// <summary>
         /// Move @ up
         /// </summary>
         /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
-        public void GoUp() => Go(() => TopPosition--, () => TopPosition++);
+        public void GoUp() => Go(() => CharacterPosition.Top--);
 
         /// <summary>
         /// Move @ down
         /// </summary>
         /// <exception cref="MoveException">Throws when user tries to move aboard map</exception>
-        public void GoDown() => Go(() => TopPosition++, () => TopPosition--);
+        public void GoDown() => Go(() => CharacterPosition.Top++);
 
     }
 }
