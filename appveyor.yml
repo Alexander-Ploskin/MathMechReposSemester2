@@ -2,7 +2,7 @@ image: Visual Studio 2019
 before_build:
 - set VAR1 = "6"
 - set VAR2 = "6.2"
-- nuget restore HW %VAR1% \6.2\6.2.sln
+- nuget restore HW%VAR1%\6.2\6.2.sln
 build_script:
   - dotnet build HW %VAR1% \6.2\6.2.sln
 notifications:
