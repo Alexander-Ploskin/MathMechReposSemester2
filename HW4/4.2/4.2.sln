@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueList", "UniqueList\UniqueList.csproj", "{0C4560AC-8EB2-4953-AB18-6D7F5C9B91DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueListTests", "UniqueListTests\UniqueListTests.csproj", "{8BDCCD9D-C96D-453B-8FDA-9A82C5C7D45A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C4560AC-8EB2-4953-AB18-6D7F5C9B91DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C4560AC-8EB2-4953-AB18-6D7F5C9B91DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C4560AC-8EB2-4953-AB18-6D7F5C9B91DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C4560AC-8EB2-4953-AB18-6D7F5C9B91DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BDCCD9D-C96D-453B-8FDA-9A82C5C7D45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BDCCD9D-C96D-453B-8FDA-9A82C5C7D45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BDCCD9D-C96D-453B-8FDA-9A82C5C7D45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BDCCD9D-C96D-453B-8FDA-9A82C5C7D45A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C676292-E6F1-4E05-8CAC-BDEA2F8A8E01}
+	EndGlobalSection
+EndGlobal
