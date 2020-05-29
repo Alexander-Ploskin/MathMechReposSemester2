@@ -7,8 +7,6 @@ namespace GenericBubbleSortTests
 {
     class BubbleSortTests
     {
-        private IntComparer comparer;
-
         [SetUp]
         public void Setup()
         {
@@ -66,5 +64,6 @@ namespace GenericBubbleSortTests
             Assert.IsTrue(IsSorted(output));
         }
 
+        private IntComparer comparer;
     }
 }
