@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace GenericBubbleSort
 {
@@ -40,18 +39,6 @@ namespace GenericBubbleSort
             }
 
             return output;
-        }
-
-        /// <summary>
-        /// Prints list on console
-        /// </summary>
-        /// <param name="list">List to print</param>
-        public static void PrintList(List<T> list)
-        {
-            foreach (var item in list)
-            {
-                Console.WriteLine(item);
-            }
         }
 
     }
