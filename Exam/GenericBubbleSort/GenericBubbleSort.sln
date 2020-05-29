@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericBubbleSort", "GenericBubbleSort\GenericBubbleSort.csproj", "{D06AE13E-8FE9-4C45-9D1D-ED8F4BD6DED6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericBubbleSortTests", "GenericBubbleSortTests\GenericBubbleSortTests.csproj", "{EE163FEF-598C-4171-A382-78CB08E3198A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D06AE13E-8FE9-4C45-9D1D-ED8F4BD6DED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06AE13E-8FE9-4C45-9D1D-ED8F4BD6DED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06AE13E-8FE9-4C45-9D1D-ED8F4BD6DED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06AE13E-8FE9-4C45-9D1D-ED8F4BD6DED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE163FEF-598C-4171-A382-78CB08E3198A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE163FEF-598C-4171-A382-78CB08E3198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE163FEF-598C-4171-A382-78CB08E3198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE163FEF-598C-4171-A382-78CB08E3198A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4AB7C15-0B54-44CB-BF3D-643C289A35FF}
+	EndGlobalSection
+EndGlobal
