@@ -1,9 +1,9 @@
 image: Visual Studio 2019
 before_build:
-  - nuget restore Exam/GenericBubbleSort.sln
+  - nuget restore Exam/GenericBubbleSort/GenericBubbleSort.sln
 
 build_script:
-  - dotnet build Exam/GenericBubbleSort.sln
+  - dotnet build Exam/GenericBubbleSort/GenericBubbleSort.sln
 
 test_script:
-  - dotnet test Exam/GenericBubbleSort.sln
+  - dotnet test Exam/GenericBubbleSort/GenericBubbleSort.sln
